@@ -1281,12 +1281,12 @@
                 <h2 class="option-group-title">Форм-фактор</h2>
                 <div class="options-grid">
                     <div class="option-item">
-                        <input type="radio" name="formFactor" id="tower" value="tower" class="option-checkbox" onchange="handleFormFactorChange('tower')">
-                        <label for="tower" class="option-label">Tower (Башенный)</label>
-                    </div>
-                    <div class="option-item">
                         <input type="radio" name="formFactor" id="rack" value="rack" class="option-checkbox" onchange="handleFormFactorChange('rack')">
                         <label for="rack" class="option-label">Rack (Стоечный)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="formFactor" id="tower" value="tower" class="option-checkbox" onchange="handleFormFactorChange('tower')">
+                        <label for="tower" class="option-label">Tower (Башенный)</label>
                     </div>
                     <div class="option-item">
                         <input type="radio" name="formFactor" id="blade" value="blade" class="option-checkbox" onchange="handleFormFactorChange('blade')">
@@ -1478,20 +1478,16 @@
                         <label for="raidNone" class="option-label">нет</label>
                     </div>
                     <div class="option-item">
-                        <input type="radio" name="raidController" id="raid1gb" value="1GB cache" class="option-checkbox">
-                        <label for="raid1gb" class="option-label">1GB cache</label>
-                    </div>
-                    <div class="option-item">
                         <input type="radio" name="raidController" id="raid2gb" value="2GB cache" class="option-checkbox">
                         <label for="raid2gb" class="option-label">2GB cache</label>
                     </div>
                     <div class="option-item">
-                        <input type="radio" name="raidController" id="raid3gb" value="3GB cache" class="option-checkbox">
-                        <label for="raid3gb" class="option-label">3GB cache</label>
-                    </div>
-                    <div class="option-item">
                         <input type="radio" name="raidController" id="raid4gb" value="4GB cache" class="option-checkbox">
                         <label for="raid4gb" class="option-label">4GB cache</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raid8gb" value="8GB cache" class="option-checkbox">
+                        <label for="raid8gb" class="option-label">8GB cache</label>
                     </div>
                 </div>
             </div>
