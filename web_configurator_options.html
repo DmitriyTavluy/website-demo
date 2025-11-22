@@ -1,0 +1,3468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор серверов и систем хранения - Выбор опций</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+        
+        /* MAIN HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            display: block;
+            padding-top: 5px;
+            text-transform: uppercase;
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-link.active {
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .products-link .nav-icon {
+            fill: rgb(61, 243, 187);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content {
+            transition: opacity 0.2s ease;
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        /* HERO SECTION */
+        .hero-section {
+            background: radial-gradient(ellipse at center, #2a3f5f 0%, #1c2a3c 70%, #0C1E2B 100%);
+            color: white;
+            padding: 50px 30px 40px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .eyebrow {
+            display: inline-block;
+            font-size: 14px;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+            color: #1FE2B2;
+            background: none;
+            border: none;
+            margin-bottom: 20px;
+        }
+        
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .hero-info {
+            margin-top: 15px;
+            font-size: 1em;
+            color: #1FE2B2;
+            font-weight: 500;
+        }
+        
+        .hero-info span {
+            margin: 0 8px;
+        }
+        
+        /* STEPPER (BREADCRUMB) */
+        .breadcrumb {
+            display: inline-flex;
+            gap: 20px;
+            padding: 6px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 14px;
+            align-items: center;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        .breadcrumb > span {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        
+        .breadcrumb-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        
+        .breadcrumb-step span,
+        .breadcrumb-step a {
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        /* Текущий шаг */
+        .breadcrumb-step.active span {
+            color: #0a1823;
+            font-weight: 700;
+        }
+        
+        /* Пройденный шаг */
+        .breadcrumb-step.done span,
+        .breadcrumb-step.done a {
+            color: rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-step.done a:hover {
+            color: #1FE2B2;
+            text-decoration: underline;
+        }
+        
+        /* Следующий шаг */
+        .breadcrumb-step.disabled {
+            pointer-events: none;
+        }
+        
+        .breadcrumb-step.disabled span {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .breadcrumb-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+        
+        /* Текущий шаг - прозрачный с зелёным контуром */
+        .breadcrumb-step.active .breadcrumb-number {
+            border: 2px solid #1fe2b2;
+            color: #1fe2b2;
+            background: transparent;
+            box-shadow: 0 0 8px rgba(31, 226, 178, 0.2);
+        }
+        
+        /* Пройденный шаг - зелёный круг с белой цифрой */
+        .breadcrumb-step.done .breadcrumb-number {
+            background: #1fe2b2;
+            color: #fff;
+            border: none;
+        }
+        
+        /* Следующий шаг - серый контур */
+        .breadcrumb-step.disabled .breadcrumb-number {
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            color: rgba(0, 0, 0, 0.4);
+            background: transparent;
+        }
+        
+        /* MAIN CONTENT WRAPPER */
+        .main-content-wrapper {
+            display: flex;
+            gap: 16px;
+            max-width: 1600px;
+            margin: 10px auto;
+            padding: 0 30px;
+            align-items: flex-start;
+        }
+        
+        /* OPTIONS CONTAINER */
+        .options-container {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .option-group {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .option-group-title {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: rgba(0,0,0,0.75);
+            margin: 0;
+            min-width: 160px;
+            flex-shrink: 0;
+            line-height: 1.3;
+        }
+        
+        .options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            flex: 1;
+        }
+        
+        .option-item {
+            position: relative;
+        }
+        
+        .option-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            color: #333;
+            user-select: none;
+            white-space: nowrap;
+        }
+        
+        .option-label:hover {
+            background: rgba(61, 243, 187, 0.2);
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .option-checkbox:checked + .option-label {
+            background: #E4FFF4;
+            color: #1c2a3c;
+            border-color: rgb(61, 243, 187);
+            font-weight: 600;
+        }
+        
+        .option-checkbox:checked + .option-label::before {
+            content: '✓';
+            margin-right: 4px;
+            font-size: 12px;
+            line-height: 1;
+        }
+        
+        /* Checkbox specific styles */
+        input[type="checkbox"].option-checkbox:checked + .option-label::before {
+            content: '✓';
+            margin-right: 4px;
+            font-size: 12px;
+            line-height: 1;
+        }
+        
+        .sub-options {
+            display: none;
+            margin-top: 0;
+            margin-left: 180px;
+            padding: 5px 8px;
+            background: rgba(61, 243, 187, 0.05);
+            border-radius: 5px;
+            border-left: 3px solid rgb(61, 243, 187);
+            flex-basis: calc(100% - 180px);
+        }
+        
+        .sub-options.active {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .sub-options h3 {
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 0;
+            color: #0a1823;
+            min-width: 100px;
+            flex-shrink: 0;
+        }
+        
+        .sub-options-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 1;
+        }
+        
+        /* Smaller buttons in sub-options */
+        .sub-options .option-label {
+            padding: 3px 8px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+        
+        /* Option group with sub-options: main row stays horizontal, sub-options wrap below */
+        .option-group:has(.sub-options) {
+            flex-wrap: wrap;
+        }
+        
+        /* OPTION GROUPS SECTION */
+        .option-section {
+            margin-bottom: 16px;
+        }
+        
+        .option-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1c2a3c;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid rgb(61, 243, 187);
+            line-height: 1.3;
+        }
+        
+        /* SELECT DROPDOWN STYLES */
+        .form-select {
+            flex: 1;
+            max-width: 280px;
+            padding: 4px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #333;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-select:hover {
+            border-color: rgb(61, 243, 187);
+            background: rgba(61, 243, 187, 0.05);
+        }
+        
+        .form-select:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(61, 243, 187, 0.1);
+        }
+        
+        /* Selected state for dropdowns */
+        .form-select.selected {
+            background: rgba(61, 243, 187, 0.2);
+            border-color: rgb(61, 243, 187);
+            font-weight: 600;
+            color: #1c2a3c;
+        }
+        
+        .form-select option {
+            padding: 10px;
+        }
+        
+        /* NUMBER INPUT STYLES */
+        .form-number {
+            width: 100%;
+            padding: 4px 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 13px;
+            color: #333;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-number:hover {
+            border-color: rgb(61, 243, 187);
+            background: rgba(61, 243, 187, 0.05);
+        }
+        
+        .form-number:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(61, 243, 187, 0.1);
+        }
+        
+        /* ACTION BUTTONS */
+        .action-buttons {
+            width: 100%;
+            margin: 0;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            align-items: center;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+        }
+        
+        .btn {
+            padding: 10px 24px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #666;
+            border: 2px solid #ddd;
+            padding: 10px 20px;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            border-color: #999;
+            color: #333;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            box-shadow: 0 4px 15px rgba(61, 243, 187, 0.3);
+            padding: 10px 32px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(61, 243, 187, 0.4);
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: 0;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            color: #aaa;
+        }
+        
+        /* SIDEBAR PANEL */
+        .sidebar-panel {
+            width: 280px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-panel.collapsed {
+            width: 60px;
+        }
+        
+        .sidebar-header {
+            padding: 0 14px 1px 14px;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            background: transparent;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .sidebar-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        
+        .sidebar-title {
+            font-size: 0.9em;
+            font-weight: 500;
+            color: rgba(0,0,0,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        .sidebar-panel.collapsed .sidebar-title {
+            display: none;
+        }
+        
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #1c2a3c;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(61, 243, 187, 0.2);
+        }
+        
+        .sidebar-panel.collapsed .sidebar-toggle {
+            margin: 0 auto;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 14px;
+        }
+        
+        /* Custom scrollbar */
+        .sidebar-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.18);
+            border-radius: 4px;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.28);
+        }
+        
+        .sidebar-panel.collapsed .sidebar-content {
+            display: none;
+        }
+        
+        .selected-option-group {
+            margin-bottom: 0;
+            padding-bottom: 1px;
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        
+        .selected-option-group:first-child {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+        }
+        
+        .selected-option-group:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .selected-option-group-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(0,0,0,0.45);
+            margin-top: 4px;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .selected-option-item {
+            padding: 0;
+            background: transparent;
+            border: none;
+            margin: 1px 0;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.25;
+            font-weight: 400;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        
+        .option-value-text {
+            color: rgba(0,0,0,0.82);
+            font-weight: 500;
+            text-align: left;
+            flex: 1;
+        }
+        
+        .selected-option-item.empty {
+            color: #999;
+            font-style: italic;
+            background: transparent;
+            justify-content: center;
+            border-bottom: none;
+        }
+        
+        
+        .clear-all-btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.2s;
+        }
+        
+        .clear-all-btn:hover {
+            background: #e9ecef;
+            border-color: #ccc;
+        }
+        
+        /* MODAL POPUP */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+        }
+        
+        .modal-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #1c2a3c;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .modal-close:hover {
+            background: rgba(0,0,0,0.1);
+            color: #1c2a3c;
+        }
+        
+        .modal-body {
+            padding: 18px;
+        }
+        
+        .selected-summary {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .selected-summary button:hover {
+            background: #45a049 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+        
+        .selected-summary button:active {
+            transform: translateY(0);
+        }
+        
+        .summary-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #1c2a3c;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .summary-group {
+            margin-bottom: 14px;
+        }
+        
+        .summary-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .summary-group-title {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .summary-item {
+            font-size: 0.95em;
+            color: #1c2a3c;
+            margin-bottom: 2px;
+            padding-left: 10px;
+        }
+        
+        .summary-item.not-selected {
+            color: #999;
+            font-style: italic;
+        }
+        
+        .summary-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .summary-column {
+            flex: 1;
+        }
+        
+        .summary-item::before {
+            content: '•';
+            color: rgb(61, 243, 187);
+            margin-right: 8px;
+        }
+        
+        .contact-form {
+            margin-top: 12px;
+        }
+        
+        .form-group {
+            margin-bottom: 0;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: #1c2a3c;
+            margin-bottom: 8px;
+        }
+        
+        .form-label .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #1c2a3c;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 0 0 3px rgba(61, 243, 187, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 80px;
+            max-height: 120px;
+            resize: vertical;
+        }
+        
+        .modal-footer {
+            padding: 16px 25px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .modal-content {
+                max-width: 100%;
+                margin: 10px;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .sidebar-panel {
+                width: 280px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px 40px;
+            }
+            
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .eyebrow {
+                font-size: 12px;
+            }
+            
+            .breadcrumb {
+                padding: 6px 16px;
+                gap: 16px;
+            }
+            
+            .breadcrumb-step span,
+            .breadcrumb-step a {
+                font-size: 0.85em;
+            }
+            
+            .breadcrumb-number {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+            
+            .main-content-wrapper {
+                flex-direction: column;
+            }
+            
+            .sidebar-panel {
+                width: 100%;
+                position: relative;
+                top: 0;
+                max-height: 400px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            /* Mobile: return to vertical layout */
+            .option-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .option-group-title {
+                margin-bottom: 10px;
+                min-width: auto;
+            }
+            
+            .options-grid {
+                width: 100%;
+            }
+            
+            .form-select {
+                max-width: 100%;
+            }
+            
+            .sub-options {
+                margin-left: 0;
+                flex-basis: 100%;
+            }
+            
+            .sub-options.active {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .sub-options h3 {
+                min-width: auto;
+                margin-bottom: 8px;
+            }
+        }
+        
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* CATEGORY VISIBILITY */
+        [data-category] {
+            display: none;
+        }
+        
+        [data-category="all"] {
+            display: block !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link active" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <span class="eyebrow">Конфигуратор оборудования</span>
+            <h1 class="hero-title">Выбор опций</h1>
+            <div class="hero-info" id="heroInfo">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- STEPPER -->
+    <div id="step3" style="position: sticky; top: 72px; z-index: 500; display: flex; justify-content: center; padding: 16px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div class="breadcrumb">
+            <div class="breadcrumb-step done">
+                <span class="breadcrumb-number">1</span>
+                <a href="web_configurator.html">Выбор платформы</a>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step done">
+                <span class="breadcrumb-number">2</span>
+                <a href="#" id="breadcrumbProducer" onclick="goBack(); return false;">Выбор производителя</a>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step active">
+                <span class="breadcrumb-number">3</span>
+                <span>Выбор опций</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN CONTENT WRAPPER -->
+    <div class="main-content-wrapper">
+        <!-- OPTIONS CONTAINER -->
+        <div class="options-container">
+        <!-- SECTION 1: BASIC INFORMATION - SERVERS -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">1. Основная информация</h2>
+            
+            <!-- Server Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Количество серверов</h2>
+                <select name="serverCount" id="serverCount" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value=">5">&gt;5</option>
+                </select>
+            </div>
+            
+            <!-- Form Factor -->
+            <div class="option-group">
+                <h2 class="option-group-title">Форм-фактор</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="formFactor" id="tower" value="tower" class="option-checkbox" onchange="handleFormFactorChange('tower')">
+                        <label for="tower" class="option-label">Tower (Башенный)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="formFactor" id="rack" value="rack" class="option-checkbox" onchange="handleFormFactorChange('rack')">
+                        <label for="rack" class="option-label">Rack (Стоечный)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="formFactor" id="blade" value="blade" class="option-checkbox" onchange="handleFormFactorChange('blade')">
+                        <label for="blade" class="option-label">Blade Шасси</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="formFactor" id="edge" value="edge" class="option-checkbox" onchange="handleFormFactorChange('edge')">
+                        <label for="edge" class="option-label">Edge</label>
+                    </div>
+                </div>
+                
+                <!-- Sub-options for Tower -->
+                <div id="towerSubOptions" class="sub-options">
+                    <h3>Размер:</h3>
+                    <div class="sub-options-grid">
+                        <div class="option-item">
+                            <input type="radio" name="towerSize" id="tower1u" value="tower1u" class="option-checkbox">
+                            <label for="tower1u" class="option-label">1U</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="towerSize" id="tower2u" value="tower2u" class="option-checkbox">
+                            <label for="tower2u" class="option-label">2U</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="towerSize" id="tower4u" value="tower4u" class="option-checkbox">
+                            <label for="tower4u" class="option-label">4U</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sub-options for Rack -->
+                <div id="rackSubOptions" class="sub-options">
+                    <h3>Размер стойки:</h3>
+                    <div class="sub-options-grid">
+                        <div class="option-item">
+                            <input type="radio" name="rackSize" id="rack1u" value="rack1u" class="option-checkbox">
+                            <label for="rack1u" class="option-label">1U</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="rackSize" id="rack2u" value="rack2u" class="option-checkbox">
+                            <label for="rack2u" class="option-label">2U</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="rackSize" id="rack4u" value="rack4u" class="option-checkbox">
+                            <label for="rack4u" class="option-label">4U</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Disk Platform -->
+            <div class="option-group">
+                <h2 class="option-group-title">Платформа для дисков</h2>
+                <select name="diskPlatform" id="diskPlatform" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="4*3.5">4*3.5"</option>
+                    <option value="8*3.5">8*3.5"</option>
+                    <option value="10*3.5">10*3.5"</option>
+                    <option value="12*3.5">12*3.5"</option>
+                    <option value=">12*3.5">&gt;12*3.5"</option>
+                    <option value="8*2.5">8*2.5"</option>
+                    <option value="10*2.5">10*2.5"</option>
+                    <option value="16*2.5">16*2.5"</option>
+                    <option value="24*2.5">24*2.5"</option>
+                    <option value=">24*2.5">&gt;24*2.5"</option>
+                </select>
+            </div>
+            
+            <!-- Server Purpose -->
+            <div class="option-group">
+                <h2 class="option-group-title">Назначение сервера</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="serverPurpose" id="fileServer" value="file_server" class="option-checkbox">
+                        <label for="fileServer" class="option-label">Файловый сервер</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="serverPurpose" id="computeServer" value="compute_server" class="option-checkbox">
+                        <label for="computeServer" class="option-label">Вычислительный сервер</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="serverPurpose" id="dbServer" value="db_server" class="option-checkbox">
+                        <label for="dbServer" class="option-label">Сервер баз данных</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="serverPurpose" id="webServer" value="web_server" class="option-checkbox">
+                        <label for="webServer" class="option-label">Веб-сервер</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="serverPurpose" id="virtualization" value="virtualization" class="option-checkbox">
+                        <label for="virtualization" class="option-label">Виртуализация</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 2: CPU -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">2. Процессор (CPU)</h2>
+            
+            <!-- CPU Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Кол-во CPU</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="cpuCount" id="cpu1" value="1" class="option-checkbox">
+                        <label for="cpu1" class="option-label">1</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="cpuCount" id="cpu2" value="2" class="option-checkbox">
+                        <label for="cpu2" class="option-label">2</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="cpuCount" id="cpu4" value="4" class="option-checkbox">
+                        <label for="cpu4" class="option-label">4</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="cpuCount" id="cpu8" value="8" class="option-checkbox">
+                        <label for="cpu8" class="option-label">8</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CPU Manufacturer -->
+            <div class="option-group">
+                <h2 class="option-group-title">Производитель CPU</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="cpuManufacturer" id="intelCpu" value="intel" class="option-checkbox">
+                        <label for="intelCpu" class="option-label">Intel CPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="cpuManufacturer" id="amdCpu" value="amd" class="option-checkbox">
+                        <label for="amdCpu" class="option-label">AMD CPU</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: MEMORY -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">3. Память (RAM)</h2>
+            
+            <!-- RAM Amount -->
+            <div class="option-group">
+                <h2 class="option-group-title">Объем ОЗУ</h2>
+                <select name="ramAmount" id="ramAmount" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="16gb">16GB</option>
+                    <option value="32gb">32GB</option>
+                    <option value="64gb">64GB</option>
+                    <option value="128gb">128GB</option>
+                    <option value="256gb">256GB</option>
+                    <option value="512gb">512GB</option>
+                    <option value="1tb">1TB</option>
+                    <option value="2tb">2TB и более</option>
+                </select>
+            </div>
+            
+            <!-- RAM Type -->
+            <div class="option-group">
+                <h2 class="option-group-title">Тип памяти</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="ramType" id="ddr3" value="ddr3" class="option-checkbox">
+                        <label for="ddr3" class="option-label">DDR3</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="ramType" id="ddr4" value="ddr4" class="option-checkbox">
+                        <label for="ddr4" class="option-label">DDR4</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="ramType" id="ddr5" value="ddr5" class="option-checkbox">
+                        <label for="ddr5" class="option-label">DDR5</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 4: RAID CONTROLLER -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">4. Raid контроллер</h2>
+            
+            <div class="option-group">
+                <h2 class="option-group-title">Raid контроллер</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raidNone" value="нет" class="option-checkbox">
+                        <label for="raidNone" class="option-label">нет</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raid1gb" value="1GB cache" class="option-checkbox">
+                        <label for="raid1gb" class="option-label">1GB cache</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raid2gb" value="2GB cache" class="option-checkbox">
+                        <label for="raid2gb" class="option-label">2GB cache</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raid3gb" value="3GB cache" class="option-checkbox">
+                        <label for="raid3gb" class="option-label">3GB cache</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="raidController" id="raid4gb" value="4GB cache" class="option-checkbox">
+                        <label for="raid4gb" class="option-label">4GB cache</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 5: HDD STORAGE -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">5. Хранилище HDD</h2>
+            
+            <!-- HDD Form Factor -->
+            <div class="option-group">
+                <h2 class="option-group-title">Форм-фактор HDD</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="hddFormFactor" id="hdd25" value="2.5" class="option-checkbox">
+                        <label for="hdd25" class="option-label">2.5"</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="hddFormFactor" id="hdd35" value="3.5" class="option-checkbox">
+                        <label for="hdd35" class="option-label">3.5"</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- HDD Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Кол-во HDD</h2>
+                <select name="hddCount" id="hddCount" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value=">24">&gt;24</option>
+                </select>
+            </div>
+            
+            <!-- HDD Capacity -->
+            <div class="option-group">
+                <h2 class="option-group-title">Объем одного HDD</h2>
+                <select name="hddCapacity" id="hddCapacity" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="300GB SAS 2.5">300GB SAS 2.5"</option>
+                    <option value="600GB SAS 2.5">600GB SAS 2.5"</option>
+                    <option value="900GB SAS 2.5">900GB SAS 2.5"</option>
+                    <option value="1TB SATA3 3.5">1TB SATA3 3.5"</option>
+                    <option value="1TB SAS 3.5">1TB SAS 3.5"</option>
+                    <option value="1TB SAS 2.5">1TB SAS 2.5"</option>
+                    <option value="1.2TB SAS 2.5">1.2TB SAS 2.5"</option>
+                    <option value="1.8TB SAS 2.5">1.8TB SAS 2.5"</option>
+                    <option value="2TB SATA3 3.5">2TB SATA3 3.5"</option>
+                    <option value="2TB SAS 3.5">2TB SAS 3.5"</option>
+                    <option value="2TB SAS 2.5">2TB SAS 2.5"</option>
+                    <option value="2.4TB SAS 2.5">2.4TB SAS 2.5"</option>
+                    <option value="4TB SATA3 3.5">4TB SATA3 3.5"</option>
+                    <option value="4TB SAS 3.5">4TB SAS 3.5"</option>
+                    <option value="6TB SATA3 3.5">6TB SATA3 3.5"</option>
+                    <option value="6TB SAS 3.5">6TB SAS 3.5"</option>
+                    <option value="8TB SATA3 3.5">8TB SATA3 3.5"</option>
+                    <option value="8TB SAS 3.5">8TB SAS 3.5"</option>
+                    <option value="10TB SATA3 3.5">10TB SATA3 3.5"</option>
+                    <option value="10TB SAS 3.5">10TB SAS 3.5"</option>
+                    <option value=">10TB SATA3 3.5">&gt;10TB SATA3 3.5"</option>
+                    <option value=">10TB SAS 3.5">&gt;10TB SAS 3.5"</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- SECTION 6: SSD STORAGE -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">6. Хранилище SSD</h2>
+            
+            <!-- SSD Form Factor -->
+            <div class="option-group">
+                <h2 class="option-group-title">Форм-фактор SSD</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="ssdFormFactor" id="ssd25" value="2.5" class="option-checkbox">
+                        <label for="ssd25" class="option-label">2.5"</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="ssdFormFactor" id="ssd35" value="3.5" class="option-checkbox">
+                        <label for="ssd35" class="option-label">3.5"</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="ssdFormFactor" id="ssdM2" value="M.2" class="option-checkbox">
+                        <label for="ssdM2" class="option-label">M.2</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SSD Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Кол-во SSD</h2>
+                <select name="ssdCount" id="ssdCount" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value=">24">&gt;24</option>
+                </select>
+            </div>
+            
+            <!-- SSD Capacity -->
+            <div class="option-group">
+                <h2 class="option-group-title">Объем одного SSD</h2>
+                <select name="ssdCapacity" id="ssdCapacity" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="240GB SATA 2.5"">240GB SATA 2.5"</option>
+                    <option value="375GB NVMe 2.5"">375GB NVMe 2.5"</option>
+                    <option value="400GB SAS 2.5"">400GB SAS 2.5"</option>
+                    <option value="480GB SATA 2.5"">480GB SATA 2.5"</option>
+                    <option value="750GB NVMe 2.5"">750GB NVMe 2.5"</option>
+                    <option value="800GB SAS 2.5"">800GB SAS 2.5"</option>
+                    <option value="960GB SATA 2.5"">960GB SATA 2.5"</option>
+                    <option value="960GB SAS 2.5"">960GB SAS 2.5"</option>
+                    <option value="1TB NVMe 2.5"">1TB NVMe 2.5"</option>
+                    <option value="1.6TB SAS 2.5"">1.6TB SAS 2.5"</option>
+                    <option value="1.6TB NVMe 2.5"">1.6TB NVMe 2.5"</option>
+                    <option value="1.92TB SATA 2.5"">1.92TB SATA 2.5"</option>
+                    <option value="1.92TB SAS 2.5"">1.92TB SAS 2.5"</option>
+                    <option value="3.2TB SAS 2.5"">3.2TB SAS 2.5"</option>
+                    <option value="3.2TB NVMe 2.5"">3.2TB NVMe 2.5"</option>
+                    <option value="3.84TB SATA 2.5"">3.84TB SATA 2.5"</option>
+                    <option value="3.84TB SAS 2.5"">3.84TB SAS 2.5"</option>
+                    <option value="6.4TB NVMe 2.5"">6.4TB NVMe 2.5"</option>
+                    <option value="7.68TB SATA 2.5"">7.68TB SATA 2.5"</option>
+                    <option value="7.68TB SAS 2.5"">7.68TB SAS 2.5"</option>
+                    <option value="15.36TB SAS 2.5"">15.36TB SAS 2.5"</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- SECTION 7: NETWORK -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">7. Сеть и расширения</h2>
+            
+            <!-- Ethernet -->
+            <div class="option-group">
+                <h2 class="option-group-title">Ethernet</h2>
+                <select name="ethernet" id="ethernet" class="form-select">
+                    <option value="">Выберите</option>
+                    <option value="2x1ge">2*1GE RJ45</option>
+                    <option value="4x1ge">4*1GE RJ45</option>
+                    <option value="2x10ge">2*10GE SFP+</option>
+                    <option value="4x10ge">4*10GE SFP+</option>
+                    <option value="2x25ge">2*25GE SFP28</option>
+                    <option value="2x40ge">2*40GE QSFP+</option>
+                    <option value="2x100ge">2*100GE QSFP28</option>
+                </select>
+            </div>
+            
+            <!-- PCIe Adapters -->
+            <div class="option-group">
+                <h2 class="option-group-title">Другие PCIe adapters</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="pcieAdapters" id="pcieYes" value="yes" class="option-checkbox">
+                        <label for="pcieYes" class="option-label">Да</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="pcieAdapters" id="pcieNo" value="no" class="option-checkbox">
+                        <label for="pcieNo" class="option-label">Нет</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 8: POWER -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">8. Питание (PSU)</h2>
+            
+            <!-- Power Supply Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Кол-во блоков питания</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="psuCount" id="psu1" value="1" class="option-checkbox">
+                        <label for="psu1" class="option-label">1</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="psuCount" id="psu2" value="2" class="option-checkbox">
+                        <label for="psu2" class="option-label">2</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="psuCount" id="psu4" value="4" class="option-checkbox">
+                        <label for="psu4" class="option-label">4</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Power Supply Wattage -->
+            <div class="option-group">
+                <h2 class="option-group-title">Мощность блока питания</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="psuWattage" id="ps500" value="up_to_500" class="option-checkbox">
+                        <label for="ps500" class="option-label">До 500 Вт</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="psuWattage" id="ps500_750" value="500_750" class="option-checkbox">
+                        <label for="ps500_750" class="option-label">500–750 Вт</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="psuWattage" id="ps750_1000" value="750_1000" class="option-checkbox">
+                        <label for="ps750_1000" class="option-label">750–1000 Вт</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="psuWattage" id="ps1000plus" value="1000_plus" class="option-checkbox">
+                        <label for="ps1000plus" class="option-label">Более 1000 Вт</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 9: GPU (Optional) -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">9. Графический процессор (GPU) - опционально</h2>
+            
+            <!-- GPU Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Количество GPU</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu0" value="0" class="option-checkbox">
+                        <label for="gpu0" class="option-label">Нет GPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu1" value="1" class="option-checkbox">
+                        <label for="gpu1" class="option-label">1 GPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu2" value="2" class="option-checkbox">
+                        <label for="gpu2" class="option-label">2 GPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu4" value="4" class="option-checkbox">
+                        <label for="gpu4" class="option-label">4 GPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu8" value="8" class="option-checkbox">
+                        <label for="gpu8" class="option-label">8 GPU</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuCount" id="gpu8plus" value="8_plus" class="option-checkbox">
+                        <label for="gpu8plus" class="option-label">Более 8 GPU</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GPU Memory -->
+            <div class="option-group" id="gpuMemoryGroup" style="display: none;">
+                <h2 class="option-group-title">Объем памяти GPU</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem8" value="8" class="option-checkbox">
+                        <label for="gpuMem8" class="option-label">8 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem12" value="12" class="option-checkbox">
+                        <label for="gpuMem12" class="option-label">12 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem16" value="16" class="option-checkbox">
+                        <label for="gpuMem16" class="option-label">16 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem24" value="24" class="option-checkbox">
+                        <label for="gpuMem24" class="option-label">24 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem32" value="32" class="option-checkbox">
+                        <label for="gpuMem32" class="option-label">32 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem48" value="48" class="option-checkbox">
+                        <label for="gpuMem48" class="option-label">48 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem64" value="64" class="option-checkbox">
+                        <label for="gpuMem64" class="option-label">64 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="gpuMemory" id="gpuMem80" value="80" class="option-checkbox">
+                        <label for="gpuMem80" class="option-label">80 ГБ</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 10: SERVICES -->
+        <div class="option-section" data-category="servers">
+            <h2 class="option-section-title">10. Работы / Услуги</h2>
+            
+            <div class="option-group">
+                <h2 class="option-group-title">Дополнительные услуги</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceInstall" value="installation" class="option-checkbox">
+                        <label for="serviceInstall" class="option-label">Установка и настройка</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceRack" value="rack_mount" class="option-checkbox">
+                        <label for="serviceRack" class="option-label">Монтаж в стойку</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceConfig" value="configuration" class="option-checkbox">
+                        <label for="serviceConfig" class="option-label">Конфигурация RAID</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceOS" value="os_install" class="option-checkbox">
+                        <label for="serviceOS" class="option-label">Установка ОС</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceSupport" value="support" class="option-checkbox">
+                        <label for="serviceSupport" class="option-label">Техническая поддержка</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="services" id="serviceWarranty" value="warranty" class="option-checkbox">
+                        <label for="serviceWarranty" class="option-label">Расширенная гарантия</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STORAGE SECTIONS START -->
+        <!-- SECTION 1: BASIC INFO (GROUPED) -->
+        <div class="option-section" data-category="storage">
+            <h2 class="option-section-title">1. Основное</h2>
+            
+            <!-- Storage Count -->
+            <div class="option-group">
+                <h2 class="option-group-title">Количество СХД</h2>
+                <select name="storageCount" id="storageCount" class="form-select">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value=">5">&gt;5</option>
+                </select>
+            </div>
+            
+            <!-- Storage Purpose -->
+            <div class="option-group">
+                <h2 class="option-group-title">Тип системы хранения</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="storagePurpose" id="san" value="san" class="option-checkbox">
+                        <label for="san" class="option-label">SAN (Block level)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storagePurpose" id="nas" value="nas" class="option-checkbox">
+                        <label for="nas" class="option-label">NAS (File level)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storagePurpose" id="unified" value="unified" class="option-checkbox">
+                        <label for="unified" class="option-label">Unified (Block + File)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storagePurpose" id="s3object" value="s3object" class="option-checkbox">
+                        <label for="s3object" class="option-label">S3 Object Storage</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Form Factor -->
+            <div class="option-group">
+                <h2 class="option-group-title">Размер (форм-фактор)</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="storageFormFactor" id="storage2u" value="2u" class="option-checkbox">
+                        <label for="storage2u" class="option-label">2U</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageFormFactor" id="storage3u" value="3u" class="option-checkbox">
+                        <label for="storage3u" class="option-label">3U</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageFormFactor" id="storage4u" value="4u" class="option-checkbox">
+                        <label for="storage4u" class="option-label">4U</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageFormFactor" id="storage5uplus" value="5u+" class="option-checkbox">
+                        <label for="storage5uplus" class="option-label">5U+</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 2: CONTROLLERS (GROUPED) -->
+        <div class="option-section" data-category="storage">
+            <h2 class="option-section-title">2. Контроллеры</h2>
+            
+            <!-- Controllers -->
+            <div class="option-group">
+                <h2 class="option-group-title">Количество контроллеров</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="storageControllers" id="controller1" value="1" class="option-checkbox">
+                        <label for="controller1" class="option-label">1 Controller</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageControllers" id="controller2" value="2" class="option-checkbox">
+                        <label for="controller2" class="option-label">2 Controller</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageControllers" id="controller2plus" value="2+" class="option-checkbox">
+                        <label for="controller2plus" class="option-label">2+ Controller</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cache -->
+            <div class="option-group">
+                <h2 class="option-group-title">Объём кэша на контроллер</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache8" value="8gb" class="option-checkbox">
+                        <label for="cache8" class="option-label">8 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache16" value="16gb" class="option-checkbox">
+                        <label for="cache16" class="option-label">16 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache32" value="32gb" class="option-checkbox">
+                        <label for="cache32" class="option-label">32 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache64" value="64gb" class="option-checkbox">
+                        <label for="cache64" class="option-label">64 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache128" value="128gb" class="option-checkbox">
+                        <label for="cache128" class="option-label">128 ГБ</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageCache" id="cache256" value="256gb" class="option-checkbox">
+                        <label for="cache256" class="option-label">256 ГБ</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: STORAGE (GROUPED) -->
+        <div class="option-section" data-category="storage">
+            <h2 class="option-section-title">3. Хранилище</h2>
+            
+            <!-- Storage Type -->
+            <div class="option-group">
+                <h2 class="option-group-title">Тип носителей</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="storageType" id="hybrid" value="hybrid" class="option-checkbox">
+                        <label for="hybrid" class="option-label">Hybrid storage</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageType" id="allflash" value="allflash" class="option-checkbox">
+                        <label for="allflash" class="option-label">All-flash storage</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="storageType" id="nvme" value="nvme" class="option-checkbox">
+                        <label for="nvme" class="option-label">All-flash NVMe storage</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Drive Bays -->
+            <div class="option-group">
+                <h2 class="option-group-title">Количество отсеков</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="bay12lff" value="12lff" class="option-checkbox">
+                        <label for="bay12lff" class="option-label">12 LFF</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="bay24sff" value="24sff" class="option-checkbox">
+                        <label for="bay24sff" class="option-label">24 SFF</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="bay25sff" value="25sff" class="option-checkbox">
+                        <label for="bay25sff" class="option-label">25 SFF</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="bay36sff" value="36sff" class="option-checkbox">
+                        <label for="bay36sff" class="option-label">36 SFF</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="nvmeexpansion" value="nvmeexpansion" class="option-checkbox">
+                        <label for="nvmeexpansion" class="option-label">NVMe expansion shelf</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageBays" id="sasexpansion" value="sasexpansion" class="option-checkbox">
+                        <label for="sasexpansion" class="option-label">SAS expansion shelf</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Drive Types -->
+            <div class="option-group">
+                <h2 class="option-group-title">Тип накопителей</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="storageDriveType" id="nlsashdd" value="nlsashdd" class="option-checkbox">
+                        <label for="nlsashdd" class="option-label">NL-SAS (HDD)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageDriveType" id="sashdd" value="sashdd" class="option-checkbox">
+                        <label for="sashdd" class="option-label">SAS HDD</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageDriveType" id="sasssd" value="sasssd" class="option-checkbox">
+                        <label for="sasssd" class="option-label">SAS SSD</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageDriveType" id="nvmessd" value="nvmessd" class="option-checkbox">
+                        <label for="nvmessd" class="option-label">NVMe SSD</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 4: PERFORMANCE -->
+        <div class="option-section" data-category="storage">
+            <h2 class="option-section-title">4. Производительность</h2>
+            
+            <!-- Connection Type -->
+            <div class="option-group">
+                <h2 class="option-group-title">Тип подключений</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="storageInterface" id="fc16_32" value="fc16_32" class="option-checkbox">
+                        <label for="fc16_32" class="option-label">FC 16/32Gb</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageInterface" id="iscsi" value="iscsi" class="option-checkbox">
+                        <label for="iscsi" class="option-label">iSCSI</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="storageInterface" id="nvmeof" value="nvmeof" class="option-checkbox">
+                        <label for="nvmeof" class="option-label">NVMe-oF</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RAID Profiles (Optional) -->
+            <div class="option-group">
+                <h2 class="option-group-title">RAID-профили (опционально)</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid0" value="raid0" class="option-checkbox">
+                        <label for="raid0" class="option-label">RAID 0</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid1" value="raid1" class="option-checkbox">
+                        <label for="raid1" class="option-label">RAID 1</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid5" value="raid5" class="option-checkbox">
+                        <label for="raid5" class="option-label">RAID 5</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid6" value="raid6" class="option-checkbox">
+                        <label for="raid6" class="option-label">RAID 6</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid10" value="raid10" class="option-checkbox">
+                        <label for="raid10" class="option-label">RAID 10</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid50" value="raid50" class="option-checkbox">
+                        <label for="raid50" class="option-label">RAID 50</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="raidProfile" id="raid60" value="raid60" class="option-checkbox">
+                        <label for="raid60" class="option-label">RAID 60</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- STORAGE SECTIONS END -->
+        
+        </div>
+        
+        <!-- SIDEBAR PANEL -->
+        <div class="sidebar-panel" id="sidebarPanel">
+            <div class="sidebar-header">
+                <div class="sidebar-header-top">
+                    <div class="sidebar-title">Выбранные опции</div>
+                    <button class="sidebar-toggle" onclick="toggleSidebar()" id="sidebarToggle">‹</button>
+                </div>
+            </div>
+            <div class="sidebar-content" id="sidebarContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- ACTION BUTTONS -->
+    <div class="action-buttons">
+        <button class="btn btn-secondary" onclick="goBack()">← Назад</button>
+        <button class="btn btn-primary" onclick="showContactModal()">Продолжить</button>
+    </div>
+    
+    <!-- MODAL POPUP -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Отправка запроса</h2>
+                <button class="modal-close" onclick="closeContactModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="selected-summary" id="selectedSummary">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Имя <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Организация <span class="required">*</span>
+                            </label>
+                            <input type="text" class="form-input" name="organization" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Email <span class="required">*</span>
+                            </label>
+                            <input type="email" class="form-input" name="email" required>
+                            <div style="margin-top: 8px;">
+                                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9em;">
+                                    <input type="checkbox" name="sendCopy" id="sendCopy" style="cursor: pointer;">
+                                    <span>Отправить мне копию</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Телефон <span class="required">*</span>
+                            </label>
+                            <input type="tel" class="form-input" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 12px;">
+                        <label class="form-label">
+                            Комментарий
+                        </label>
+                        <textarea class="form-input form-textarea" name="comment" placeholder="Дополнительная информация"></textarea>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.95em;">
+                            <input type="checkbox" name="dataConsent" id="dataConsent" required style="margin-top: 3px; cursor: pointer;">
+                            <span>Согласие на обработку персональных данных <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeContactModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="submitContactForm()">Отправить запрос</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                ООО "БАСИ-плюс"<br>
+                УНП 191762563
+            </div>
+            <div class="footer-text">
+                г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                БЦ "CASPIAN PLAZA"
+            </div>
+            <div class="footer-text">
+                +375 (29) 391-90-44<br>
+                sales@beltrader.by
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DROPDOWN FUNCTIONS
+        let dropdownTimeout;
+        
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            // CATEGORY-BASED VISIBILITY
+            const categoryInfo = getCategoryAndBrand();
+            const currentCategory = categoryInfo.category || 'servers';
+            
+            // Show/hide sections based on category
+            function updateVisibility() {
+                const allSections = document.querySelectorAll('[data-category]');
+                allSections.forEach(section => {
+                    const category = section.getAttribute('data-category');
+                    if (category === 'all' || category === currentCategory) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            }
+            
+            updateVisibility();
+            
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    dropdownTimeout = setTimeout(() => {
+                        const content = this.querySelector('.dropdown-content');
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 300);
+                });
+            });
+        });
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            alert('Функция консультации будет доступна в ближайшее время. Свяжитесь с нами по телефону +375 (29) 391-90-44');
+        }
+        
+        // Get category and brand info
+        function getCategoryAndBrand() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let category = urlParams.get('category') || localStorage.getItem('selectedCategory');
+            let brand = urlParams.get('brand') || localStorage.getItem('selectedBrand');
+            
+            // Category names mapping
+            const categoryNames = {
+                'servers': 'Серверы',
+                'storage': 'СХД'
+            };
+            
+            // Brand names mapping
+            const brandNames = {
+                'hpe': 'HPE',
+                'dell': 'Dell',
+                'lenovo': 'Lenovo',
+                'ibm': 'IBM',
+                'xfusion': 'xFusion',
+                'h3c': 'H3C',
+                'supermicro': 'Supermicro',
+                'inspur': 'Inspur',
+                'huawei': 'Huawei',
+                'fujitsu': 'Fujitsu',
+                'qsan': 'QSAN',
+                'infortrend': 'Infortrend',
+                'none': 'Не выбрано'
+            };
+            
+            return {
+                category: category,
+                categoryName: categoryNames[category] || category,
+                brand: brand,
+                brandName: brandNames[brand] || brand
+            };
+        }
+        
+        // Update hero info
+        function updateCategoryAndBrandInfo() {
+            const info = getCategoryAndBrand();
+            const heroInfo = document.getElementById('heroInfo');
+            
+            if (heroInfo) {
+                heroInfo.innerHTML = '';
+            }
+        }
+        
+        // Initialize GPU memory group toggle
+        function initGpuMemoryToggle() {
+            const gpuCountInputs = document.querySelectorAll('input[name="gpuCount"]');
+            const gpuMemoryGroup = document.getElementById('gpuMemoryGroup');
+            const gpuMemoryInputs = document.querySelectorAll('input[name="gpuMemory"]');
+            
+            function updateGpuMemoryVisibility() {
+                const selectedGpuCount = document.querySelector('input[name="gpuCount"]:checked');
+                
+                if (!selectedGpuCount || selectedGpuCount.value === '0') {
+                    // Hide GPU memory group if nothing is selected or "Нет GPU" is selected
+                    gpuMemoryGroup.style.display = 'none';
+                    // Clear GPU memory selection
+                    gpuMemoryInputs.forEach(memInput => {
+                        memInput.checked = false;
+                    });
+                } else {
+                    // Show GPU memory group if any GPU count is selected
+                    gpuMemoryGroup.style.display = 'block';
+                }
+                
+                // Update sidebar
+                updateSidebar();
+            }
+            
+            gpuCountInputs.forEach(input => {
+                input.addEventListener('change', updateGpuMemoryVisibility);
+            });
+            
+            // Check initial state
+            updateGpuMemoryVisibility();
+        }
+        
+        // Initialize radio button deselection on click
+        function initRadioDeselect() {
+            const allLabels = document.querySelectorAll('label.option-label');
+            
+            allLabels.forEach(label => {
+                const input = document.getElementById(label.getAttribute('for'));
+                if (!input) return;
+                
+                // Only handle radio buttons, not checkboxes
+                if (input.type === 'checkbox') return;
+                
+                let wasCheckedBeforeClick = false;
+                
+                label.addEventListener('mousedown', function(e) {
+                    if (input.type === 'radio') {
+                        wasCheckedBeforeClick = input.checked;
+                    }
+                });
+                
+                label.addEventListener('click', function(e) {
+                    // If radio was already checked before click, uncheck it
+                    if (input.type === 'radio' && wasCheckedBeforeClick) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        setTimeout(() => {
+                            input.checked = false;
+                            wasCheckedBeforeClick = false;
+                            
+                            // Handle form factor change if needed
+                            if (input.name === 'formFactor') {
+                                handleFormFactorChange('none');
+                            }
+                            
+                            // Update GPU memory visibility if GPU count changed
+                            if (input.name === 'gpuCount') {
+                                const gpuMemoryGroup = document.getElementById('gpuMemoryGroup');
+                                const gpuMemoryInputs = document.querySelectorAll('input[name="gpuMemory"]');
+                                gpuMemoryGroup.style.display = 'none';
+                                gpuMemoryInputs.forEach(memInput => {
+                                    memInput.checked = false;
+                                });
+                            }
+                            
+                            // Update sidebar
+                            setTimeout(() => updateSidebar(), 20);
+                        }, 10);
+                    }
+                });
+            });
+        }
+        
+        // Handle form factor change
+        function handleFormFactorChange(value) {
+            const towerSubOptions = document.getElementById('towerSubOptions');
+            const rackSubOptions = document.getElementById('rackSubOptions');
+            const towerSizeInputs = document.querySelectorAll('input[name="towerSize"]');
+            const rackSizeInputs = document.querySelectorAll('input[name="rackSize"]');
+            
+            // Hide all sub-options first
+            if (towerSubOptions) {
+                towerSubOptions.classList.remove('active');
+            }
+            if (rackSubOptions) {
+                rackSubOptions.classList.remove('active');
+            }
+            
+            // Clear all size selections
+            towerSizeInputs.forEach(input => {
+                input.checked = false;
+            });
+            rackSizeInputs.forEach(input => {
+                input.checked = false;
+            });
+            
+            // Show appropriate sub-options
+            if (value === 'tower' && towerSubOptions) {
+                towerSubOptions.classList.add('active');
+            } else if (value === 'rack' && rackSubOptions) {
+                rackSubOptions.classList.add('active');
+            }
+            
+            // Update sidebar
+            updateSidebar();
+        }
+        
+        // Get selected options data
+        function getSelectedOptions() {
+            const formFactor = document.querySelector('input[name="formFactor"]:checked')?.value || null;
+            let finalFormFactor = formFactor;
+            
+            // If tower is selected, combine with tower size
+            if (formFactor === 'tower') {
+                const towerSize = document.querySelector('input[name="towerSize"]:checked')?.value || null;
+                if (towerSize) {
+                    finalFormFactor = towerSize; // tower1u, tower2u, tower4u
+                }
+            }
+            // If rack is selected, combine with rack size
+            else if (formFactor === 'rack') {
+                const rackSize = document.querySelector('input[name="rackSize"]:checked')?.value || null;
+                if (rackSize) {
+                    finalFormFactor = rackSize; // rack1u, rack2u, rack4u
+                }
+            }
+            
+            return {
+                // BASIC INFORMATION
+                serverCount: document.getElementById('serverCount')?.value || null,
+                formFactor: finalFormFactor,
+                diskPlatform: document.getElementById('diskPlatform')?.value || null,
+                serverPurpose: Array.from(document.querySelectorAll('input[name="serverPurpose"]:checked')).map(cb => cb.value),
+                
+                // CPU
+                cpuCount: document.querySelector('input[name="cpuCount"]:checked')?.value || null,
+                cpuManufacturer: document.querySelector('input[name="cpuManufacturer"]:checked')?.value || null,
+                
+                // RAM
+                ramAmount: document.getElementById('ramAmount')?.value || null,
+                ramType: document.querySelector('input[name="ramType"]:checked')?.value || null,
+                
+                // RAID
+                raidController: document.querySelector('input[name="raidController"]:checked')?.value || null,
+                
+                // HDD STORAGE
+                hddFormFactor: document.querySelector('input[name="hddFormFactor"]:checked')?.value || null,
+                hddCount: document.getElementById('hddCount')?.value || null,
+                hddCapacity: document.getElementById('hddCapacity')?.value || null,
+                
+                // SSD STORAGE
+                ssdFormFactor: document.querySelector('input[name="ssdFormFactor"]:checked')?.value || null,
+                ssdCount: document.getElementById('ssdCount')?.value || null,
+                ssdCapacity: document.getElementById('ssdCapacity')?.value || null,
+                
+                // NETWORK
+                ethernet: document.getElementById('ethernet')?.value || null,
+                pcieAdapters: document.querySelector('input[name="pcieAdapters"]:checked')?.value || null,
+                
+                // POWER
+                psuCount: document.querySelector('input[name="psuCount"]:checked')?.value || null,
+                psuWattage: document.querySelector('input[name="psuWattage"]:checked')?.value || null,
+                
+                // GPU
+                gpuCount: document.querySelector('input[name="gpuCount"]:checked')?.value || null,
+                gpuMemory: document.querySelector('input[name="gpuMemory"]:checked')?.value || null,
+                
+                // SERVICES
+                services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value),
+                
+                // STORAGE (СХД)
+                storageCount: document.getElementById('storageCount')?.value || null,
+                storagePurpose: Array.from(document.querySelectorAll('input[name="storagePurpose"]:checked')).map(cb => cb.value),
+                storageFormFactor: document.querySelector('input[name="storageFormFactor"]:checked')?.value || null,
+                storageControllers: document.querySelector('input[name="storageControllers"]:checked')?.value || null,
+                storageCache: document.querySelector('input[name="storageCache"]:checked')?.value || null,
+                storageType: document.querySelector('input[name="storageType"]:checked')?.value || null,
+                storageBays: Array.from(document.querySelectorAll('input[name="storageBays"]:checked')).map(cb => cb.value),
+                storageDriveType: Array.from(document.querySelectorAll('input[name="storageDriveType"]:checked')).map(cb => cb.value),
+                storageInterface: Array.from(document.querySelectorAll('input[name="storageInterface"]:checked')).map(cb => cb.value),
+                raidProfile: Array.from(document.querySelectorAll('input[name="raidProfile"]:checked')).map(cb => cb.value)
+            };
+        }
+        
+        // Save options
+        function saveOptions() {
+            const options = getSelectedOptions();
+            localStorage.setItem('selectedOptions', JSON.stringify(options));
+            console.log('Options saved:', options);
+            
+            // Redirect to components page
+            window.location.href = 'web_configurator_components.html';
+        }
+        
+        // Show contact modal
+        function showContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (!modal) return;
+            
+            // Build summary HTML
+            const summaryHTML = buildSelectedSummary();
+            const summaryElement = document.getElementById('selectedSummary');
+            if (summaryElement) {
+                summaryElement.innerHTML = summaryHTML;
+            }
+            
+            // Show modal
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Close contact modal
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Build selected summary HTML
+        function buildSelectedSummary() {
+            const info = getCategoryAndBrand();
+            const options = getSelectedOptions();
+            
+            // Helper functions
+            const getSelectText = (selectId) => {
+                const select = document.getElementById(selectId);
+                return select && select.value ? select.options[select.selectedIndex].text : null;
+            };
+            
+            const getRadioText = (name) => {
+                const input = document.querySelector(`input[name="${name}"]:checked`);
+                return input ? input.nextElementSibling.textContent : null;
+            };
+            
+            // BUILD TITLE WITH CATEGORY AND BRAND
+            let titleText = 'Выбранная конфигурация';
+            if (info.categoryName && info.brandName) {
+                // Remove plural "ы" from category name if present
+                let categoryName = info.categoryName;
+                if (categoryName === 'Серверы') {
+                    categoryName = 'Сервер';
+                }
+                // СХД already in short form from getCategoryAndBrand()
+                titleText = `Выбранная конфигурация для ${categoryName} ${info.brandName}`;
+            }
+            
+            let html = `<div class="summary-title">
+                <span>${titleText}</span>
+            </div>`;
+            
+            // CHECK CATEGORY - SHOW ONLY RELEVANT SECTIONS
+            const isServer = info.category === 'servers';
+            const isStorage = info.category === 'storage';
+            
+            // SERVERS SECTIONS
+            if (isServer) {
+            
+            // OPEN COLUMNS CONTAINER AND FIRST COLUMN (FOR SERVERS)
+            html += '<div class="summary-columns">';
+            html += '<div class="summary-column">';
+            
+            // BASIC INFORMATION
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Основное</div>';
+            
+            if (options.serverCount) {
+                const countText = getSelectText('serverCount');
+                if (countText) {
+                    html += `<div class="summary-item">Кол-во серверов: ${countText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кол-во серверов: Не выбрано</div>';
+            }
+            
+            // Form Factor
+            if (options.formFactor) {
+                let ffText = '';
+                if (options.formFactor.includes('tower')) {
+                    ffText = 'Tower ' + options.formFactor.replace('tower', '').toUpperCase();
+                } else if (options.formFactor.includes('rack')) {
+                    ffText = 'Rack ' + options.formFactor.replace('rack', '').toUpperCase();
+                } else if (options.formFactor === 'blade') {
+                    ffText = 'Blade';
+                } else if (options.formFactor === 'edge') {
+                    ffText = 'Edge';
+                } else {
+                    ffText = options.formFactor;
+                }
+                html += `<div class="summary-item">Форм-фактор: ${ffText}</div>`;
+            } else {
+                html += '<div class="summary-item not-selected">Форм-фактор: Не выбрано</div>';
+            }
+            
+            if (options.diskPlatform) {
+                const platformText = getSelectText('diskPlatform');
+                if (platformText) {
+                    html += `<div class="summary-item">Платформа дисков: ${platformText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Платформа дисков: Не выбрано</div>';
+            }
+            
+            // Server Purpose
+            if (options.serverPurpose.length > 0) {
+                const labels = {
+                    'file_server': 'Файловый сервер',
+                    'compute_server': 'Вычислительный',
+                    'db_server': 'Сервер БД',
+                    'web_server': 'Веб-сервер',
+                    'virtualization': 'Виртуализация'
+                };
+                options.serverPurpose.forEach(p => {
+                    html += `<div class="summary-item">Назначение: ${labels[p] || p}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Назначение: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // CPU
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">CPU</div>';
+            if (options.cpuCount) {
+                const cpuCountText = getRadioText('cpuCount');
+                if (cpuCountText) {
+                    html += `<div class="summary-item">Кол-во: ${cpuCountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кол-во: Не выбрано</div>';
+            }
+            if (options.cpuManufacturer) {
+                const cpuManufacturerText = getRadioText('cpuManufacturer');
+                if (cpuManufacturerText) {
+                    html += `<div class="summary-item">Производитель: ${cpuManufacturerText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Производитель: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // MEMORY
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">RAM</div>';
+            if (options.ramAmount) {
+                const ramAmountText = getSelectText('ramAmount');
+                if (ramAmountText) {
+                    html += `<div class="summary-item">Объем: ${ramAmountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Объем: Не выбрано</div>';
+            }
+            if (options.ramType) {
+                const ramTypeText = getRadioText('ramType');
+                if (ramTypeText) {
+                    html += `<div class="summary-item">Тип: ${ramTypeText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Тип: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // RAID CONTROLLER
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">RAID</div>';
+            if (options.raidController) {
+                const raidText = getRadioText('raidController');
+                if (raidText) {
+                    html += `<div class="summary-item">${raidText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // HDD STORAGE
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">HDD</div>';
+            if (options.hddFormFactor) {
+                const hddFormText = getRadioText('hddFormFactor');
+                if (hddFormText) {
+                    html += `<div class="summary-item">Форм-фактор: ${hddFormText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Форм-фактор: Не выбрано</div>';
+            }
+            if (options.hddCount) {
+                const hddCountText = getSelectText('hddCount');
+                if (hddCountText) {
+                    html += `<div class="summary-item">Кол-во: ${hddCountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кол-во: Не выбрано</div>';
+            }
+            if (options.hddCapacity) {
+                const hddCapacityText = getSelectText('hddCapacity');
+                if (hddCapacityText) {
+                    html += `<div class="summary-item">Объем: ${hddCapacityText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Объем: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // CLOSE FIRST COLUMN, OPEN SECOND COLUMN
+            html += '</div>'; // Close first column
+            html += '<div class="summary-column">'; // Open second column
+            
+            // SSD STORAGE
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">SSD</div>';
+            if (options.ssdFormFactor) {
+                const ssdFormText = getRadioText('ssdFormFactor');
+                if (ssdFormText) {
+                    html += `<div class="summary-item">Форм-фактор: ${ssdFormText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Форм-фактор: Не выбрано</div>';
+            }
+            if (options.ssdCount) {
+                const ssdCountText = getSelectText('ssdCount');
+                if (ssdCountText) {
+                    html += `<div class="summary-item">Кол-во: ${ssdCountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кол-во: Не выбрано</div>';
+            }
+            if (options.ssdCapacity) {
+                const ssdCapacityText = getSelectText('ssdCapacity');
+                if (ssdCapacityText) {
+                    html += `<div class="summary-item">Объем: ${ssdCapacityText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Объем: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // NETWORK
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Сеть</div>';
+            if (options.ethernet) {
+                const ethernetText = getSelectText('ethernet');
+                if (ethernetText) {
+                    html += `<div class="summary-item">Ethernet: ${ethernetText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Ethernet: Не выбрано</div>';
+            }
+            if (options.pcieAdapters) {
+                const pcieText = getRadioText('pcieAdapters');
+                if (pcieText) {
+                    html += `<div class="summary-item">PCIe адаптеры: ${pcieText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">PCIe адаптеры: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // POWER
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Питание</div>';
+            if (options.psuCount) {
+                const psuCountText = getRadioText('psuCount');
+                if (psuCountText) {
+                    html += `<div class="summary-item">Кол-во БП: ${psuCountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кол-во БП: Не выбрано</div>';
+            }
+            if (options.psuWattage) {
+                const psuWattageText = getRadioText('psuWattage');
+                if (psuWattageText) {
+                    html += `<div class="summary-item">Мощность: ${psuWattageText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Мощность: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // GPU
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">GPU</div>';
+            if (options.gpuCount && options.gpuCount !== '0') {
+                const gpuCountText = getRadioText('gpuCount');
+                if (gpuCountText) {
+                    html += `<div class="summary-item">Кол-во: ${gpuCountText}</div>`;
+                }
+                if (options.gpuMemory) {
+                    const gpuMemoryText = getRadioText('gpuMemory');
+                    if (gpuMemoryText) {
+                        html += `<div class="summary-item">Память: ${gpuMemoryText}</div>`;
+                    }
+                } else {
+                    html += '<div class="summary-item not-selected">Память: Не выбрано</div>';
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // SERVICES
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Услуги</div>';
+            if (options.services && options.services.length > 0) {
+                const labels = {
+                    'installation': 'Установка и настройка',
+                    'rack_mount': 'Монтаж в стойку',
+                    'configuration': 'Конфигурация RAID',
+                    'os_install': 'Установка ОС',
+                    'warranty': 'Расширенная гарантия',
+                    'support': 'Техподдержка'
+                };
+                options.services.forEach(s => {
+                    html += `<div class="summary-item">${labels[s] || s}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // CLOSE SECOND COLUMN AND COLUMNS CONTAINER (FOR SERVERS)
+            html += '</div>'; // Close second column
+            html += '</div>'; // Close columns container
+            
+            } // END SERVERS SECTIONS
+            
+            // STORAGE (СХД) SECTIONS
+            if (isStorage) {
+            
+            // OPEN COLUMNS CONTAINER AND FIRST COLUMN (FOR STORAGE)
+            html += '<div class="summary-columns">';
+            html += '<div class="summary-column">';
+            
+            // STORAGE (СХД) - BASIC
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Основное</div>';
+            
+            if (options.storageCount) {
+                const storageCountText = getSelectText('storageCount');
+                if (storageCountText) {
+                    html += `<div class="summary-item">Количество: ${storageCountText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Количество: Не выбрано</div>';
+            }
+            
+            if (options.storagePurpose && options.storagePurpose.length > 0) {
+                const labels = {
+                    'san': 'SAN (Block level)',
+                    'nas': 'NAS (File level)',
+                    'unified': 'Unified (Block + File)',
+                    's3object': 'S3 Object Storage'
+                };
+                options.storagePurpose.forEach(p => {
+                    html += `<div class="summary-item">Тип системы: ${labels[p] || p}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Тип системы: Не выбрано</div>';
+            }
+            
+            if (options.storageFormFactor) {
+                const storageFormText = getRadioText('storageFormFactor');
+                if (storageFormText) {
+                    html += `<div class="summary-item">Размер: ${storageFormText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Размер: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // STORAGE (СХД) - CONTROLLERS
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Контроллеры</div>';
+            
+            if (options.storageControllers) {
+                const storageControllersText = getRadioText('storageControllers');
+                if (storageControllersText) {
+                    html += `<div class="summary-item">Количество: ${storageControllersText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Количество: Не выбрано</div>';
+            }
+            
+            if (options.storageCache) {
+                const storageCacheText = getRadioText('storageCache');
+                if (storageCacheText) {
+                    html += `<div class="summary-item">Кэш: ${storageCacheText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Кэш: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // CLOSE FIRST COLUMN, OPEN SECOND COLUMN (FOR STORAGE)
+            html += '</div>'; // Close first column
+            html += '<div class="summary-column">'; // Open second column
+            
+            // STORAGE (СХД) - STORAGE
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Хранилище</div>';
+            
+            if (options.storageType) {
+                const storageTypeText = getRadioText('storageType');
+                if (storageTypeText) {
+                    html += `<div class="summary-item">Тип носителей: ${storageTypeText}</div>`;
+                }
+            } else {
+                html += '<div class="summary-item not-selected">Тип носителей: Не выбрано</div>';
+            }
+            
+            if (options.storageBays && options.storageBays.length > 0) {
+                const labels = {
+                    '12lff': '12 LFF',
+                    '24sff': '24 SFF',
+                    '25sff': '25 SFF',
+                    '36sff': '36 SFF',
+                    'nvmeexpansion': 'NVMe expansion shelf',
+                    'sasexpansion': 'SAS expansion shelf'
+                };
+                options.storageBays.forEach(b => {
+                    html += `<div class="summary-item">Отсеки: ${labels[b] || b}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Отсеки: Не выбрано</div>';
+            }
+            
+            if (options.storageDriveType && options.storageDriveType.length > 0) {
+                const labels = {
+                    'nlsashdd': 'NL-SAS (HDD)',
+                    'sashdd': 'SAS HDD',
+                    'sasssd': 'SAS SSD',
+                    'nvmessd': 'NVMe SSD'
+                };
+                options.storageDriveType.forEach(d => {
+                    html += `<div class="summary-item">Накопители: ${labels[d] || d}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Накопители: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // STORAGE (СХД) - PERFORMANCE
+            html += '<div class="summary-group">';
+            html += '<div class="summary-group-title">Производительность</div>';
+            
+            if (options.storageInterface && options.storageInterface.length > 0) {
+                const labels = {
+                    'fc16_32': 'FC 16/32Gb',
+                    'iscsi': 'iSCSI',
+                    'nvmeof': 'NVMe-oF'
+                };
+                options.storageInterface.forEach(i => {
+                    html += `<div class="summary-item">Подключение: ${labels[i] || i}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">Подключение: Не выбрано</div>';
+            }
+            
+            if (options.raidProfile && options.raidProfile.length > 0) {
+                options.raidProfile.forEach(r => {
+                    const raidName = 'RAID ' + r.replace('raid', '');
+                    html += `<div class="summary-item">RAID: ${raidName}</div>`;
+                });
+            } else {
+                html += '<div class="summary-item not-selected">RAID: Не выбрано</div>';
+            }
+            html += '</div>';
+            
+            // CLOSE SECOND COLUMN AND COLUMNS CONTAINER (FOR STORAGE)
+            html += '</div>'; // Close second column
+            html += '</div>'; // Close columns container
+            
+            } // END STORAGE SECTIONS
+            
+            return html;
+        }
+        
+        // Submit contact form
+        function submitContactForm() {
+            const form = document.getElementById('contactForm');
+            if (!form) return;
+            
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // Get form data
+            const formData = new FormData(form);
+            const contactData = {
+                name: formData.get('name'),
+                organization: formData.get('organization'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                comment: formData.get('comment'),
+                sendCopy: formData.get('sendCopy') === 'on',
+                dataConsent: formData.get('dataConsent') === 'on'
+            };
+            
+            // Get selected options
+            const options = getSelectedOptions();
+            const info = getCategoryAndBrand();
+            
+            // Combine all data
+            const requestData = {
+                category: info.categoryName,
+                brand: info.brandName,
+                options: options,
+                contact: contactData
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('contactRequest', JSON.stringify(requestData));
+            
+            console.log('Request data:', requestData);
+            
+            // Here you would typically send the data to a server
+            // For now, we'll just show an alert and redirect
+            alert('Спасибо! Ваш запрос отправлен. Мы свяжемся с вами в ближайшее время.');
+            
+            // Save options and redirect
+            saveOptions();
+        }
+        
+        
+        // Close modal on overlay click
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('contactModal');
+            if (e.target === modal) {
+                closeContactModal();
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeContactModal();
+            }
+        });
+        
+        // Go back
+        function goBack() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                window.location.href = 'web_configurator_brands.html?category=' + category;
+            } else {
+                window.location.href = 'web_configurator_brands.html';
+            }
+        }
+        
+        // Toggle sidebar
+        function toggleSidebar() {
+            const panel = document.getElementById('sidebarPanel');
+            const toggle = document.getElementById('sidebarToggle');
+            panel.classList.toggle('collapsed');
+            toggle.textContent = panel.classList.contains('collapsed') ? '›' : '‹';
+        }
+        
+        // Update sidebar with selected options
+        function updateSidebar() {
+            const sidebarContent = document.getElementById('sidebarContent');
+            if (!sidebarContent) return;
+            
+            const options = getSelectedOptions();
+            let html = '';
+            
+            // Helper function to get display text
+            const getSelectText = (selectId) => {
+                const select = document.getElementById(selectId);
+                return select && select.value ? select.options[select.selectedIndex].text : null;
+            };
+            
+            const getRadioText = (name) => {
+                const input = document.querySelector(`input[name="${name}"]:checked`);
+                return input ? input.nextElementSibling.textContent : null;
+            };
+            
+            // Category and Brand Info at the top
+            const info = getCategoryAndBrand();
+            if (info.category && info.brand && info.brand !== 'none') {
+                html += `<div class="selected-option-item" style="margin-bottom: 8px;"><span class="option-value-text">${info.categoryName} • ${info.brandName}</span></div>`;
+            }
+            
+            // CHECK CATEGORY - SHOW ONLY RELEVANT SECTIONS
+            const isServer = info.category === 'servers';
+            const isStorage = info.category === 'storage';
+            
+            // SERVERS SECTIONS
+            if (isServer) {
+            
+            // BASIC INFORMATION
+            if (options.serverCount || options.formFactor || options.diskPlatform || options.serverPurpose.length > 0) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Основное</div>';
+                
+                let parts = [];
+                if (options.serverCount) {
+                    let count = getSelectText('serverCount');
+                    parts.push(count === '1' ? '1 сервер' : count + ' серверов');
+                }
+                
+                // Form Factor
+                if (options.formFactor) {
+                    let ffText = '';
+                    if (options.formFactor.includes('tower')) {
+                        ffText = 'Tower ' + options.formFactor.replace('tower', '').toUpperCase();
+                    } else if (options.formFactor.includes('rack')) {
+                        ffText = 'Rack ' + options.formFactor.replace('rack', '').toUpperCase();
+                    } else if (options.formFactor === 'blade') {
+                        ffText = 'Blade';
+                    } else if (options.formFactor === 'edge') {
+                        ffText = 'Edge';
+                    } else {
+                        ffText = options.formFactor;
+                    }
+                    parts.push(ffText);
+                }
+                
+                if (options.diskPlatform) parts.push(getSelectText('diskPlatform'));
+                
+                // Server Purpose
+                if (options.serverPurpose.length > 0) {
+                    const labels = {
+                        'file_server': 'Файловый',
+                        'compute_server': 'Вычислительный',
+                        'db_server': 'Сервер БД',
+                        'web_server': 'Веб-сервер',
+                        'virtualization': 'Виртуализация'
+                    };
+                    options.serverPurpose.forEach(p => {
+                        parts.push(labels[p] || p);
+                    });
+                }
+                
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // CPU
+            if (options.cpuCount || options.cpuManufacturer) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">CPU</div>';
+                let parts = [];
+                if (options.cpuCount) parts.push(getRadioText('cpuCount'));
+                if (options.cpuManufacturer) parts.push(getRadioText('cpuManufacturer'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // MEMORY
+            if (options.ramAmount || options.ramType) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">RAM</div>';
+                let parts = [];
+                if (options.ramAmount) parts.push(getSelectText('ramAmount'));
+                if (options.ramType) parts.push(getRadioText('ramType'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // RAID
+            if (options.raidController) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">RAID</div>';
+                html += `<div class="selected-option-item"><span class="option-value-text">${getRadioText('raidController')}</span></div>`;
+                html += '</div>';
+            }
+            
+            // HDD STORAGE
+            if (options.hddFormFactor || options.hddCount || options.hddCapacity) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">HDD</div>';
+                let parts = [];
+                if (options.hddFormFactor) parts.push(getRadioText('hddFormFactor'));
+                if (options.hddCount) {
+                    let count = getSelectText('hddCount');
+                    parts.push(count + ' шт');
+                }
+                if (options.hddCapacity) parts.push(getSelectText('hddCapacity'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // SSD STORAGE
+            if (options.ssdFormFactor || options.ssdCount || options.ssdCapacity) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">SSD</div>';
+                let parts = [];
+                if (options.ssdFormFactor) parts.push(getRadioText('ssdFormFactor'));
+                if (options.ssdCount) {
+                    let count = getSelectText('ssdCount');
+                    parts.push(count + ' шт');
+                }
+                if (options.ssdCapacity) parts.push(getSelectText('ssdCapacity'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // NETWORK
+            if (options.ethernet || options.pcieAdapters) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Сеть</div>';
+                let parts = [];
+                if (options.ethernet) parts.push(getSelectText('ethernet'));
+                if (options.pcieAdapters) parts.push(getRadioText('pcieAdapters'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // POWER
+            if (options.psuCount || options.psuWattage) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Питание</div>';
+                let parts = [];
+                if (options.psuCount) parts.push(getRadioText('psuCount'));
+                if (options.psuWattage) parts.push(getRadioText('psuWattage'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // GPU
+            if (options.gpuCount && options.gpuCount !== '0') {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">GPU</div>';
+                let parts = [];
+                parts.push(getRadioText('gpuCount'));
+                if (options.gpuMemory) parts.push(getRadioText('gpuMemory'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // SERVICES
+            if (options.services && options.services.length > 0) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Услуги</div>';
+                const labels = {
+                    'installation': 'Установка и настройка',
+                    'rack_mount': 'Монтаж в стойку',
+                    'configuration': 'Конфигурация RAID',
+                    'os_install': 'Установка ОС',
+                    'warranty': 'Расширенная гарантия',
+                    'support': 'Техподдержка'
+                };
+                let parts = options.services.map(s => labels[s] || s);
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            } // END SERVERS SECTIONS
+            
+            // STORAGE (СХД) SECTIONS
+            if (isStorage) {
+            
+            // STORAGE (СХД) - BASIC
+            if (options.storageCount || options.storagePurpose.length > 0 || options.storageFormFactor) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Основное СХД</div>';
+                let parts = [];
+                if (options.storageCount) {
+                    let count = getSelectText('storageCount');
+                    parts.push(count === '1' ? '1 СХД' : count + ' СХД');
+                }
+                if (options.storagePurpose.length > 0) {
+                    const labels = {
+                        'san': 'SAN',
+                        'nas': 'NAS',
+                        'unified': 'Unified',
+                        's3object': 'S3'
+                    };
+                    options.storagePurpose.forEach(p => parts.push(labels[p] || p));
+                }
+                if (options.storageFormFactor) parts.push(getRadioText('storageFormFactor').toUpperCase());
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // STORAGE (СХД) - CONTROLLERS
+            if (options.storageControllers || options.storageCache) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Контроллеры</div>';
+                let parts = [];
+                if (options.storageControllers) parts.push(getRadioText('storageControllers'));
+                if (options.storageCache) parts.push(getRadioText('storageCache'));
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // STORAGE (СХД) - STORAGE
+            if (options.storageType || options.storageBays.length > 0 || options.storageDriveType.length > 0) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Хранилище</div>';
+                let parts = [];
+                if (options.storageType) parts.push(getRadioText('storageType'));
+                if (options.storageBays.length > 0) {
+                    const labels = {
+                        '12lff': '12 LFF',
+                        '24sff': '24 SFF',
+                        '25sff': '25 SFF',
+                        '36sff': '36 SFF',
+                        'nvmeexpansion': 'NVMe exp',
+                        'sasexpansion': 'SAS exp'
+                    };
+                    options.storageBays.forEach(b => parts.push(labels[b] || b));
+                }
+                if (options.storageDriveType.length > 0) {
+                    const labels = {
+                        'nlsashdd': 'NL-SAS',
+                        'sashdd': 'SAS HDD',
+                        'sasssd': 'SAS SSD',
+                        'nvmessd': 'NVMe SSD'
+                    };
+                    options.storageDriveType.forEach(d => parts.push(labels[d] || d));
+                }
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            // STORAGE (СХД) - PERFORMANCE
+            if (options.storageInterface.length > 0 || options.raidProfile.length > 0) {
+                html += '<div class="selected-option-group">';
+                html += '<div class="selected-option-group-title">Производительность</div>';
+                let parts = [];
+                if (options.storageInterface.length > 0) {
+                    const labels = {
+                        'fc16_32': 'FC 16/32Gb',
+                        'iscsi': 'iSCSI',
+                        'nvmeof': 'NVMe-oF'
+                    };
+                    options.storageInterface.forEach(i => parts.push(labels[i] || i));
+                }
+                if (options.raidProfile.length > 0) {
+                    options.raidProfile.forEach(r => parts.push('RAID ' + r.replace('raid', '')));
+                }
+                if (parts.length > 0) {
+                    html += `<div class="selected-option-item"><span class="option-value-text">${parts.join(' • ')}</span></div>`;
+                }
+                html += '</div>';
+            }
+            
+            } // END STORAGE SECTIONS
+            
+            if (html === '') {
+                html = '<div class="selected-option-item empty">Выберите опции</div>';
+            }
+            
+            sidebarContent.innerHTML = html;
+        }
+        
+        // Add event listeners for all form elements
+        // HIGHLIGHT SELECTED DROPDOWNS
+        function updateSelectHighlight(selectElement) {
+            if (selectElement.value && selectElement.value !== '') {
+                selectElement.classList.add('selected');
+            } else {
+                selectElement.classList.remove('selected');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initRadioDeselect();
+            initGpuMemoryToggle();
+            updateCategoryAndBrandInfo();
+            updateSidebar();
+            
+            // Listen for all radio and checkbox changes
+            document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+                input.addEventListener('change', updateSidebar);
+            });
+            
+            // Listen for all select changes and highlight when selected
+            document.querySelectorAll('select.form-select').forEach(select => {
+                // Check initial state
+                updateSelectHighlight(select);
+                
+                select.addEventListener('change', function() {
+                    updateSelectHighlight(this);
+                    updateSidebar();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+

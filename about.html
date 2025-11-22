@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас - BELTRADER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+
+        /* HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            height: 68px;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            display: block;
+            padding-top: 5px;
+            text-transform: uppercase;
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-link.active {
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .products-link .nav-icon {
+            fill: rgb(45, 45, 45);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        .consultation-btn {
+            background: rgba(61, 243, 187, 0.1);
+            color: white;
+            border: none;
+            height: 36px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            background: rgba(61, 243, 187, 0.15);
+            color: rgb(61, 243, 187);
+        }
+        
+        /* CONSULTATION POPUP STYLES */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            animation: popupSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #1c2a3c 0%, #2a3f5f 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        .consultation-form {
+            padding: 12px 16px 16px;
+            overflow-x: hidden;
+        }
+        
+        .form-group {
+            margin-bottom: 8px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #1c2a3c;
+            font-size: 0.85em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.85em;
+            background: #fafbfc;
+            transition: all 0.2s ease;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 0 0 2px rgba(61, 243, 187, 0.1);
+            background: white;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 50px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            color: #555;
+            line-height: 1.3;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+        
+        .form-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-submit {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9em;
+            width: 100%;
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(135deg, rgb(45, 220, 170) 0%, rgb(35, 200, 150) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(61, 243, 187, 0.3);
+        }
+        
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* SUCCESS MODAL STYLES */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10001;
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-modal.active {
+            display: flex;
+        }
+        
+        .success-modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: successSlideIn 0.4s ease-out;
+        }
+        
+        @keyframes successSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: successPulse 0.6s ease-out;
+        }
+        
+        @keyframes successPulse {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: checkmark 0.5s 0.3s ease-out forwards;
+        }
+        
+        @keyframes checkmark {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .success-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1c2a3c;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .success-timer {
+            font-size: 0.9em;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        
+        .success-button {
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .success-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(61, 243, 187, 0.4);
+        }
+        
+        /* HERO SECTION */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Files/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            min-height: 50vh;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        
+        .about-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 50px;
+            margin-bottom: 40px;
+            margin-top: 0;
+        }
+        
+        .about-content {
+            color: rgb(102, 102, 102);
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        
+        .about-content p {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        
+        .about-content p:first-of-type {
+            font-size: 1.2em;
+            color: rgb(45, 45, 45);
+            font-weight: 600;
+        }
+        
+        .about-content p:last-of-type {
+            font-size: 1.3em;
+            color: rgb(45, 45, 45);
+            font-weight: 600;
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid rgb(61, 243, 187);
+        }
+        
+        /* SERVICES SECTION */
+        .services-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 50px;
+            margin-bottom: 40px;
+        }
+        
+        .services-title {
+            color: rgb(45, 45, 45);
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            border-bottom: 3px solid rgb(61, 243, 187);
+            padding-bottom: 20px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .service-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: rgb(61, 243, 187);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(61, 243, 187, 0.2);
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleY(1);
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 20px;
+            fill: rgb(61, 243, 187);
+            stroke: rgb(61, 243, 187);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .service-card h3 {
+            color: rgb(45, 45, 45);
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .service-card p {
+            color: rgb(102, 102, 102);
+            line-height: 1.6;
+            font-size: 1em;
+            margin: 0;
+            text-align: center;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 10;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-center {
+            text-align: center;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        /* MOBILE MENU STYLES */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1002;
+        }
+        
+        .mobile-menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .main-nav {
+                position: fixed;
+                top: 88px;
+                right: -100%;
+                width: 280px;
+                height: calc(100vh - 88px);
+                background: #1c2a3c;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                transition: right 0.3s ease;
+                overflow-y: auto;
+                z-index: 999;
+                box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+            }
+            
+            .main-nav.active {
+                right: 0;
+            }
+            
+            .nav-link,
+            .consultation-btn {
+                width: 100%;
+                justify-content: flex-start;
+                margin-bottom: 10px;
+            }
+            
+            .dropdown {
+                width: 100%;
+            }
+            
+            .dropdown-content {
+                position: static;
+                display: none;
+                box-shadow: none;
+                background: rgba(255,255,255,0.05);
+                margin-top: 5px;
+                margin-left: 15px;
+                width: calc(100% - 15px);
+                border-left: 2px solid rgba(61, 243, 187, 0.3);
+                padding-left: 10px;
+            }
+            
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+            
+            .dropdown .dropdown-arrow {
+                transition: transform 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-arrow {
+                transform: rotate(180deg);
+            }
+            
+            .popup-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+            
+            .consultation-form {
+                padding: 10px 14px 14px;
+            }
+            
+            .form-group {
+                margin-bottom: 6px;
+            }
+            
+            .form-group input,
+            .form-group textarea {
+                font-size: 14px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .about-section {
+                padding: 30px 20px;
+            }
+            
+            .about-content {
+                font-size: 1em;
+            }
+            
+            .services-section {
+                padding: 30px 20px;
+            }
+            
+            .services-title {
+                font-size: 2em;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 1400px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"></path>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"></path>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"></path>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav class="main-nav" id="mobileNav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link active">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+                <button class="consultation-btn" onclick="openConsultationPopup()">Консультация</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>О компании BELTRADER</h1>
+                <p>Системный интегратор, создающий надежные IT-инфраструктуры для бизнеса</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <div class="about-section">
+            <div class="about-content">
+                <p>BELTRADER — системный интегратор, создающий надежные IT-инфраструктуры для бизнеса.</p>
+                
+                <p>Один из ведущих поставщиков серверного и сетевого оборудования в Республике Беларусь, а также дистрибьютор решений в области информационной безопасности и программного обеспечения.</p>
+                
+                <p>Мы поставляем и внедряем серверное и сетевое оборудование, решения в области информационной безопасности и программное обеспечение от ведущих мировых производителей.</p>
+                
+                <p>Наша команда реализует проекты полного цикла — от проектирования архитектуры до сопровождения и технической поддержки, обеспечивая точность, ответственность и технологическую надежность.</p>
+                
+                <p>BELTRADER — технологии, на которых строится стабильность вашего бизнеса.</p>
+            </div>
+        </div>
+        
+        <!-- SERVICES SECTION -->
+        <div class="services-section">
+            <h2 class="services-title">Что мы делаем</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6H16L14 4H10L8 6H4C2.9 6 2 6.9 2 8V19C2 20.1 2.9 21 4 21H20C21.1 21 22 20.1 22 19V8C22 6.9 21.1 6 20 6ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.35 9 9 10.35 9 12C9 13.65 10.35 15 12 15C13.65 15 15 13.65 15 12C15 10.35 13.65 9 12 9Z" fill="currentColor"/>
+                    </svg>
+                    <h3>Поставка оборудования</h3>
+                    <p>Поставка серверного и сетевого оборудования и комплектующих от ведущих мировых производителей</p>
+                </div>
+                
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 11L12 14L22 4M21 12V19C21 20.1 20.1 21 19 21H5C3.9 21 3 20.1 3 19V5C3 3.9 3.9 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                    <h3>Проектирование и оптимизация</h3>
+                    <p>Проектирование и оптимизация IT-инфраструктуры для максимальной эффективности и надежности</p>
+                </div>
+                
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 1L3 5V11C3 16.55 6.16 21.74 12 23C17.84 21.74 21 16.55 21 11V5L12 1ZM12 7C13.4 7 14.8 7.56 15.7 8.7L14.2 10.2C13.6 9.4 12.8 9 12 9C10.9 9 10 9.9 10 11C10 12.1 10.9 13 12 13C12.8 13 13.6 12.6 14.2 11.8L15.7 13.3C14.8 14.44 13.4 15 12 15C9.8 15 8 13.2 8 11C8 8.8 9.8 7 12 7ZM12 21C7.58 20.18 4 16.08 4 11.22V6.3L12 3.18L20 6.3V11.22C20 16.08 16.42 20.18 12 21Z" fill="currentColor"/>
+                    </svg>
+                    <h3>Информационная безопасность</h3>
+                    <p>Решения в области информационной безопасности: защита данных, мониторинг угроз и обеспечение соответствия требованиям</p>
+                </div>
+                
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20Z" fill="currentColor"/>
+                    </svg>
+                    <h3>Подбор ПО</h3>
+                    <p>Подбор программного обеспечения, соответствующего задачам и требованиям вашего бизнеса</p>
+                </div>
+                
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
+                    </svg>
+                    <h3>Комплексные IT-решения</h3>
+                    <p>Интеграция и внедрение решений с полным циклом работ от проектирования до поддержки</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-text">
+                    ООО "БАСИ-плюс"<br>
+                    УНП 191762563
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-text">
+                    г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                    БЦ "CASPIAN PLAZA"
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-text">
+                    +375 (29) 391-90-44<br>
+                    sales@beltrader.by
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // MOBILE MENU FUNCTIONS
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('active');
+        }
+        
+        // CLOSE MOBILE MENU ON LINK CLICK
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link:not(.products-link), .dropdown-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        const nav = document.getElementById('mobileNav');
+                        if (nav) nav.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // DROPDOWN FUNCTIONS (MOBILE ADAPTED)
+        function toggleDropdown(event) {
+            event.preventDefault();
+            
+            // ON MOBILE, TOGGLE DROPDOWN
+            if (window.innerWidth <= 768) {
+                const dropdown = event.target.closest('.dropdown');
+                dropdown.classList.toggle('active');
+                return;
+            }
+        }
+        
+        // ORIGINAL DROPDOWN FUNCTIONS
+        let dropdownTimeout;
+        
+        function toggleDropdown_Original(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    dropdownTimeout = setTimeout(() => {
+                        const content = this.querySelector('.dropdown-content');
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 300);
+                });
+            });
+        });
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            alert('Функция консультации будет доступна в ближайшее время. Свяжитесь с нами по телефону +375 (29) 391-90-44');
+        }
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // WAIT FOR DOM TO LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            // CLOSE POPUP ON OVERLAY CLICK
+            const popup = document.getElementById('consultationPopup');
+            if (popup) {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeConsultationPopup();
+                    }
+                });
+            }
+            
+            // CONSULTATION FORM SUBMISSION
+            const form = document.getElementById('consultationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    
+                    // DISABLE SUBMIT BUTTON
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Отправка...';
+                    
+                    // SIMULATE FORM SUBMISSION
+                    setTimeout(() => {
+                        // RESET FORM
+                        this.reset();
+                        closeConsultationPopup();
+                        
+                        // RESTORE BUTTON
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        
+                        // SHOW SUCCESS MODAL
+                        showSuccessModal();
+                    }, 1500);
+                });
+            }
+        });
+        
+        // CLOSE POPUP ON ESC KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeConsultationPopup();
+            }
+        });
+        
+        // SUCCESS MODAL FUNCTIONS
+        let countdownTimer;
+        
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            const countdownElement = document.getElementById('countdown');
+            let timeLeft = 5;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // START COUNTDOWN
+            countdownElement.textContent = timeLeft;
+            countdownTimer = setInterval(() => {
+                timeLeft--;
+                countdownElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    closeSuccessModal();
+                }
+            }, 1000);
+        }
+        
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // CLEAR COUNTDOWN
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+        }
+    </script>
+
+    <!-- CONSULTATION POPUP -->
+    <div id="consultationPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Заявка на консультацию</h3>
+                <button class="popup-close" onclick="closeConsultationPopup()">&times;</button>
+            </div>
+            <form id="consultationForm" class="consultation-form">
+                <div class="form-group">
+                    <label for="consultationName">Имя *</label>
+                    <input type="text" id="consultationName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationPhone">Телефон *</label>
+                    <input type="tel" id="consultationPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationEmail">Email</label>
+                    <input type="email" id="consultationEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="consultationCompany">Компания</label>
+                    <input type="text" id="consultationCompany" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="consultationMessage">Сообщение</label>
+                    <textarea id="consultationMessage" name="message" rows="4" placeholder="Опишите ваши потребности или вопросы..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consentCheckbox" name="consent" required>
+                        <span class="checkmark"></span>
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="success-modal">
+        <div class="success-modal-content">
+            <div class="success-icon">
+                <svg viewBox="0 0 52 52">
+                    <path d="M14 27l8 8 16-16"/>
+                </svg>
+            </div>
+            <h2 class="success-title">Спасибо! Ваша заявка принята</h2>
+            <p class="success-message">Менеджер свяжется с вами в ближайшее время</p>
+            <p class="success-timer">Окно закроется через <span id="countdown">5</span> секунд</p>
+            <button class="success-button" onclick="closeSuccessModal()">Вернуться на сайт</button>
+        </div>
+    </div>
+
+</body>
+</html>
+

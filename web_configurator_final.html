@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор серверов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        
+        .section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .component-category {
+            margin-bottom: 25px;
+        }
+        
+        .category-title {
+            font-size: 1.2em;
+            color: #667eea;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .category-title::before {
+            content: "▸";
+            margin-right: 8px;
+            font-size: 1.3em;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .component-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .component-card:hover:not(.disabled) {
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(61, 243, 187, 0.3);
+        }
+        
+        .component-card.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+        
+        .component-card.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(80%);
+        }
+        
+        .incompatible-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4757;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+        
+        .component-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .component-specs {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+        
+        .config-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .config-item-name {
+            font-weight: 500;
+            color: #333;
+            flex: 1;
+        }
+        
+        .config-item-category {
+            font-size: 0.85em;
+            color: #999;
+        }
+        
+        .remove-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .remove-btn:hover {
+            background: #ff3838;
+        }
+        
+        .config-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .config-summary h3 {
+            margin-bottom: 10px;
+        }
+        
+        .config-summary .count {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1c2a3c;
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .empty-config {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+        
+        .filter-info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            color: #856404;
+            font-size: 0.95em;
+        }
+        
+        .filter-info strong {
+            color: #667eea;
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s;
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+        }
+        
+        .modal-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .form-group.checkbox {
+            display: flex;
+            align-items: center;
+        }
+        
+        .config-preview {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .config-preview h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .config-preview-item {
+            padding: 5px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+        
+        .modal-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 968px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖥️ Конфигуратор серверов</h1>
+            <p>Соберите конфигурацию - мы свяжемся с вами для уточнения деталей</p>
+        </header>
+        
+        <div class="main-content">
+            <!-- Доступные компоненты -->
+            <div class="section">
+                <h2 class="section-title">Доступные компоненты</h2>
+                
+                <div id="filterInfo" class="filter-info" style="display: none;">
+                    <strong>🎯 Фильтрация активна!</strong><br>
+                    Показаны только компоненты, совместимые с: <span id="selectedServer"></span>
+                </div>
+                
+                <!-- Серверы -->
+                <div class="component-category">
+                    <h3 class="category-title">Серверы</h3>
+                    <div class="component-grid" id="servers"></div>
+                </div>
+                
+                <!-- Процессоры -->
+                <div class="component-category">
+                    <h3 class="category-title">Процессоры</h3>
+                    <div class="component-grid" id="processors"></div>
+                </div>
+                
+                <!-- Память -->
+                <div class="component-category">
+                    <h3 class="category-title">Оперативная память</h3>
+                    <div class="component-grid" id="memory"></div>
+                </div>
+                
+                <!-- Накопители -->
+                <div class="component-category">
+                    <h3 class="category-title">Накопители</h3>
+                    <div class="component-grid" id="storage"></div>
+                </div>
+                
+                <!-- Блоки питания -->
+                <div class="component-category">
+                    <h3 class="category-title">Блоки питания</h3>
+                    <div class="component-grid" id="psu"></div>
+                </div>
+            </div>
+            
+            <!-- Выбранная конфигурация -->
+            <div style="position: sticky; top: 20px;">
+                <div class="section">
+                    <h2 class="section-title">Ваша конфигурация</h2>
+                    
+                    <div id="configList">
+                        <div class="empty-config">
+                            <p>Выберите компоненты для создания конфигурации</p>
+                        </div>
+                    </div>
+                    
+                    <div class="config-summary">
+                        <h3>Компонентов в конфигурации</h3>
+                        <div class="count" id="componentCount">0</div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="openRequestForm()">Оформить заявку</button>
+                    <button class="btn btn-secondary" onclick="clearConfig()">Очистить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно заявки -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Оформление заявки</h2>
+                <p style="color: #666;">Наш менеджер свяжется с вами в ближайшее время</p>
+            </div>
+            
+            <div class="config-preview">
+                <h4>Выбранная конфигурация:</h4>
+                <div id="modalConfigList"></div>
+            </div>
+            
+            <form id="requestForm" onsubmit="submitRequest(event)">
+                <div class="form-group">
+                    <label>Имя *</label>
+                    <input type="text" name="name" required placeholder="Ваше имя">
+                </div>
+                
+                <div class="form-group">
+                    <label>Телефон *</label>
+                    <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="example@mail.ru">
+                </div>
+                
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <textarea name="comment" placeholder="Укажите дополнительные пожелания или вопросы"></textarea>
+                </div>
+                
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="agreement" required>
+                    <label for="agreement">Согласен на обработку персональных данных</label>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeRequestForm()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // База данных компонентов
+        const components = {
+            servers: [
+                {
+                    id: 'hp_ml350g4p',
+                    name: 'HP ProLiant ML350 G4p',
+                    socket: '604',
+                    memory_type: 'DDR2',
+                    manufacturer: 'HP',
+                    specs: '4U Стойка • До 2 процессоров • 8 слотов памяти • Socket 604 • DDR2'
+                },
+                {
+                    id: 'dell_r710',
+                    name: 'Dell PowerEdge R710',
+                    socket: '1366',
+                    memory_type: 'DDR3',
+                    manufacturer: 'Dell',
+                    specs: '2U Стойка • До 2 процессоров • 18 слотов памяти • Socket 1366 • DDR3'
+                },
+                {
+                    id: 'ibm_x3650',
+                    name: 'IBM System x3650 M3',
+                    socket: '1366',
+                    memory_type: 'DDR3',
+                    manufacturer: 'IBM',
+                    specs: '2U Стойка • До 2 процессоров • 18 слотов памяти • Socket 1366 • DDR3'
+                }
+            ],
+            processors: [
+                {
+                    id: 'xeon_3_0',
+                    name: 'Intel Xeon 3.0 ГГц',
+                    socket: '604',
+                    specs: 'Socket 604 • 1 ядро • 1 МБ кэш • TDP 89 Вт'
+                },
+                {
+                    id: 'xeon_3_2',
+                    name: 'Intel Xeon 3.2 ГГц',
+                    socket: '604',
+                    specs: 'Socket 604 • 1 ядро • 1 МБ кэш • TDP 103 Вт'
+                },
+                {
+                    id: 'xeon_e5620',
+                    name: 'Intel Xeon E5620',
+                    socket: '1366',
+                    specs: 'Socket 1366 • 4 ядра • 12 МБ кэш • TDP 80 Вт'
+                },
+                {
+                    id: 'xeon_x5670',
+                    name: 'Intel Xeon X5670',
+                    socket: '1366',
+                    specs: 'Socket 1366 • 6 ядер • 12 МБ кэш • TDP 95 Вт'
+                }
+            ],
+            memory: [
+                {
+                    id: 'kingston_1gb',
+                    name: 'Kingston 1 ГБ DDR2-400',
+                    memory_type: 'DDR2',
+                    specs: 'DDR2 • 400 МГц • 1 ГБ • 1.8 В'
+                },
+                {
+                    id: 'corsair_2gb',
+                    name: 'Corsair 2 ГБ DDR2-533',
+                    memory_type: 'DDR2',
+                    specs: 'DDR2 • 533 МГц • 2 ГБ • 1.8 В'
+                },
+                {
+                    id: 'samsung_4gb',
+                    name: 'Samsung 4 ГБ DDR3-1333',
+                    memory_type: 'DDR3',
+                    specs: 'DDR3 • 1333 МГц • 4 ГБ • 1.5 В'
+                },
+                {
+                    id: 'crucial_8gb',
+                    name: 'Crucial 8 ГБ DDR3-1600',
+                    memory_type: 'DDR3',
+                    specs: 'DDR3 • 1600 МГц • 8 ГБ • 1.5 В'
+                }
+            ],
+            storage: [
+                {
+                    id: 'seagate_500gb',
+                    name: 'Seagate 500 ГБ SATA',
+                    compatible_with_all: true,
+                    specs: 'HDD • 7200 об/мин • 16 МБ кэш • 3.5"'
+                },
+                {
+                    id: 'wd_1tb',
+                    name: 'WD 1 ТБ SATA',
+                    compatible_with_all: true,
+                    specs: 'HDD • 7200 об/мин • 64 МБ кэш • 3.5"'
+                },
+                {
+                    id: 'intel_ssd',
+                    name: 'Intel SSD 240 ГБ',
+                    compatible_with_all: true,
+                    specs: 'SSD • SATA 3.0 • 550 МБ/с • 2.5"'
+                }
+            ],
+            psu: [
+                {
+                    id: 'hp_460w',
+                    name: 'HP Блок питания 460 Вт',
+                    manufacturer: 'HP',
+                    specs: '460 Вт • 80+ • Стандартный'
+                },
+                {
+                    id: 'dell_750w',
+                    name: 'Dell Блок питания 750 Вт',
+                    manufacturer: 'Dell',
+                    specs: '750 Вт • 80+ Gold • Стандартный'
+                },
+                {
+                    id: 'ibm_835w',
+                    name: 'IBM Блок питания 835 Вт',
+                    manufacturer: 'IBM',
+                    specs: '835 Вт • 80+ Platinum • Стандартный'
+                }
+            ]
+        };
+        
+        const categoryNames = {
+            servers: 'Сервер',
+            processors: 'Процессор',
+            memory: 'Память',
+            storage: 'Накопитель',
+            psu: 'Блок питания'
+        };
+        
+        let config = [];
+        let selectedServer = null;
+        
+        // Инициализация
+        function init() {
+            renderComponents('servers', components.servers);
+            renderComponents('processors', components.processors);
+            renderComponents('memory', components.memory);
+            renderComponents('storage', components.storage);
+            renderComponents('psu', components.psu);
+        }
+        
+        // Отрисовка компонентов
+        function renderComponents(category, items) {
+            const container = document.getElementById(category);
+            container.innerHTML = '';
+            
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'component-card';
+                card.id = `card-${item.id}`;
+                card.onclick = () => addComponent(category, item);
+                
+                card.innerHTML = `
+                    <div class="component-name">${item.name}</div>
+                    <div class="component-specs">${item.specs}</div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+        
+        // Добавить компонент
+        function addComponent(category, item) {
+            // Если это сервер
+            if (category === 'servers') {
+                config = config.filter(c => c.category !== 'servers');
+                selectedServer = item;
+                
+                document.getElementById('filterInfo').style.display = 'block';
+                document.getElementById('selectedServer').textContent = item.name;
+                
+                applyFilters();
+            }
+            
+            if (!config.find(c => c.id === item.id)) {
+                config.push({...item, category});
+                updateConfig();
+            }
+        }
+        
+        // Применить фильтры
+        function applyFilters() {
+            if (!selectedServer) return;
+            
+            // Фильтр процессоров
+            components.processors.forEach(cpu => {
+                const card = document.getElementById(`card-${cpu.id}`);
+                if (cpu.socket === selectedServer.socket) {
+                    card.classList.remove('disabled');
+                    const badge = card.querySelector('.incompatible-badge');
+                    if (badge) badge.remove();
+                } else {
+                    card.classList.add('disabled');
+                    if (!card.querySelector('.incompatible-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'incompatible-badge';
+                        badge.textContent = 'Несовместим';
+                        card.appendChild(badge);
+                    }
+                }
+            });
+            
+            // Фильтр памяти
+            components.memory.forEach(mem => {
+                const card = document.getElementById(`card-${mem.id}`);
+                if (mem.memory_type === selectedServer.memory_type) {
+                    card.classList.remove('disabled');
+                    const badge = card.querySelector('.incompatible-badge');
+                    if (badge) badge.remove();
+                } else {
+                    card.classList.add('disabled');
+                    if (!card.querySelector('.incompatible-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'incompatible-badge';
+                        badge.textContent = 'Несовместим';
+                        card.appendChild(badge);
+                    }
+                }
+            });
+            
+            // Фильтр БП
+            components.psu.forEach(psu => {
+                const card = document.getElementById(`card-${psu.id}`);
+                if (psu.manufacturer === selectedServer.manufacturer) {
+                    card.classList.remove('disabled');
+                    const badge = card.querySelector('.incompatible-badge');
+                    if (badge) badge.remove();
+                } else {
+                    card.classList.add('disabled');
+                    if (!card.querySelector('.incompatible-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'incompatible-badge';
+                        badge.textContent = 'Несовместим';
+                        card.appendChild(badge);
+                    }
+                }
+            });
+        }
+        
+        // Обновить конфигурацию
+        function updateConfig() {
+            const container = document.getElementById('configList');
+            
+            if (config.length === 0) {
+                container.innerHTML = '<div class="empty-config"><p>Выберите компоненты для создания конфигурации</p></div>';
+            } else {
+                container.innerHTML = config.map(item => `
+                    <div class="config-item">
+                        <div>
+                            <div class="config-item-name">${item.name}</div>
+                            <div class="config-item-category">${categoryNames[item.category]}</div>
+                        </div>
+                        <button class="remove-btn" onclick="removeComponent('${item.id}')">✕</button>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('componentCount').textContent = config.length;
+        }
+        
+        // Удалить компонент
+        function removeComponent(id) {
+            config = config.filter(c => c.id !== id);
+            
+            if (id === selectedServer?.id) {
+                selectedServer = null;
+                document.getElementById('filterInfo').style.display = 'none';
+                
+                document.querySelectorAll('.component-card').forEach(card => {
+                    card.classList.remove('disabled');
+                    const badge = card.querySelector('.incompatible-badge');
+                    if (badge) badge.remove();
+                });
+            }
+            
+            updateConfig();
+        }
+        
+        // Очистить конфигурацию
+        function clearConfig() {
+            if (config.length === 0) return;
+            
+            if (confirm('Очистить конфигурацию?')) {
+                config = [];
+                selectedServer = null;
+                document.getElementById('filterInfo').style.display = 'none';
+                
+                document.querySelectorAll('.component-card').forEach(card => {
+                    card.classList.remove('disabled', 'selected');
+                    const badge = card.querySelector('.incompatible-badge');
+                    if (badge) badge.remove();
+                });
+                
+                updateConfig();
+            }
+        }
+        
+        // Открыть форму заявки
+        function openRequestForm() {
+            if (config.length === 0) {
+                alert('Добавьте компоненты в конфигурацию перед оформлением заявки');
+                return;
+            }
+            
+            // Заполнить предпросмотр конфигурации
+            const modalList = document.getElementById('modalConfigList');
+            modalList.innerHTML = config.map(item => `
+                <div class="config-preview-item">
+                    ${categoryNames[item.category]}: ${item.name}
+                </div>
+            `).join('');
+            
+            document.getElementById('requestModal').classList.add('active');
+        }
+        
+        // Закрыть форму заявки
+        function closeRequestForm() {
+            document.getElementById('requestModal').classList.remove('active');
+            document.getElementById('requestForm').reset();
+        }
+        
+        // Отправить заявку
+        function submitRequest(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone'),
+                email: formData.get('email'),
+                comment: formData.get('comment'),
+                configuration: config.map(item => ({
+                    category: categoryNames[item.category],
+                    name: item.name
+                }))
+            };
+            
+            console.log('Отправка заявки:', data);
+            
+            // Здесь должна быть отправка на сервер
+            // fetch('/api/requests', { method: 'POST', body: JSON.stringify(data) })
+            
+            alert(`Спасибо, ${data.name}!\n\nВаша заявка принята.\nМенеджер свяжется с вами по телефону ${data.phone} в ближайшее время.`);
+            
+            closeRequestForm();
+            clearConfig();
+        }
+        
+        // Закрытие модалки по клику вне её
+        document.getElementById('requestModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRequestForm();
+            }
+        });
+        
+        // Запуск
+        init();
+    </script>
+</body>
+</html>

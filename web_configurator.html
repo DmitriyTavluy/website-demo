@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор серверов и систем хранения</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+        
+        /* MAIN HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            display: block;
+            padding-top: 5px;
+            text-transform: uppercase;
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+            height: 36px;
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .products-link .nav-icon {
+            fill: rgb(61, 243, 187);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content {
+            transition: opacity 0.2s ease;
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        
+        .consultation-btn {
+            background: rgba(61, 243, 187, 0.1);
+            color: white;
+            border: none;
+            height: 36px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            background: rgba(61, 243, 187, 0.15);
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-link.active {
+            color: rgb(61, 243, 187);
+        }
+        
+        /* HERO SECTION */
+        .hero-section {
+            background: radial-gradient(ellipse at center, #2a3f5f 0%, #1c2a3c 70%, #0C1E2B 100%);
+            color: white;
+            padding: 100px 30px 55px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 14px;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+            color: #1FE2B2;
+            background: none;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            color: white;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-section .sub {
+            font-size: 20px;
+            opacity: 0.85;
+            line-height: 1.6;
+            max-width: 780px;
+            margin: 0 auto 36px;
+            color: white;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .cta {
+            background: linear-gradient(90deg, #1FE2B2, #5FD0FF);
+            color: #0C1C27;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(61, 243, 187, 0.3);
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(61, 243, 187, 0.4);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(255,255,255,0.4);
+            background: transparent;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            padding: 0 0 60px 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        /* MAIN CONTENT SECTION */
+        .page-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            color: #1c2a3c;
+            margin-bottom: 14px;
+            font-weight: 700;
+        }
+        
+        .page-subtitle {
+            font-size: 19px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+        
+        /* CATEGORIES GRID */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(240px, 0.9fr));
+            gap: 18px;
+            margin-top: 32px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .category-card {
+            background: #FCFEFE;
+            border: 1px solid #E9EFEF;
+            border-radius: 16px;
+            padding: 32px 20px;
+            min-height: 280px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-color: rgba(31, 226, 178, 0.5);
+        }
+        
+        .category-card:focus-visible {
+            outline: 2px solid rgb(61, 243, 187);
+            outline-offset: 2px;
+        }
+        
+        .category-icon {
+            width: 112px;
+            height: 112px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(51, 214, 161, 0.06);
+            border-radius: 50%;
+        }
+        
+        .category-icon svg {
+            width: 60%;
+            height: 60%;
+            fill: rgb(61, 243, 187);
+        }
+        
+        .category-card h3 {
+            margin: 0;
+            font-size: 19px;
+            color: #1c2a3c;
+            font-weight: 600;
+        }
+        
+        .category-card p {
+            margin: 0 0 10px;
+            color: #a9c1d2;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .category-card .cta {
+            margin-top: auto;
+            padding: 8px 24px;
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: auto;
+        }
+        
+        .category-card .cta:hover {
+            background: rgb(45, 220, 170);
+        }
+        
+        /* SEPARATOR */
+        .separator {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin: 40px 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-primary {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary:hover {
+            background: rgba(61, 243, 187, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.3);
+        }
+
+        /* STEPPER (BREADCRUMB) */
+        .breadcrumb {
+            display: inline-flex;
+            gap: 24px;
+            padding: 8px 24px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            align-items: center;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .breadcrumb > span {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        
+        .breadcrumb-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        
+        .breadcrumb-step span {
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        /* Текущий шаг */
+        .breadcrumb-step.active span {
+            color: #0a1823;
+            font-weight: 700;
+        }
+        
+        /* Пройденный шаг */
+        .breadcrumb-step.done span {
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+        }
+        
+        /* Следующий шаг */
+        .breadcrumb-step.disabled {
+            pointer-events: none;
+        }
+        
+        .breadcrumb-step.disabled span {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .breadcrumb-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+        
+        /* Текущий шаг - прозрачный с зелёным контуром */
+        .breadcrumb-step.active .breadcrumb-number {
+            border: 2px solid #1fe2b2;
+            color: #1fe2b2;
+            background: transparent;
+            box-shadow: 0 0 8px rgba(31, 226, 178, 0.2);
+        }
+        
+        /* Пройденный шаг - зелёный круг с белой цифрой */
+        .breadcrumb-step.done .breadcrumb-number {
+            background: #1fe2b2;
+            color: #fff;
+            border: none;
+        }
+        
+        /* Следующий шаг - серый контур */
+        .breadcrumb-step.disabled .breadcrumb-number {
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            color: rgba(0, 0, 0, 0.4);
+            background: transparent;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 20px 50px;
+            }
+            
+            .hero-section h1 {
+                font-size: 36px;
+            }
+            
+            .hero-section .sub {
+                font-size: 16px;
+                margin-bottom: 28px;
+            }
+            
+            .eyebrow {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
+            .cta-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .cta, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .header-container {
+                padding: 12px 15px;
+            }
+            
+            .main-nav {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+            
+            .breadcrumb {
+                padding: 6px 16px;
+                gap: 16px;
+            }
+            
+            .breadcrumb-step span {
+                font-size: 0.85em;
+            }
+            
+            .breadcrumb-number {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .page-title {
+                font-size: 26px;
+            }
+            
+            .page-subtitle {
+                font-size: 16px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .category-card {
+                padding: 14px;
+            }
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 10;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-center {
+            text-align: center;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .footer-rating {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* CONSULTATION BUTTON STYLES */
+        
+        /* CONSULTATION POPUP STYLES */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: popupSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #1c2a3c 0%, #2a3f5f 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .consultation-form {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-submit {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            border: 2px solid rgb(61, 243, 187);
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(135deg, rgb(45, 220, 170) 0%, rgb(35, 200, 150) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.4);
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #333;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-label:hover .checkmark {
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .checkbox-label input:checked ~ .checkmark {
+            background-color: rgb(61, 243, 187);
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid #1c2a3c;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-label input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .btn-submit:disabled {
+            background: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .popup-content {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link active" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+                <button class="consultation-btn" onclick="openConsultationPopup()">Консультация</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <span class="eyebrow">Конфигуратор оборудования</span>
+            <h1>Соберите требования — мы соберем решение</h1>
+        </div>
+    </section>
+
+    <!-- STEPPER -->
+    <div id="step1" style="position: sticky; top: 72px; z-index: 500; display: flex; justify-content: center; padding: 16px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div class="breadcrumb">
+            <div class="breadcrumb-step active">
+                <span class="breadcrumb-number">1</span>
+                <span>Выбор платформы</span>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step disabled">
+                <span class="breadcrumb-number">2</span>
+                <span>Выбор производителя</span>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step disabled">
+                <span class="breadcrumb-number">3</span>
+                <span>Выбор компонентов</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            
+            <div id="configurator" class="categories-grid">
+                <div class="category-card" onclick="selectCategory('servers')" tabindex="0">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 1h16c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V3c0-1.1.9-2 2-2zm0 2v6h16V3H4zm0 10h16c1.1 0 2 .9 2 2v6c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2v-6c0-1.1.9-2 2-2zm0 2v6h16v-6H4z"/>
+                            <rect x="6" y="5" width="2" height="2" rx=".5"/>
+                            <rect x="9" y="5" width="2" height="2" rx=".5"/>
+                            <rect x="6" y="15" width="2" height="2" rx=".5"/>
+                            <rect x="9" y="15" width="2" height="2" rx=".5"/>
+                        </svg>
+                    </div>
+                    <h3>Сервер</h3>
+                    <p></p>
+                </div>
+                
+                <div class="category-card" onclick="selectCategory('storage')" tabindex="0">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h12v2H6v-2zm0 4h8v2H6v-2z"/>
+                            <circle cx="18" cy="16" r="1.5"/>
+                        </svg>
+                    </div>
+                    <h3>Система Хранения Данных</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Category selection
+        function selectCategory(category) {
+            console.log('Selected category:', category);
+            // Save selected category to localStorage
+            localStorage.setItem('selectedCategory', category);
+            // Redirect to generations page (which will show brands)
+            window.location.href = 'web_configurator_brands.html?category=' + category;
+        }
+
+        // Smooth scroll for CTA button
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-text">
+                    ООО "БАСИ-плюс"<br>
+                    УНП 191762563
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-text">
+                    г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                    БЦ "CASPIAN PLAZA"
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-text">
+                    +375 (29) 391-90-44<br>
+                    sales@beltrader.by
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DROPDOWN FUNCTIONS
+        let dropdownTimeout;
+        
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    dropdownTimeout = setTimeout(() => {
+                        const content = this.querySelector('.dropdown-content');
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 300);
+                });
+            });
+        });
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // WAIT FOR DOM TO LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            // CLOSE POPUP ON OVERLAY CLICK
+            const popup = document.getElementById('consultationPopup');
+            if (popup) {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeConsultationPopup();
+                    }
+                });
+            }
+            
+            // FORM SUBMISSION
+            const form = document.getElementById('consultationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    
+                    // DISABLE SUBMIT BUTTON
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Отправка...';
+                    
+                    // SIMULATE FORM SUBMISSION (REPLACE WITH ACTUAL ENDPOINT)
+                    setTimeout(() => {
+                        // SUCCESS MESSAGE
+                        alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+                        
+                        // RESET FORM
+                        this.reset();
+                        closeConsultationPopup();
+                        
+                        // RESTORE BUTTON
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        
+                        // HERE YOU CAN ADD ACTUAL FORM SUBMISSION LOGIC
+                        // Example: fetch('/api/consultation', { method: 'POST', body: formData })
+                    }, 1500);
+                });
+            }
+        });
+        
+        // CLOSE POPUP ON ESC KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeConsultationPopup();
+            }
+        });
+    </script>
+
+    <!-- CONSULTATION POPUP -->
+    <div id="consultationPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Заявка на консультацию</h3>
+                <button class="popup-close" onclick="closeConsultationPopup()">&times;</button>
+            </div>
+            <form id="consultationForm" class="consultation-form">
+                <div class="form-group">
+                    <label for="consultationName">Имя *</label>
+                    <input type="text" id="consultationName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationPhone">Телефон *</label>
+                    <input type="tel" id="consultationPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationEmail">Email</label>
+                    <input type="email" id="consultationEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="consultationCompany">Компания</label>
+                    <input type="text" id="consultationCompany" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="consultationMessage">Сообщение</label>
+                    <textarea id="consultationMessage" name="message" rows="4" placeholder="Опишите ваши потребности или вопросы..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consentCheckbox" name="consent" required>
+                        <span class="checkmark"></span>
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

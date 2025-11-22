@@ -1,0 +1,3846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор серверов и систем хранения - Выбор компонентов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+        
+        /* MAIN HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 1.3em;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            display: block;
+            padding-top: 5px;
+            text-transform: uppercase;
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-link.active {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        .nav-link.configurator {
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(61, 243, 187, 0.3);
+            border: 1px solid rgb(61, 243, 187);
+        }
+        
+        .nav-link.configurator:hover {
+            background: linear-gradient(135deg, rgb(45, 220, 170) 0%, rgb(35, 200, 150) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.4);
+        }
+        
+        /* DROPDOWN MENU STYLES */
+        .products-link .nav-icon {
+            fill: rgb(61, 243, 187);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        .nav-link.products-link.active {
+            color: rgb(61, 243, 187) !important;
+            background: transparent !important;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* REMOVE CONTAINER STYLES FOR BACKGROUND LAYOUT */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 30px;
+        }
+        
+        
+        .server-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .server-info h2 {
+            color: white;
+            margin: 0 0 10px 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        
+        .server-specs {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            line-height: 1.4;
+        }
+        
+        .quick-navigation {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 30px;
+        }
+        
+        .main-layout {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 30px;
+        }
+        
+        .page-header {
+            background: #f8f9fa;
+            color: rgb(45, 45, 45);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        /* HERO SECTION */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Files/bg_cofig.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 140px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin: 0 0 20px 0;
+            color: white;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            margin: 0 0 30px 0;
+            color: white;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        
+        /* STEPPER (BREADCRUMB) */
+        .breadcrumb {
+            display: flex;
+            gap: 10px;
+            position: sticky;
+            top: 72px;
+            z-index: 500;
+            padding: 16px 30px;
+            background: white;
+            border-bottom: 1px solid rgba(61, 243, 187, 0.2);
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .breadcrumb span {
+            margin: 0 5px;
+            color: rgba(169, 193, 210, 0.5);
+        }
+        
+        .breadcrumb-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: transparent;
+            transition: all 0.2s ease;
+        }
+        
+        .breadcrumb-step.active {
+            background: rgba(31, 226, 178, 0.10);
+            border-color: #1fe2b2;
+        }
+        
+        .breadcrumb-step.done {
+            opacity: 0.8;
+            background: rgba(108, 117, 125, 0.1);
+        }
+        
+        .breadcrumb-step.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        
+        .breadcrumb-step span {
+            color: #666;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        .breadcrumb-step.active span {
+            color: #1c2a3c;
+            font-weight: 600;
+        }
+        
+        .breadcrumb-step a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-step.done a:hover {
+            color: #495057;
+            text-decoration: underline;
+        }
+        
+        .breadcrumb-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #e9ecef;
+            color: #6c757d;
+            border-radius: 50%;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .breadcrumb-step.active .breadcrumb-number {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        .breadcrumb-step.done .breadcrumb-number {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .breadcrumb-step.disabled .breadcrumb-number {
+            background: #e9ecef;
+            color: #adb5bd;
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(45, 45, 45);
+            padding: 40px 60px;
+            text-align: center;
+            border-bottom: 1px solid rgba(61, 243, 187, 0.1);
+        }
+        
+        .page-header h1 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        
+        .page-header-subtitle {
+            font-size: 1.1em;
+            margin: 0;
+            opacity: 0.95;
+        }
+        
+        .back-link {
+            color: rgb(61, 243, 187);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .category-nav-link {
+            color: rgb(61, 243, 187);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .category-nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .category-nav-link.active {
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c !important;
+            border-color: rgba(61, 243, 187, 0.5);
+        }
+        
+        .quick-navigation {
+            background: transparent;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .quick-nav-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .quick-nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .quick-nav-label {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgb(61, 243, 187);
+            padding-bottom: 10px;
+        }
+        
+        .quick-nav-link {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            color: #1c2a3c;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+        
+        .quick-nav-link:hover {
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .quick-nav-link:active {
+            transform: translateY(0);
+        }
+        
+        .quick-nav-link.active {
+            border-color: rgba(61, 243, 187, 0.5);
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c;
+        }
+        
+        
+        .server-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+        
+        .server-specs {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+        
+        .main-layout {
+            display: block;
+            min-height: 800px;
+            width: 100%;
+        }
+        
+        @media (max-width: 1400px) {
+            .main-layout {
+                grid-template-columns: 1fr 320px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* HERO SECTION MOBILE */
+            .hero-section {
+                padding: 100px 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.2em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1em;
+            }
+            
+            
+            .page-header {
+                padding: 25px 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6em;
+            }
+            
+            .page-header-subtitle {
+                font-size: 0.95em;
+            }
+            
+            .breadcrumb {
+                width: 100%;
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+                margin: 20px auto 0 auto;
+            }
+            
+            .breadcrumb-step {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+        
+        .components-area {
+            overflow-y: auto;
+            max-height: calc(100vh - 100px);
+            display: block;
+            visibility: visible;
+            opacity: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        
+        /* CONFIGURATION WIDGET */
+        .config-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            width: 350px;
+            transition: all 0.3s ease;
+        }
+        
+        .config-widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: #1c2a3c;
+            border-radius: 7px 7px 0 0;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .config-widget-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .config-widget-toggle {
+            font-size: 14px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .config-widget.collapsed .config-widget-toggle {
+            transform: rotate(-90deg);
+        }
+        
+        .config-widget-content {
+            padding: 10px 12px;
+            max-height: 350px;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
+        }
+        
+        .config-widget.collapsed .config-widget-content {
+            max-height: 0;
+            padding: 0 15px;
+            overflow: hidden;
+        }
+        
+        .config-widget-server {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 1px solid rgb(61, 243, 187);
+        }
+        
+        .config-server-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .config-server-details {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .config-widget-items {
+            margin-bottom: 15px;
+        }
+        
+        .config-widget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fafafa;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+        
+        .config-widget-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .config-widget-item-info {
+            flex: 1;
+        }
+        
+        .config-widget-item-name {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .config-widget-item-category {
+            font-size: 12px;
+            color: #666;
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .config-widget-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .config-widget-quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .config-widget-quantity-btn {
+            background: #e9ecef;
+            color: #495057;
+            border: none;
+            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .config-widget-quantity-btn:hover {
+            background: #dee2e6;
+        }
+        
+        .config-widget-quantity-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .config-widget-quantity-display {
+            background: #e9ecef;
+            color: #495057;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .config-widget-empty {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 20px;
+        }
+        
+        .config-widget-actions {
+            border-top: 1px solid #e0e0e0;
+            padding-top: 10px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .config-widget-btn {
+            flex: 1;
+            background: rgb(61, 243, 187);
+            color: #333;
+            border: none;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .config-widget-btn:hover {
+            background: rgb(45, 220, 170);
+        }
+        
+        .config-widget-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .component-category {
+            margin-bottom: 35px;
+            display: block;
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .filters-panel {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .filters-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 180px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #2d2d2d;
+            font-size: 0.9em;
+        }
+        
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            background: white;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-select:hover {
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 0 0 3px rgba(61, 243, 187, 0.1);
+        }
+        
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .btn-apply-filters {
+            padding: 10px 12px;
+            border: none;
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        .btn-apply-filters:hover {
+            background: rgba(61, 243, 187, 0.5);
+            color: #1c2a3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.4);
+        }
+        
+        .btn-reset-filters {
+            padding: 10px 12px;
+            border: 1px solid #e0e0e0;
+            background: #f8f9fa;
+            color: #333;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .btn-reset-filters:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+        
+        .btn-reset-filters:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgb(61, 243, 187);
+        }
+        
+        .category-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d2d2d;
+        }
+        
+        .category-count {
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        
+        .component-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .component-card:hover {
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .component-card.selected {
+            border-color: rgb(61, 243, 187);
+            background: rgba(61, 243, 187, 0.1);
+        }
+        
+        .component-name {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .quantity-badge {
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .component-specs {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .component-spec-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 4px 0;
+        }
+        
+        .spec-label {
+            color: #999;
+        }
+        
+        .spec-value {
+            font-weight: 600;
+            color: #2d2d2d;
+        }
+        
+        .component-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        
+        .btn-add {
+            background: rgba(61, 243, 187, 0.3);
+            color: #333;
+            font-size: 1.2em;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+        
+        .btn-add:hover {
+            background: rgba(61, 243, 187, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .btn-remove {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+        
+        .btn-remove {
+            background: transparent;
+            color: #2d2d2d;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-remove:hover {
+            background: #f5f5f5;
+            color: #2d2d2d;
+            border-color: #999;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .btn-decrease, .btn-increase {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            color: #666;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-decrease:hover, .btn-increase:hover {
+            background: #e9ecef;
+            color: #2d2d2d;
+            border-color: #999;
+        }
+        
+        .quantity-display {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #2d2d2d;
+            font-size: 14px;
+        }
+        
+        .btn-add:hover {
+            background: rgb(45, 220, 170);
+            transform: translateY(-2px);
+        }
+        
+        .btn-remove {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-remove:hover {
+            background: #c82333;
+        }
+        
+        .btn-quantity {
+            background: #f8f9fa;
+            color: #2d2d2d;
+            border: 2px solid #e0e0e0;
+            padding: 6px 12px;
+            min-width: 40px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        
+        .config-panel-header {
+            margin-bottom: 20px;
+        }
+        
+        .config-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d2d2d;
+            margin-bottom: 15px;
+        }
+        
+        .config-summary {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: rgb(61, 243, 187);
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 1px solid rgb(61, 243, 187);
+        }
+        
+        .config-items {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .config-category {
+            margin-bottom: 10px;
+        }
+        
+        .separator-line {
+            height: 1px;
+            background: rgba(61, 243, 187, 0.3);
+            margin: 8px 0;
+        }
+        
+        
+        .config-category-title {
+            font-weight: bold;
+            color: #2d2d2d;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .config-item {
+            background: white;
+            padding: 6px 8px;
+            border-radius: 6px;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .config-item-info {
+            flex: 1;
+        }
+        
+        .config-item-name {
+            font-weight: 600;
+            color: #2d2d2d;
+            margin-bottom: 0;
+            font-size: 0.8em;
+        }
+        
+        .config-item-details {
+            font-size: 0.7em;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .config-item-remove {
+            background: transparent;
+            color: #2d2d2d;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+            min-width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .config-item-remove:hover {
+            background: #f5f5f5;
+            color: #2d2d2d;
+            border-color: #999;
+        }
+        
+        .empty-config {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .submit-section {
+            background: white;
+            padding: 0;
+            border-radius: 10px;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            background: rgba(61, 243, 187, 0.3);
+            color: #1c2a3c;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-submit:hover {
+            background: #2c5aa0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.4);
+        }
+        
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .configuration-panel {
+                border-left: none;
+                border-top: 2px solid #e0e0e0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 15px;
+            }
+            
+            .logo {
+                font-size: 1.2em;
+            }
+            
+            .main-nav {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.85em;
+            }
+            
+            .container {
+                padding: 10px;
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .page-header {
+                padding: 20px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5em;
+            }
+            
+            .components-area {
+                padding: 15px;
+            }
+            
+            .configuration-panel {
+                padding: 15px;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-navigation {
+                padding: 15px 0;
+            }
+            
+            .quick-nav-container {
+                padding: 0 15px;
+            }
+            
+            .quick-nav-cards {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .quick-nav-link {
+                padding: 15px;
+                font-size: 0.9em;
+                min-height: 50px;
+            }
+            
+            .filters-panel {
+                padding: 12px;
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .component-card {
+                padding: 12px;
+            }
+            
+            .component-name {
+                font-size: 1em;
+            }
+            
+            .component-specs {
+                font-size: 0.8em;
+            }
+            
+            .btn-add {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+        }
+        
+        /* CONTACTS MODAL */
+        .contacts-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .contacts-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .contacts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgb(61, 243, 187);
+            padding-bottom: 15px;
+        }
+        
+        .contacts-title {
+            color: rgb(45, 45, 45);
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .close-contacts {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        .close-contacts:hover {
+            color: rgb(45, 45, 45);
+        }
+        
+        .contacts-info {
+            line-height: 1.6;
+            color: rgb(45, 45, 45);
+        }
+        
+        .contacts-info h3 {
+            color: rgb(61, 243, 187);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .contacts-info p {
+            margin: 8px 0;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 10;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-center {
+            text-align: center;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .footer-rating {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* CONSULTATION BUTTON STYLES */
+        .consultation-btn {
+            background: rgba(61, 243, 187, 0.1);
+            color: white;
+            border: none;
+            height: 36px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            background: rgba(61, 243, 187, 0.15);
+            color: rgb(61, 243, 187);
+        }
+        
+        /* CONSULTATION POPUP STYLES */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: popupSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #1c2a3c 0%, #2a3f5f 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .consultation-form {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-submit {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            border: 1px solid rgb(61, 243, 187);
+            width: 100%;
+        }
+        
+        .btn-submit:hover {
+            background: linear-gradient(135deg, rgb(45, 220, 170) 0%, rgb(35, 200, 150) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 243, 187, 0.4);
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #333;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-label:hover .checkmark {
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .checkbox-label input:checked ~ .checkmark {
+            background-color: rgb(61, 243, 187);
+            border-color: rgb(61, 243, 187);
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 5px;
+            top: 2px;
+            width: 4px;
+            height: 8px;
+            border: solid #1c2a3c;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-label input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .btn-submit:disabled {
+            background: #ccc;
+            border-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        @media (max-width: 768px) {
+            .popup-content {
+                width: 95%;
+                margin: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn-submit {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER WITH NAVIGATION -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </div>
+            
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+                <button class="consultation-btn" onclick="openConsultationPopup()">Консультация</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">HPE ProLiant DL20 Gen10 Plus</h1>
+            <p class="hero-subtitle" id="heroSubtitle">1U Стоечный • 1 процессор • 4 слота памяти<br>DDR4 UDIMM • До 64 ГБ • 4 отсека 2.5"</p>
+        </div>
+    </div>
+    
+    <!-- Breadcrumb -->
+    <!-- STEPPER -->
+    <div class="breadcrumb" id="breadcrumbBar">
+        <div class="breadcrumb-step done">
+            <span class="breadcrumb-number">1</span>
+            <a href="web_configurator.html">Выбор платформы</a>
+        </div>
+        <span> → </span>
+        <div class="breadcrumb-step done">
+            <span class="breadcrumb-number">2</span>
+            <a href="web_configurator_brands.html">Выбор производителя</a>
+        </div>
+        <span> → </span>
+        <div class="breadcrumb-step done">
+            <span class="breadcrumb-number">3</span>
+            <a href="web_configurator_options.html">Выбор опций</a>
+        </div>
+        <span> → </span>
+        <div class="breadcrumb-step active">
+            <span class="breadcrumb-number">4</span>
+            <span id="selectedServerName">Выбор компонентов</span>
+        </div>
+    </div>
+        
+        
+        
+        <!-- Quick Navigation (for normal mode - switching categories) -->
+        <div class="quick-navigation" id="quickNavigation" style="display: block;">
+            <div class="quick-nav-container">
+                <span class="quick-nav-label">Перейти к</span>
+                <div class="quick-nav-cards">
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="processors" onclick="switchCategoryNormal('processors'); return false;">Процессоры</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="memory" onclick="switchCategoryNormal('memory'); return false;">Память</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="ssd" onclick="switchCategoryNormal('ssd'); return false;">SSD</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="nvme" onclick="switchCategoryNormal('nvme'); return false;">NVMe</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="hdd" onclick="switchCategoryNormal('hdd'); return false;">HDD</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="controllers" onclick="switchCategoryNormal('controllers'); return false;">Контроллеры</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="network" onclick="switchCategoryNormal('network'); return false;">Сеть</a>
+                    <a href="#" class="quick-nav-link normal-nav-link" data-category="power_supply" onclick="switchCategoryNormal('power_supply'); return false;">Питание</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Navigation (for standalone mode - switching) -->
+        <div class="quick-navigation" id="quickNavigationStandalone" style="display: none;">
+            <div class="quick-nav-container">
+                <span class="quick-nav-label">Перейти к</span>
+                <div class="quick-nav-cards">
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="processors" onclick="switchCategory('processors'); return false;">Процессоры</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="memory" onclick="switchCategory('memory'); return false;">Память</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="ssd" onclick="switchCategory('ssd'); return false;">SSD</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="nvme" onclick="switchCategory('nvme'); return false;">NVMe</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="hdd" onclick="switchCategory('hdd'); return false;">HDD</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="controllers" onclick="switchCategory('controllers'); return false;">Контроллеры</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="network" onclick="switchCategory('network'); return false;">Сеть</a>
+                    <a href="#" class="quick-nav-link standalone-nav-link" data-category="power_supply" onclick="switchCategory('power_supply'); return false;">Питание</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Components Area -->
+            <div class="components-area">
+                <!-- PROCESSORS -->
+                <div class="component-category" id="processors-section">
+                    <div class="category-header">
+                        <div class="category-title">Процессоры</div>
+                        <div class="category-count" id="processorCount">0 выбрано</div>
+                    </div>
+                    
+                    <!-- FILTERS -->
+                    <div class="filters-panel" id="processorsFilters">
+                        <div class="filters-container">
+                            <div class="filter-group">
+                                <label class="filter-label">Производитель:</label>
+                                <select class="filter-select" id="filter-processor-manufacturer">
+                                    <option value="">Все</option>
+                                    <option value="Intel">Intel</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Количество ядер:</label>
+                                <select class="filter-select" id="filter-processor-cores">
+                                    <option value="">Все</option>
+                                    <option value="4">4 ядра</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Частота:</label>
+                                <select class="filter-select" id="filter-processor-frequency">
+                                    <option value="">Все</option>
+                                    <option value="3.3 ГГц">3.3 ГГц</option>
+                                    <option value="3.5 ГГц">3.5 ГГц</option>
+                                    <option value="3.6 ГГц">3.6 ГГц</option>
+                                    <option value="3.8 ГГц">3.8 ГГц</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-actions">
+                                <button class="btn-apply-filters" onclick="applyFilters('processors')">Применить</button>
+                                <button class="btn-reset-filters" onclick="resetFilters('processors')">Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="components-grid" id="processorsGrid"></div>
+                </div>
+                
+                <!-- MEMORY -->
+                <div class="component-category" id="memory-section">
+                    <div class="category-header">
+                        <div class="category-title">Оперативная память</div>
+                        <div class="category-count" id="memoryCount">0 выбрано</div>
+                    </div>
+                    
+                    <!-- FILTERS -->
+                    <div class="filters-panel" id="memoryFilters">
+                        <div class="filters-container">
+                            <div class="filter-group">
+                                <label class="filter-label">Производитель:</label>
+                                <select class="filter-select" id="filter-memory-manufacturer">
+                                    <option value="">Все</option>
+                                    <option value="HPE">HPE</option>
+                                    <option value="Kingston">Kingston</option>
+                                    <option value="Crucial">Crucial</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Объем:</label>
+                                <select class="filter-select" id="filter-memory-capacity">
+                                    <option value="">Все</option>
+                                    <option value="8 ГБ">8 ГБ</option>
+                                    <option value="16 ГБ">16 ГБ</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Тип:</label>
+                                <select class="filter-select" id="filter-memory-type">
+                                    <option value="">Все</option>
+                                    <option value="DDR4">DDR4</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-actions">
+                                <button class="btn-apply-filters" onclick="applyFilters('memory')">Применить</button>
+                                <button class="btn-reset-filters" onclick="resetFilters('memory')">Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="components-grid" id="memoryGrid"></div>
+                </div>
+                
+                <!-- SOLID STATE DRIVES (SSD) -->
+                <div class="component-category" id="ssd-section">
+                    <div class="category-header">
+                        <div class="category-title">SSD диски (SATA)</div>
+                        <div class="category-count" id="ssdCount">0 выбрано</div>
+                    </div>
+                    
+                    <!-- FILTERS -->
+                    <div class="filters-panel" id="ssdFilters">
+                        <div class="filters-container">
+                            <div class="filter-group">
+                                <label class="filter-label">Производитель:</label>
+                                <select class="filter-select" id="filter-ssd-manufacturer">
+                                    <option value="">Все</option>
+                                    <option value="HPE">HPE</option>
+                                    <option value="Samsung">Samsung</option>
+                                    <option value="Intel">Intel</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Объем:</label>
+                                <select class="filter-select" id="filter-ssd-capacity">
+                                    <option value="">Все</option>
+                                    <option value="480 ГБ">480 ГБ</option>
+                                    <option value="960 ГБ">960 ГБ</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-actions">
+                                <button class="btn-apply-filters" onclick="applyFilters('ssd')">Применить</button>
+                                <button class="btn-reset-filters" onclick="resetFilters('ssd')">Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="components-grid" id="ssdGrid"></div>
+                </div>
+                
+                <!-- NVME -->
+                <div class="component-category" id="nvme-section">
+                    <div class="category-header">
+                        <div class="category-title">NVMe диски</div>
+                        <div class="category-count" id="nvmeCount">0 выбрано</div>
+                    </div>
+                    
+                    <!-- FILTERS -->
+                    <div class="filters-panel" id="nvmeFilters">
+                        <div class="filters-container">
+                            <div class="filter-group">
+                                <label class="filter-label">Производитель:</label>
+                                <select class="filter-select" id="filter-nvme-manufacturer">
+                                    <option value="">Все</option>
+                                    <option value="HPE">HPE</option>
+                                    <option value="Samsung">Samsung</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Объем:</label>
+                                <select class="filter-select" id="filter-nvme-capacity">
+                                    <option value="">Все</option>
+                                    <option value="800 ГБ">800 ГБ</option>
+                                    <option value="1 ТБ">1 ТБ</option>
+                                    <option value="1.6 ТБ">1.6 ТБ</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-actions">
+                                <button class="btn-apply-filters" onclick="applyFilters('nvme')">Применить</button>
+                                <button class="btn-reset-filters" onclick="resetFilters('nvme')">Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="components-grid" id="nvmeGrid"></div>
+                </div>
+                
+                <!-- SAS/SATA HDD -->
+                <div class="component-category" id="hdd-section">
+                    <div class="category-header">
+                        <div class="category-title">SAS/SATA HDD диски</div>
+                        <div class="category-count" id="hddCount">0 выбрано</div>
+                    </div>
+                    
+                    <!-- FILTERS -->
+                    <div class="filters-panel" id="hddFilters">
+                        <div class="filters-container">
+                            <div class="filter-group">
+                                <label class="filter-label">Производитель:</label>
+                                <select class="filter-select" id="filter-hdd-manufacturer">
+                                    <option value="">Все</option>
+                                    <option value="HPE">HPE</option>
+                                    <option value="Seagate">Seagate</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Объем:</label>
+                                <select class="filter-select" id="filter-hdd-capacity">
+                                    <option value="">Все</option>
+                                    <option value="300 ГБ">300 ГБ</option>
+                                    <option value="600 ГБ">600 ГБ</option>
+                                    <option value="1 ТБ">1 ТБ</option>
+                                    <option value="2 ТБ">2 ТБ</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Интерфейс:</label>
+                                <select class="filter-select" id="filter-hdd-interface">
+                                    <option value="">Все</option>
+                                    <option value="SAS 12Gb/s">SAS 12Gb/s</option>
+                                    <option value="SATA 6Gb/s">SATA 6Gb/s</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-actions">
+                                <button class="btn-apply-filters" onclick="applyFilters('hdd')">Применить</button>
+                                <button class="btn-reset-filters" onclick="resetFilters('hdd')">Сбросить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="components-grid" id="hddGrid"></div>
+                </div>
+                
+                <!-- U320 SCSI (LEGACY) -->
+                <div class="component-category" id="u320-section">
+                    <div class="category-header">
+                        <div class="category-title">U320 SCSI диски</div>
+                        <div class="category-count" id="u320Count">0 выбрано</div>
+                    </div>
+                    <div class="components-grid" id="u320Grid"></div>
+                </div>
+                
+                <!-- POWER SUPPLY -->
+                <div class="component-category" id="power-section">
+                    <div class="category-header">
+                        <div class="category-title">Блоки питания</div>
+                        <div class="category-count" id="powerSupplyCount">0 выбрано</div>
+                    </div>
+                    <div class="components-grid" id="powerSupplyGrid"></div>
+                </div>
+                
+                <!-- CONTROLLERS -->
+                <div class="component-category" id="controllers-section">
+                    <div class="category-header">
+                        <div class="category-title">Контроллеры</div>
+                        <div class="category-count" id="controllerCount">0 выбрано</div>
+                    </div>
+                    <div class="components-grid" id="controllersGrid"></div>
+                </div>
+                
+                <!-- NETWORK CARDS -->
+                <div class="component-category" id="network-section">
+                    <div class="category-header">
+                        <div class="category-title">Сетевые карты</div>
+                        <div class="category-count" id="networkCount">0 выбрано</div>
+                    </div>
+                    <div class="components-grid" id="networkGrid"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- CONFIGURATION WIDGET -->
+    <div class="config-widget" id="configWidget">
+        <div class="config-widget-header" onclick="toggleConfigWidget()">
+            <div class="config-widget-title">Текущая конфигурация</div>
+            <div class="config-widget-toggle" id="configWidgetToggle">▼</div>
+        </div>
+        <div class="config-widget-content" id="configWidgetContent">
+            <div class="config-widget-server" id="configWidgetServer">
+                <div class="config-server-name" id="configServerName">HPE ProLiant DL20 Gen10 Plus</div>
+                <div class="config-server-details">Категория: Серверы | HPE</div>
+            </div>
+            <div class="config-widget-items" id="configWidgetItems">
+                <div class="config-widget-empty">
+                    Добавьте компоненты для завершения конфигурации
+                </div>
+            </div>
+            <div class="config-widget-actions">
+                <button class="config-widget-btn" id="configWidgetSubmit" onclick="submitConfiguration()">
+                    Отправить заявку
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // DROPDOWN FUNCTIONALITY
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            let dropdownTimeout;
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            // Check if current page is configurator related
+            const currentPath = window.location.pathname;
+            const currentHref = window.location.href;
+            const isConfiguratorPage = currentPath.includes('web_configurator') || 
+                                     currentPath.includes('web_configurator_generations') || 
+                                     currentPath.includes('web_configurator_components') ||
+                                     currentHref.includes('web_configurator_components');
+            
+            console.log('Current path:', currentPath);
+            console.log('Current href:', currentHref);
+            console.log('Is configurator page:', isConfiguratorPage);
+            
+            if (isConfiguratorPage) {
+                const productsLink = document.querySelector('.products-link');
+                console.log('Products link found:', productsLink);
+                if (productsLink) {
+                    productsLink.classList.add('active');
+                    console.log('Active class added to products link');
+                }
+            }
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    const dropdown = this;
+                    dropdownTimeout = setTimeout(() => {
+                        const content = dropdown.querySelector('.dropdown-content');
+                        const arrow = dropdown.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 800); // 800ms delay before hiding
+                });
+                
+                // Prevent dropdown from closing when hovering over dropdown content
+                const content = dropdown.querySelector('.dropdown-content');
+                if (content) {
+                    content.addEventListener('mouseenter', function() {
+                        clearTimeout(dropdownTimeout);
+                    });
+                    
+                    content.addEventListener('mouseleave', function() {
+                        dropdownTimeout = setTimeout(() => {
+                            const content = dropdown.querySelector('.dropdown-content');
+                            const arrow = dropdown.querySelector('.dropdown-arrow');
+                            content.style.display = 'none';
+                            arrow.style.transform = 'rotate(0deg)';
+                        }, 500);
+                    });
+                }
+            });
+        });
+        
+        // DATABASE OF COMPONENTS
+        const componentsDatabase = {
+            processors: [
+                {
+                    id: "intel_xeon_e2124",
+                    name: "Intel Xeon E-2124",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Частота": "3.3 ГГц",
+                        "Ядер": "4",
+                        "Потоков": "4",
+                        "Сокет": "LGA 1151",
+                        "TDP": "71 Вт"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Четырехядерный процессор начального уровня"
+                },
+                {
+                    id: "intel_xeon_e2134",
+                    name: "Intel Xeon E-2134",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Частота": "3.5 ГГц",
+                        "Ядер": "4",
+                        "Потоков": "8",
+                        "Сокет": "LGA 1151",
+                        "TDP": "71 Вт"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Процессор с Hyper-Threading"
+                },
+                {
+                    id: "intel_xeon_e2144g",
+                    name: "Intel Xeon E-2144G",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Частота": "3.6 ГГц",
+                        "Ядер": "4",
+                        "Потоков": "8",
+                        "Сокет": "LGA 1151",
+                        "TDP": "71 Вт"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Процессор с интегрированной графикой"
+                },
+                {
+                    id: "intel_xeon_e2174g",
+                    name: "Intel Xeon E-2174G",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Частота": "3.8 ГГц",
+                        "Ядер": "4",
+                        "Потоков": "8",
+                        "Сокет": "LGA 1151",
+                        "TDP": "71 Вт"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Высокопроизводительный процессор"
+                }
+            ],
+            memory: [
+                {
+                    id: "hpe_8gb_ddr4_2666",
+                    name: "HPE 8 ГБ DDR4-2666 UDIMM",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "8 ГБ",
+                        "Тип": "DDR4",
+                        "Частота": "2666 МГц",
+                        "Форм-фактор": "UDIMM"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Стандартный модуль памяти"
+                },
+                {
+                    id: "hpe_16gb_ddr4_2666",
+                    name: "HPE 16 ГБ DDR4-2666 UDIMM",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "16 ГБ",
+                        "Тип": "DDR4",
+                        "Частота": "2666 МГц",
+                        "Форм-фактор": "UDIMM"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Модуль повышенной емкости"
+                },
+                {
+                    id: "kingston_8gb_ddr4_2666",
+                    name: "Kingston 8 ГБ DDR4-2666 UDIMM",
+                    manufacturer: "Kingston",
+                    specs: {
+                        "Объем": "8 ГБ",
+                        "Тип": "DDR4",
+                        "Частота": "2666 МГц",
+                        "Форм-фактор": "UDIMM"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Совместимый модуль памяти"
+                },
+                {
+                    id: "crucial_16gb_ddr4_2666",
+                    name: "Crucial 16 ГБ DDR4-2666 UDIMM",
+                    manufacturer: "Crucial",
+                    specs: {
+                        "Объем": "16 ГБ",
+                        "Тип": "DDR4",
+                        "Частота": "2666 МГц",
+                        "Форм-фактор": "UDIMM"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Надежный модуль памяти"
+                }
+            ],
+            ssd: [
+                {
+                    id: "hpe_480gb_ssd_sata",
+                    name: "HPE 480 ГБ SATA SSD",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "480 ГБ",
+                        "Интерфейс": "SATA",
+                        "Форм-фактор": "2.5\"",
+                        "Чтение": "560 МБ/с",
+                        "Запись": "510 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Твердотельный накопитель SATA"
+                },
+                {
+                    id: "hpe_960gb_ssd_sata",
+                    name: "HPE 960 ГБ SATA SSD",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "960 ГБ",
+                        "Интерфейс": "SATA",
+                        "Форм-фактор": "2.5\"",
+                        "Чтение": "560 МБ/с",
+                        "Запись": "530 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Емкий твердотельный накопитель SATA"
+                },
+                {
+                    id: "samsung_480gb_ssd",
+                    name: "Samsung 480 ГБ SATA SSD",
+                    manufacturer: "Samsung",
+                    specs: {
+                        "Объем": "480 ГБ",
+                        "Интерфейс": "SATA",
+                        "Форм-фактор": "2.5\"",
+                        "Чтение": "550 МБ/с",
+                        "Запись": "520 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Надежный SSD Samsung"
+                },
+                {
+                    id: "intel_960gb_ssd",
+                    name: "Intel 960 ГБ SATA SSD",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Объем": "960 ГБ",
+                        "Интерфейс": "SATA",
+                        "Форм-фактор": "2.5\"",
+                        "Чтение": "540 МБ/с",
+                        "Запись": "490 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Корпоративный SSD Intel"
+                }
+            ],
+            nvme: [
+                {
+                    id: "hpe_800gb_nvme",
+                    name: "HPE 800 ГБ NVMe",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "800 ГБ",
+                        "Интерфейс": "NVMe PCIe 3.0",
+                        "Форм-фактор": "M.2",
+                        "Чтение": "3200 МБ/с",
+                        "Запись": "1800 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 2,
+                    description: "Сверхбыстрый NVMe накопитель"
+                },
+                {
+                    id: "hpe_1.6tb_nvme",
+                    name: "HPE 1.6 ТБ NVMe",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "1.6 ТБ",
+                        "Интерфейс": "NVMe PCIe 3.0",
+                        "Форм-фактор": "M.2",
+                        "Чтение": "3500 МБ/с",
+                        "Запись": "2100 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 2,
+                    description: "Емкий NVMe накопитель"
+                },
+                {
+                    id: "samsung_970_pro_1tb",
+                    name: "Samsung 970 PRO 1 ТБ NVMe",
+                    manufacturer: "Samsung",
+                    specs: {
+                        "Объем": "1 ТБ",
+                        "Интерфейс": "NVMe PCIe 3.0",
+                        "Форм-фактор": "M.2",
+                        "Чтение": "3500 МБ/с",
+                        "Запись": "2700 МБ/с"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 2,
+                    description: "Высокопроизводительный NVMe"
+                }
+            ],
+            hdd: [
+                {
+                    id: "hpe_300gb_sas",
+                    name: "HPE 300 ГБ SAS 10K",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "300 ГБ",
+                        "Интерфейс": "SAS 12Gb/s",
+                        "Скорость": "10000 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Быстрый жесткий диск SAS"
+                },
+                {
+                    id: "hpe_600gb_sas",
+                    name: "HPE 600 ГБ SAS 10K",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "600 ГБ",
+                        "Интерфейс": "SAS 12Gb/s",
+                        "Скорость": "10000 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Емкий жесткий диск SAS"
+                },
+                {
+                    id: "hpe_1tb_sata_7.2k",
+                    name: "HPE 1 ТБ SATA 7.2K",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "1 ТБ",
+                        "Интерфейс": "SATA 6Gb/s",
+                        "Скорость": "7200 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Емкий SATA диск"
+                },
+                {
+                    id: "hpe_2tb_sata_7.2k",
+                    name: "HPE 2 ТБ SATA 7.2K",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Объем": "2 ТБ",
+                        "Интерфейс": "SATA 6Gb/s",
+                        "Скорость": "7200 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Большой емкий SATA диск"
+                },
+                {
+                    id: "seagate_1tb_sas",
+                    name: "Seagate 1 ТБ SAS 7.2K",
+                    manufacturer: "Seagate",
+                    specs: {
+                        "Объем": "1 ТБ",
+                        "Интерфейс": "SAS 12Gb/s",
+                        "Скорость": "7200 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 4,
+                    description: "Надежный SAS диск Seagate"
+                }
+            ],
+            u320: [
+                {
+                    id: "hp_72gb_u320",
+                    name: "HP 72 ГБ U320 SCSI 10K",
+                    manufacturer: "HP",
+                    specs: {
+                        "Объем": "72 ГБ",
+                        "Интерфейс": "U320 SCSI",
+                        "Скорость": "10000 об/мин",
+                        "Форм-фактор": "2.5\""
+                    },
+                    compatibleWith: [],
+                    maxQuantity: 8,
+                    description: "Устаревший SCSI диск (для старых серверов)"
+                },
+                {
+                    id: "hp_146gb_u320",
+                    name: "HP 146 ГБ U320 SCSI 10K",
+                    manufacturer: "HP",
+                    specs: {
+                        "Объем": "146 ГБ",
+                        "Интерфейс": "U320 SCSI",
+                        "Скорость": "10000 об/мин",
+                        "Форм-фактор": "3.5\""
+                    },
+                    compatibleWith: [],
+                    maxQuantity: 8,
+                    description: "Устаревший SCSI диск (для старых серверов)"
+                }
+            ],
+            powerSupply: [
+                {
+                    id: "hpe_290w_psu",
+                    name: "HPE 290 Вт блок питания",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Мощность": "290 Вт",
+                        "КПД": "80+ Platinum",
+                        "Напряжение": "100-240V"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 2,
+                    description: "Стандартный блок питания"
+                },
+                {
+                    id: "hpe_500w_psu",
+                    name: "HPE 500 Вт блок питания",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Мощность": "500 Вт",
+                        "КПД": "80+ Platinum",
+                        "Напряжение": "100-240V"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    maxQuantity: 2,
+                    description: "Мощный блок питания"
+                }
+            ],
+            controllers: [
+                {
+                    id: "hpe_s100i",
+                    name: "HPE Smart Array S100i",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Интерфейс": "SATA",
+                        "Портов": "4",
+                        "RAID": "0, 1, 10"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Базовый SATA контроллер"
+                },
+                {
+                    id: "hpe_p408i",
+                    name: "HPE Smart Array P408i-a",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Интерфейс": "SAS/SATA",
+                        "Портов": "8",
+                        "RAID": "0, 1, 5, 6, 10, 50, 60",
+                        "Кэш": "2 ГБ"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Продвинутый RAID контроллер"
+                },
+                {
+                    id: "hpe_p816i",
+                    name: "HPE Smart Array P816i-a",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Интерфейс": "SAS/SATA",
+                        "Портов": "16",
+                        "RAID": "0, 1, 5, 6, 10, 50, 60",
+                        "Кэш": "4 ГБ"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Высокопроизводительный контроллер"
+                }
+            ],
+            network: [
+                {
+                    id: "hpe_1gb_2port",
+                    name: "HPE 1Gb 2-port адаптер",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Скорость": "1 Гбит/с",
+                        "Портов": "2",
+                        "Интерфейс": "PCIe"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Базовый сетевой адаптер"
+                },
+                {
+                    id: "hpe_10gb_2port",
+                    name: "HPE 10Gb 2-port адаптер",
+                    manufacturer: "HPE",
+                    specs: {
+                        "Скорость": "10 Гбит/с",
+                        "Портов": "2",
+                        "Интерфейс": "PCIe"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Высокоскоростной адаптер"
+                },
+                {
+                    id: "intel_i350_quad",
+                    name: "Intel I350 4-port адаптер",
+                    manufacturer: "Intel",
+                    specs: {
+                        "Скорость": "1 Гбит/с",
+                        "Портов": "4",
+                        "Интерфейс": "PCIe"
+                    },
+                    compatibleWith: ["hpe_dl20_g10_plus"],
+                    description: "Четырехпортовый адаптер"
+                }
+            ]
+        };
+        
+        // MAKE COMPONENTS DATA AVAILABLE GLOBALLY
+        window.componentsData = componentsDatabase;
+        
+        // CURRENT CONFIGURATION
+        let currentConfiguration = {
+            server: {
+                id: "hpe_dl20_g10_plus",
+                name: "HPE ProLiant DL20 Gen10 Plus",
+                specs: "1U Стоечный • 1 процессор • 4 слота памяти • DDR4 UDIMM • До 64 ГБ"
+            },
+            processors: [],
+            memory: [],
+            ssd: [],
+            nvme: [],
+            hdd: [],
+            u320: [],
+            powerSupply: [],
+            controllers: [],
+            network: []
+        };
+        
+        // CURRENT FILTERS STATE
+        let activeFilters = {
+            processors: {},
+            memory: {},
+            ssd: {},
+            nvme: {},
+            hdd: {},
+            u320: {},
+            controllers: {},
+            network: {},
+            powerSupply: {}
+        };
+        
+        // INITIALIZE FILTERS FOR CATEGORY
+        function initializeFilters(category) {
+            console.log(`Initializing filters for: ${category}`);
+            
+            const components = componentsDatabase[category];
+            if (!components || components.length === 0) return;
+            
+            // EXTRACT UNIQUE VALUES
+            const manufacturers = new Set();
+            const specificFilters = {};
+            
+            components.forEach(comp => {
+                manufacturers.add(comp.manufacturer);
+                
+                // CATEGORY-SPECIFIC FILTERS
+                if (category === 'processors') {
+                    if (comp.specs['Ядер']) specificFilters['cores'] = (specificFilters['cores'] || new Set()).add(comp.specs['Ядер']);
+                    if (comp.specs['Частота']) specificFilters['frequency'] = (specificFilters['frequency'] || new Set()).add(comp.specs['Частота']);
+                } else if (category === 'memory') {
+                    if (comp.specs['Объем']) specificFilters['capacity'] = (specificFilters['capacity'] || new Set()).add(comp.specs['Объем']);
+                    if (comp.specs['Тип']) specificFilters['type'] = (specificFilters['type'] || new Set()).add(comp.specs['Тип']);
+                } else if (category === 'ssd' || category === 'nvme' || category === 'hdd') {
+                    if (comp.specs['Объем']) specificFilters['capacity'] = (specificFilters['capacity'] || new Set()).add(comp.specs['Объем']);
+                    if (comp.specs['Интерфейс']) specificFilters['interface'] = (specificFilters['interface'] || new Set()).add(comp.specs['Интерфейс']);
+                }
+            });
+            
+            // POPULATE MANUFACTURER FILTER
+            const manufacturerSelect = document.getElementById(`filter-${category}-manufacturer`);
+            if (manufacturerSelect) {
+                manufacturerSelect.innerHTML = '<option value="">Все</option>';
+                [...manufacturers].sort().forEach(m => {
+                    manufacturerSelect.innerHTML += `<option value="${m}">${m}</option>`;
+                });
+            }
+            
+            // POPULATE SPECIFIC FILTERS
+            if (category === 'processors') {
+                if (specificFilters['cores']) {
+                    const coresSelect = document.getElementById('filter-processor-cores');
+                    coresSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['cores']].sort().forEach(v => {
+                        coresSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+                if (specificFilters['frequency']) {
+                    const freqSelect = document.getElementById('filter-processor-frequency');
+                    freqSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['frequency']].sort().forEach(v => {
+                        freqSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+            } else if (category === 'memory') {
+                if (specificFilters['capacity']) {
+                    const capSelect = document.getElementById('filter-memory-capacity');
+                    capSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['capacity']].sort().forEach(v => {
+                        capSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+                if (specificFilters['type']) {
+                    const typeSelect = document.getElementById('filter-memory-type');
+                    typeSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['type']].sort().forEach(v => {
+                        typeSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+            } else if (category === 'ssd' || category === 'nvme') {
+                if (specificFilters['capacity']) {
+                    const capSelect = document.getElementById(`filter-${category}-capacity`);
+                    if (capSelect) {
+                        capSelect.innerHTML = '<option value="">Все</option>';
+                        [...specificFilters['capacity']].sort().forEach(v => {
+                            capSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                        });
+                    }
+                }
+            } else if (category === 'hdd') {
+                if (specificFilters['capacity']) {
+                    const capSelect = document.getElementById('filter-hdd-capacity');
+                    capSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['capacity']].sort().forEach(v => {
+                        capSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+                if (specificFilters['interface']) {
+                    const intSelect = document.getElementById('filter-hdd-interface');
+                    intSelect.innerHTML = '<option value="">Все</option>';
+                    [...specificFilters['interface']].sort().forEach(v => {
+                        intSelect.innerHTML += `<option value="${v}">${v}</option>`;
+                    });
+                }
+            }
+            
+            console.log(`Filters initialized for ${category}`);
+        }
+        
+        // APPLY FILTERS
+        function applyFilters(category) {
+            console.log(`Applying filters for: ${category}`);
+            
+            // GET FILTER VALUES
+            const manufacturerFilter = document.getElementById(`filter-${category}-manufacturer`)?.value || '';
+            
+            activeFilters[category] = {
+                manufacturer: manufacturerFilter
+            };
+            
+            // CATEGORY-SPECIFIC FILTERS
+            if (category === 'processors') {
+                activeFilters[category].cores = document.getElementById('filter-processor-cores')?.value || '';
+                activeFilters[category].frequency = document.getElementById('filter-processor-frequency')?.value || '';
+            } else if (category === 'memory') {
+                activeFilters[category].capacity = document.getElementById('filter-memory-capacity')?.value || '';
+                activeFilters[category].type = document.getElementById('filter-memory-type')?.value || '';
+            } else if (category === 'ssd' || category === 'nvme') {
+                activeFilters[category].capacity = document.getElementById(`filter-${category}-capacity`)?.value || '';
+            } else if (category === 'hdd') {
+                activeFilters[category].capacity = document.getElementById('filter-hdd-capacity')?.value || '';
+                activeFilters[category].interface = document.getElementById('filter-hdd-interface')?.value || '';
+            }
+            
+            // UPDATE RESET BUTTON STATE
+            updateResetButtonState(category);
+            
+            // RE-RENDER COMPONENTS WITH FILTERS
+            renderCategoryComponents(category, `${category}Grid`);
+            
+            console.log('Active filters:', activeFilters[category]);
+        }
+        
+        // RESET FILTERS
+        function resetFilters(category) {
+            console.log(`Resetting filters for: ${category}`);
+            
+            // RESET ALL SELECT ELEMENTS
+            document.querySelectorAll(`#${category}Filters select`).forEach(select => {
+                select.value = '';
+            });
+            
+            // CLEAR ACTIVE FILTERS
+            activeFilters[category] = {};
+            
+            // UPDATE RESET BUTTON STATE
+            updateResetButtonState(category);
+            
+            // RE-RENDER COMPONENTS
+            renderCategoryComponents(category, `${category}Grid`);
+        }
+        
+        // UPDATE RESET BUTTON STATE (DISABLE IF ALL FILTERS ARE EMPTY)
+        function updateResetButtonState(category) {
+            const resetButton = document.querySelector(`#${category}Filters .btn-reset-filters`);
+            if (!resetButton) return;
+            
+            // CHECK IF ALL FILTERS ARE EMPTY
+            let hasActiveFilter = false;
+            const selects = document.querySelectorAll(`#${category}Filters select`);
+            
+            selects.forEach(select => {
+                if (select.value !== '') {
+                    hasActiveFilter = true;
+                }
+            });
+            
+            // DISABLE/ENABLE BUTTON
+            if (hasActiveFilter) {
+                resetButton.disabled = false;
+                resetButton.style.opacity = '1';
+                resetButton.style.cursor = 'pointer';
+            } else {
+                resetButton.disabled = true;
+                resetButton.style.opacity = '0.5';
+                resetButton.style.cursor = 'not-allowed';
+            }
+        }
+        
+        // INITIALIZE RESET BUTTON STATE ON PAGE LOAD
+        function initializeResetButtons() {
+            const categories = ['processors', 'memory', 'ssd', 'nvme', 'hdd'];
+            categories.forEach(category => {
+                updateResetButtonState(category);
+            });
+        }
+        
+        // FILTER COMPONENTS
+        function filterComponents(components, category) {
+            const filters = activeFilters[category];
+            if (!filters || Object.keys(filters).length === 0) return components;
+            
+            return components.filter(comp => {
+                // MANUFACTURER FILTER
+                if (filters.manufacturer && comp.manufacturer !== filters.manufacturer) {
+                    return false;
+                }
+                
+                // CATEGORY-SPECIFIC FILTERS
+                if (category === 'processors') {
+                    if (filters.cores && comp.specs['Ядер'] !== filters.cores) return false;
+                    if (filters.frequency && comp.specs['Частота'] !== filters.frequency) return false;
+                } else if (category === 'memory') {
+                    if (filters.capacity && comp.specs['Объем'] !== filters.capacity) return false;
+                    if (filters.type && comp.specs['Тип'] !== filters.type) return false;
+                } else if (category === 'ssd' || category === 'nvme' || category === 'hdd') {
+                    if (filters.capacity && comp.specs['Объем'] !== filters.capacity) return false;
+                    if (filters.interface && comp.specs['Интерфейс'] !== filters.interface) return false;
+                }
+                
+                return true;
+            });
+        }
+        
+        // INITIALIZATION
+        function init() {
+            // CHECK IF IN STANDALONE MODE
+            const standaloneMode = localStorage.getItem('standaloneMode');
+            const selectedCategory = localStorage.getItem('selectedCategory');
+            const selectedServer = localStorage.getItem('selectedServer');
+            
+            console.log('Init debug:', { standaloneMode, selectedCategory, selectedServer });
+            
+            if (standaloneMode === 'true' && selectedCategory) {
+                // STANDALONE MODE - only show selected category
+                initStandaloneMode(selectedCategory);
+            } else if (selectedServer) {
+                // NORMAL MODE - show all categories for server configuration
+                initNormalMode();
+            } else {
+                // FALLBACK - redirect to categories
+                window.location.href = 'web_configurator.html';
+            }
+        }
+        
+        // INITIALIZE NORMAL MODE (server configuration)
+        function initNormalMode() {
+            // LOAD SELECTED SERVER FROM LOCALSTORAGE
+            const savedServer = localStorage.getItem('selectedServer');
+            if (savedServer) {
+                const serverData = JSON.parse(savedServer);
+                currentConfiguration.server = {
+                    id: serverData.id,
+                    name: serverData.name,
+                    series: serverData.series,
+                    generation: serverData.generation
+                };
+                
+                // UPDATE UI WITH SERVER INFO
+                const selectedServerNameEl = document.getElementById('selectedServerName');
+                const serverModelDisplayEl = document.getElementById('serverModelDisplay');
+                const serverNameInConfigEl = document.getElementById('serverNameInConfig');
+                
+                if (selectedServerNameEl) {
+                    selectedServerNameEl.textContent = 'Выбор компонентов';
+                } else {
+                    console.warn('selectedServerName element not found, skipping update');
+                }
+                if (serverModelDisplayEl) serverModelDisplayEl.textContent = serverData.name;
+                if (serverNameInConfigEl) serverNameInConfigEl.textContent = serverData.name;
+                
+                // UPDATE HERO SECTION WITH SERVER INFO
+                const heroTitleEl = document.getElementById('heroTitle');
+                const heroSubtitleEl = document.getElementById('heroSubtitle');
+                if (heroTitleEl) {
+                    heroTitleEl.textContent = serverData.name;
+                }
+                if (heroSubtitleEl) {
+                    heroSubtitleEl.innerHTML = `Выберите компоненты для создания оптимальной конфигурации`;
+                }
+                
+                // UPDATE BREADCRUMB FOR SERVER MODE
+                if (selectedServerNameEl) {
+                    selectedServerNameEl.textContent = 'Выбор компонентов';
+                }
+            }
+            
+            // LOAD SAVED CONFIGURATION FROM LOCALSTORAGE
+            const savedConfiguration = localStorage.getItem('currentConfiguration');
+            if (savedConfiguration) {
+                const savedConfig = JSON.parse(savedConfiguration);
+                // MERGE SAVED CONFIGURATION WITH CURRENT
+                Object.keys(savedConfig).forEach(key => {
+                    if (key !== 'server' && Array.isArray(savedConfig[key])) {
+                        currentConfiguration[key] = savedConfig[key];
+                    }
+                });
+            }
+            
+            // UPDATE UI WITH LOADED CONFIGURATION
+            updateConfiguration();
+            
+            // SHOW QUICK NAVIGATION (for category switching)
+            document.getElementById('quickNavigation').style.display = 'block';
+            
+            // HIDE STANDALONE NAVIGATION
+            document.getElementById('quickNavigationStandalone').style.display = 'none';
+            
+            // SHOW ONLY FIRST CATEGORY (PROCESSORS) BY DEFAULT
+            showCategory('processors');
+            
+            // HIGHLIGHT FIRST CATEGORY
+            updateNormalNavigation('processors');
+            
+            renderComponents();
+            updateConfiguration();
+            
+            // INITIALIZE RESET BUTTONS STATE
+            initializeResetButtons();
+        }
+        
+        // INITIALIZE STANDALONE MODE (components only)
+        function initStandaloneMode(category) {
+            // UPDATE UI FOR STANDALONE MODE
+            const standaloneServerNameEl = document.getElementById('selectedServerName');
+            if (standaloneServerNameEl) {
+                standaloneServerNameEl.textContent = getCategoryTitle(category);
+            } else {
+                console.warn('selectedServerName element not found, skipping update');
+            }
+            document.getElementById('serverModelDisplay').textContent = 'Отдельные компоненты';
+            
+            // UPDATE HERO SECTION FOR STANDALONE MODE
+            const heroTitleEl = document.getElementById('heroTitle');
+            const heroSubtitleEl = document.getElementById('heroSubtitle');
+            if (heroTitleEl) {
+                heroTitleEl.textContent = `Отдельные компоненты`;
+            }
+            if (heroSubtitleEl) {
+                heroSubtitleEl.innerHTML = `Выберите компоненты для самостоятельной конфигурации`;
+            }
+            
+            // UPDATE BREADCRUMB FOR STANDALONE MODE
+            if (standaloneServerNameEl) {
+                standaloneServerNameEl.textContent = getCategoryTitle(category);
+            }
+            
+            // HIDE SCROLL NAVIGATION (for server mode)
+            document.getElementById('quickNavigation').style.display = 'none';
+            
+            // SHOW STANDALONE NAVIGATION (for switching between categories)
+            document.getElementById('quickNavigationStandalone').style.display = 'block';
+            
+            // HIDE SERVER IN CONFIG PANEL
+            const serverSummary = document.querySelector('.summary-item');
+            if (serverSummary) {
+                serverSummary.style.display = 'none';
+            }
+            
+            // SHOW SELECTED CATEGORY
+            showCategory(category);
+            
+            // UPDATE SERVER INFO TEXT
+            document.getElementById('serverNameInConfig').textContent = 'Отдельные компоненты';
+            
+            // HIGHLIGHT ACTIVE CATEGORY
+            updateStandaloneNavigation(category);
+            
+            renderComponents();
+            updateConfiguration();
+            
+            // INITIALIZE RESET BUTTONS STATE
+            initializeResetButtons();
+        }
+        
+        // SHOW SPECIFIC CATEGORY
+        function showCategory(category) {
+            // HIDE ALL CATEGORIES
+            const allCategories = document.querySelectorAll('.component-category');
+            allCategories.forEach(cat => {
+                cat.style.display = 'none';
+            });
+            
+            // SHOW ONLY SELECTED CATEGORY
+            const categoryMap = {
+                'processors': 'processorsGrid',
+                'memory': 'memoryGrid',
+                'ssd': 'ssdGrid',
+                'nvme': 'nvmeGrid',
+                'hdd': 'hddGrid',
+                'u320': 'u320Grid',
+                'controllers': 'controllersGrid',
+                'network': 'networkGrid',
+                'power_supply': 'powerSupplyGrid'
+            };
+            
+            const gridId = categoryMap[category];
+            if (gridId) {
+                const categoryElement = document.getElementById(gridId).closest('.component-category');
+                if (categoryElement) {
+                    categoryElement.style.display = 'block';
+                }
+            }
+        }
+        
+        // SWITCH BETWEEN CATEGORIES IN STANDALONE MODE
+        function switchCategory(category) {
+            console.log(`Switching to category: ${category}`);
+            
+            // UPDATE SELECTED CATEGORY IN LOCALSTORAGE
+            localStorage.setItem('selectedCategory', category);
+            
+            // UPDATE UI
+            const selectedServerName = document.getElementById('selectedServerName');
+            if (selectedServerName) {
+                selectedServerName.textContent = getCategoryTitle(category);
+            }
+            
+            // UPDATE BREADCRUMB
+            const switchServerNameEl = document.getElementById('selectedServerName');
+            if (switchServerNameEl) {
+                switchServerNameEl.textContent = getCategoryTitle(category);
+            }
+            
+            // SHOW SELECTED CATEGORY
+            showCategory(category);
+            
+            // UPDATE NAVIGATION HIGHLIGHT
+            updateStandaloneNavigation(category);
+            
+            console.log(`Category switched successfully to: ${category}`);
+        }
+        
+        // UPDATE STANDALONE NAVIGATION HIGHLIGHT
+        function updateStandaloneNavigation(activeCategory) {
+            // REMOVE ACTIVE CLASS FROM ALL STANDALONE LINKS
+            document.querySelectorAll('.standalone-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // ADD ACTIVE CLASS TO SELECTED LINK
+            const activeLink = document.querySelector(`.standalone-nav-link[data-category="${activeCategory}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+        
+        // GET CATEGORY TITLE
+        function getCategoryTitle(category) {
+            const titles = {
+                'processors': 'Процессоры',
+                'memory': 'Оперативная память',
+                'ssd': 'SSD диски (SATA)',
+                'nvme': 'NVMe диски',
+                'hdd': 'SAS/SATA HDD диски',
+                'controllers': 'Контроллеры',
+                'network': 'Сетевые карты',
+                'power_supply': 'Блоки питания'
+            };
+            return titles[category] || 'Компоненты';
+        }
+        
+        // RENDER ALL COMPONENTS
+        function renderComponents() {
+            renderCategoryComponents('processors', 'processorsGrid');
+            renderCategoryComponents('memory', 'memoryGrid');
+            renderCategoryComponents('ssd', 'ssdGrid');
+            renderCategoryComponents('nvme', 'nvmeGrid');
+            renderCategoryComponents('hdd', 'hddGrid');
+            renderCategoryComponents('u320', 'u320Grid');
+            renderCategoryComponents('powerSupply', 'powerSupplyGrid');
+            renderCategoryComponents('controllers', 'controllersGrid');
+            renderCategoryComponents('network', 'networkGrid');
+        }
+        
+        // RENDER COMPONENTS FOR A CATEGORY
+        function renderCategoryComponents(category, gridId) {
+            const grid = document.getElementById(gridId);
+            let components = componentsDatabase[category];
+            
+            console.log(`Rendering ${category} components:`, components?.length || 0);
+            
+            if (!components || components.length === 0) {
+                grid.innerHTML = '<p style="color: #999; padding: 20px;">Компоненты скоро будут добавлены</p>';
+                return;
+            }
+            
+            // INITIALIZE FILTERS IF NOT DONE YET
+            if (document.getElementById(`filter-${category}-manufacturer`)?.options.length <= 1) {
+                initializeFilters(category);
+            }
+            
+            // APPLY FILTERS
+            components = filterComponents(components, category);
+            
+            if (components.length === 0) {
+                grid.innerHTML = '<p style="color: #999; padding: 20px;">Нет компонентов, соответствующих выбранным фильтрам</p>';
+                return;
+            }
+            
+            grid.innerHTML = components.map(component => {
+                const isAdded = currentConfiguration[category].some(c => c.id === component.id);
+                const quantity = currentConfiguration[category].filter(c => c.id === component.id).length;
+                
+                return `
+                    <div class="component-card ${isAdded ? 'selected' : ''}" id="card_${component.id}">
+                        <div class="component-name">${component.name}</div>
+                        <div class="component-specs">
+                            ${Object.entries(component.specs).map(([key, value]) => `
+                                <div class="component-spec-item">
+                                    <span class="spec-label">${key}:</span>
+                                    <span class="spec-value">${value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="component-actions">
+                            ${isAdded ? `
+                                <div class="quantity-controls">
+                                    <button class="btn btn-decrease" onclick="removeComponent('${category}', '${component.id}')" title="Уменьшить">-</button>
+                                    <span class="quantity-display">${quantity}</span>
+                                    <button class="btn btn-increase" onclick="addComponent('${category}', '${component.id}')" title="Увеличить">+</button>
+                                </div>
+                            ` : `
+                                <button class="btn btn-add" onclick="addComponent('${category}', '${component.id}')" title="Добавить">
+                                    +
+                                </button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            console.log(`Rendered ${components.length} components for ${category}`);
+        }
+        
+        // ADD COMPONENT
+        function addComponent(category, componentId) {
+            const component = componentsDatabase[category].find(c => c.id === componentId);
+            
+            if (!component) {
+                console.error('Component not found');
+                return;
+            }
+            
+            // CHECK MAX QUANTITY
+            const currentQuantity = currentConfiguration[category].filter(c => c.id === componentId).length;
+            if (component.maxQuantity && currentQuantity >= component.maxQuantity) {
+                alert(`Достигнуто максимальное количество: ${component.maxQuantity}`);
+                return;
+            }
+            
+            // ADD COMPONENT TO CONFIGURATION
+            currentConfiguration[category].push({
+                id: component.id,
+                name: component.name,
+                specs: component.specs,
+                manufacturer: component.manufacturer
+            });
+            
+            console.log(`Added ${component.name} to ${category}`);
+            
+            // SAVE TO LOCALSTORAGE
+            localStorage.setItem('currentConfiguration', JSON.stringify(currentConfiguration));
+            
+            // UPDATE UI
+            renderComponents();
+            updateConfiguration();
+        }
+        
+        // REMOVE COMPONENT
+        function removeComponent(category, componentId) {
+            // REMOVE ONE INSTANCE OF THE COMPONENT
+            const index = currentConfiguration[category].findIndex(c => c.id === componentId);
+            if (index !== -1) {
+                currentConfiguration[category].splice(index, 1);
+                console.log(`Removed component from ${category}`);
+            }
+            
+            // SAVE TO LOCALSTORAGE
+            localStorage.setItem('currentConfiguration', JSON.stringify(currentConfiguration));
+            
+            // UPDATE UI
+            renderComponents();
+            updateConfiguration();
+        }
+        
+        // TOGGLE CONFIG WIDGET
+        function toggleConfigWidget() {
+            const widget = document.getElementById('configWidget');
+            const toggle = document.getElementById('configWidgetToggle');
+            
+            if (widget.classList.contains('collapsed')) {
+                widget.classList.remove('collapsed');
+                toggle.textContent = '▼';
+            } else {
+                widget.classList.add('collapsed');
+                toggle.textContent = '▶';
+            }
+        }
+        
+        // INCREASE COMPONENT QUANTITY
+        function increaseComponentQuantity(category, componentId) {
+            const component = componentsDatabase[category].find(comp => comp.id === componentId);
+            if (component) {
+                currentConfiguration[category].push({
+                    id: component.id,
+                    name: component.name,
+                    manufacturer: component.manufacturer,
+                    specs: component.specs,
+                    description: component.description
+                });
+                localStorage.setItem('currentConfiguration', JSON.stringify(currentConfiguration));
+                renderComponents();
+                updateConfiguration();
+                console.log(`Increased ${componentId} in ${category}`);
+            }
+        }
+        
+        // DECREASE COMPONENT QUANTITY
+        function decreaseComponentQuantity(category, componentId) {
+            const index = currentConfiguration[category].findIndex(c => c.id === componentId);
+            if (index !== -1) {
+                currentConfiguration[category].splice(index, 1);
+                localStorage.setItem('currentConfiguration', JSON.stringify(currentConfiguration));
+                renderComponents();
+                updateConfiguration();
+                console.log(`Decreased ${componentId} in ${category}`);
+            }
+        }
+        
+        // UPDATE CONFIGURATION PANEL
+        function updateConfiguration() {
+            
+            // COUNT TOTAL COMPONENTS
+            const totalComponents = 
+                currentConfiguration.processors.length +
+                currentConfiguration.memory.length +
+                currentConfiguration.ssd.length +
+                currentConfiguration.nvme.length +
+                currentConfiguration.hdd.length +
+                currentConfiguration.u320.length +
+                currentConfiguration.powerSupply.length +
+                currentConfiguration.controllers.length +
+                currentConfiguration.network.length;
+            
+            
+            // UPDATE CATEGORY COUNTS
+            document.getElementById('processorCount').textContent = 
+                currentConfiguration.processors.length + ' выбрано';
+            document.getElementById('memoryCount').textContent = 
+                currentConfiguration.memory.length + ' выбрано';
+            document.getElementById('ssdCount').textContent = 
+                currentConfiguration.ssd.length + ' выбрано';
+            document.getElementById('nvmeCount').textContent = 
+                currentConfiguration.nvme.length + ' выбрано';
+            document.getElementById('hddCount').textContent = 
+                currentConfiguration.hdd.length + ' выбрано';
+            document.getElementById('u320Count').textContent = 
+                currentConfiguration.u320.length + ' выбрано';
+            document.getElementById('powerSupplyCount').textContent = 
+                currentConfiguration.powerSupply.length + ' выбрано';
+            document.getElementById('controllerCount').textContent = 
+                currentConfiguration.controllers.length + ' выбрано';
+            document.getElementById('networkCount').textContent = 
+                currentConfiguration.network.length + ' выбрано';
+            
+            // UPDATE CONFIG WIDGET
+            const configWidgetItems = document.getElementById('configWidgetItems');
+            const configWidgetSubmit = document.getElementById('configWidgetSubmit');
+            const configServerName = document.getElementById('configServerName');
+            
+            // UPDATE SERVER NAME
+            if (configServerName && currentConfiguration.server) {
+                configServerName.textContent = currentConfiguration.server.name;
+            }
+            
+            if (totalComponents > 0) {
+                // RENDER CONFIG ITEMS
+                let html = '';
+                
+                const categories = [
+                    { key: 'processors', title: 'Процессоры' },
+                    { key: 'memory', title: 'Память' },
+                    { key: 'ssd', title: 'SSD' },
+                    { key: 'nvme', title: 'NVMe' },
+                    { key: 'hdd', title: 'HDD' },
+                    { key: 'u320', title: 'U320' },
+                    { key: 'powerSupply', title: 'Питание' },
+                    { key: 'controllers', title: 'Контроллеры' },
+                    { key: 'network', title: 'Сеть' }
+                ];
+                
+                categories.forEach(cat => {
+                    if (currentConfiguration[cat.key].length > 0) {
+                        // Group components by name and count quantity
+                        const componentGroups = {};
+                        currentConfiguration[cat.key].forEach(comp => {
+                            if (componentGroups[comp.name]) {
+                                componentGroups[comp.name]++;
+                            } else {
+                                componentGroups[comp.name] = 1;
+                            }
+                        });
+                        
+                        // Render grouped components
+                        Object.entries(componentGroups).forEach(([name, quantity]) => {
+                            // Find first component to get its ID for removal
+                            const firstComponent = currentConfiguration[cat.key].find(comp => comp.name === name);
+                            html += `
+                                <div class="config-widget-item">
+                                    <div class="config-widget-item-info">
+                                        <div class="config-widget-item-name">${name}</div>
+                                        <div class="config-widget-item-category">${cat.title}</div>
+                                    </div>
+                                    <div class="config-widget-item-actions">
+                                        <div class="config-widget-quantity-controls">
+                                            <button class="config-widget-quantity-btn" onclick="decreaseComponentQuantity('${cat.key}', '${firstComponent.id}')" title="Уменьшить">-</button>
+                                            <div class="config-widget-quantity-display">${quantity}</div>
+                                            <button class="config-widget-quantity-btn" onclick="increaseComponentQuantity('${cat.key}', '${firstComponent.id}')" title="Увеличить">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                });
+                
+                if (configWidgetItems) {
+                    configWidgetItems.innerHTML = html;
+                }
+                
+                if (configWidgetSubmit) {
+                    configWidgetSubmit.disabled = false;
+                }
+            } else {
+                // EMPTY CONFIG
+                if (configWidgetItems) {
+                    configWidgetItems.innerHTML = '<div class="config-widget-empty">Добавьте компоненты для завершения конфигурации</div>';
+                }
+                
+                if (configWidgetSubmit) {
+                    configWidgetSubmit.disabled = false;
+                }
+            }
+        }
+        
+        // INITIALIZE PAGE ON LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, initializing...');
+            
+            // WAIT A BIT FOR DOM TO BE FULLY READY
+            setTimeout(() => {
+                // CHECK IF REQUIRED ELEMENTS EXIST
+                const requiredElements = [
+                    'serverModelDisplay', 'quickNavigation', 'quickNavigationStandalone'
+                ];
+                
+                const missingElements = requiredElements.filter(id => !document.getElementById(id));
+                if (missingElements.length > 0) {
+                    console.error('Missing required elements:', missingElements);
+                    console.log('Available elements with IDs:', 
+                        Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+                    return;
+                }
+                
+                // CHECK FOR OPTIONAL ELEMENTS
+                const initServerNameEl = document.getElementById('selectedServerName');
+                if (!initServerNameEl) {
+                    console.warn('selectedServerName element not found, but continuing...');
+                }
+            
+                // CHECK URL PARAMETERS TO DETERMINE MODE
+                const urlParams = new URLSearchParams(window.location.search);
+                const category = urlParams.get('category');
+                const platform = urlParams.get('platform');
+                
+                console.log('URL params:', { category, platform });
+                
+                if (category) {
+                    // STANDALONE MODE - show specific category
+                    console.log('Initializing standalone mode for category:', category);
+                    initStandaloneMode(category);
+                } else if (platform) {
+                    // NORMAL MODE - server configuration
+                    console.log('Initializing normal mode for platform:', platform);
+                    initNormalMode();
+                } else {
+                    // DEFAULT - normal mode
+                    console.log('Initializing default normal mode');
+                    initNormalMode();
+                }
+                
+                // SET PROCESSORS AS DEFAULT CATEGORY
+                setTimeout(() => {
+                    switchCategoryNormal('processors');
+                }, 200);
+            }, 100); // Wait 100ms for DOM to be fully ready
+        });
+        
+        // SUBMIT CONFIGURATION
+        function submitConfiguration() {
+            const totalComponents = 
+                currentConfiguration.processors.length +
+                currentConfiguration.memory.length +
+                currentConfiguration.ssd.length +
+                currentConfiguration.nvme.length +
+                currentConfiguration.hdd.length +
+                currentConfiguration.u320.length +
+                currentConfiguration.powerSupply.length +
+                currentConfiguration.controllers.length +
+                currentConfiguration.network.length;
+            
+            if (totalComponents === 0) {
+                alert('Добавьте хотя бы один компонент в конфигурацию');
+                return;
+            }
+            
+            // PREPARE CONFIGURATION SUMMARY
+            let summary = `КОНФИГУРАЦИЯ СЕРВЕРА\n\n`;
+            summary += `Сервер: ${currentConfiguration.server.name}\n\n`;
+            
+            const categories = [
+                { key: 'processors', title: 'ПРОЦЕССОРЫ' },
+                { key: 'memory', title: 'ПАМЯТЬ' },
+                { key: 'ssd', title: 'SSD ДИСКИ (SATA)' },
+                { key: 'nvme', title: 'NVME ДИСКИ' },
+                { key: 'hdd', title: 'SAS/SATA HDD' },
+                { key: 'u320', title: 'U320 SCSI' },
+                { key: 'powerSupply', title: 'БЛОКИ ПИТАНИЯ' },
+                { key: 'controllers', title: 'КОНТРОЛЛЕРЫ' },
+                { key: 'network', title: 'СЕТЕВЫЕ КАРТЫ' }
+            ];
+            
+            categories.forEach(cat => {
+                if (currentConfiguration[cat.key].length > 0) {
+                    summary += `${cat.title}:\n`;
+                    
+                    const grouped = {};
+                    currentConfiguration[cat.key].forEach(comp => {
+                        if (!grouped[comp.id]) {
+                            grouped[comp.id] = {
+                                name: comp.name,
+                                count: 0
+                            };
+                        }
+                        grouped[comp.id].count++;
+                    });
+                    
+                    Object.values(grouped).forEach(item => {
+                        summary += `  - ${item.name} ${item.count > 1 ? `(x${item.count})` : ''}\n`;
+                    });
+                    summary += '\n';
+                }
+            });
+            
+            alert(summary + '\n\nКонфигурация будет отправлена менеджеру!\n(В финальной версии здесь будет форма для ввода контактных данных)');
+            
+            console.log('Configuration submitted:', currentConfiguration);
+        }
+        
+        // SWITCH BETWEEN CATEGORIES IN NORMAL MODE (server configuration)
+        function switchCategoryNormal(category) {
+            console.log(`Switching to category in normal mode: ${category}`);
+            
+            // SHOW SELECTED CATEGORY
+            showCategory(category);
+            
+            // UPDATE NAVIGATION HIGHLIGHT
+            updateNormalNavigation(category);
+            
+            console.log(`Category switched successfully to: ${category}`);
+        }
+        
+        // UPDATE NORMAL NAVIGATION HIGHLIGHT
+        function updateNormalNavigation(activeCategory) {
+            // REMOVE ACTIVE CLASS FROM ALL NORMAL LINKS
+            document.querySelectorAll('.normal-nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // ADD ACTIVE CLASS TO SELECTED LINK
+            const activeLink = document.querySelector(`.normal-nav-link[data-category="${activeCategory}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+        
+        // GO BACK TO CATEGORIES PAGE
+        function goBackToCategories() {
+            const totalComponents = 
+                currentConfiguration.processors.length +
+                currentConfiguration.memory.length +
+                currentConfiguration.ssd.length +
+                currentConfiguration.nvme.length +
+                currentConfiguration.hdd.length +
+                currentConfiguration.u320.length +
+                currentConfiguration.powerSupply.length +
+                currentConfiguration.controllers.length +
+                currentConfiguration.network.length;
+            
+            // CLEAR STANDALONE MODE FLAGS
+            localStorage.removeItem('standaloneMode');
+            localStorage.removeItem('selectedCategory');
+            
+            if (totalComponents > 0) {
+                if (confirm('Вернуться на главную? Текущая конфигурация будет сброшена.')) {
+                    window.location.href = 'web_configurator.html';
+                }
+            } else {
+                window.location.href = 'web_configurator.html';
+            }
+        }
+        
+        
+        // START APPLICATION
+        init();
+        
+        // CONTACTS MODAL FUNCTIONS
+        function showContacts() {
+            document.getElementById('contactsModal').style.display = 'block';
+        }
+        
+        function closeContacts() {
+            document.getElementById('contactsModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactsModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+    
+    <!-- CONTACTS MODAL -->
+    <div id="contactsModal" class="contacts-modal">
+        <div class="contacts-content">
+            <div class="contacts-header">
+                <h2 class="contacts-title">Контакты</h2>
+                <button class="close-contacts" onclick="closeContacts()">&times;</button>
+            </div>
+            <div class="contacts-info">
+                <h3>Общество с Ограниченной Ответственностью «БАСИ Плюс»</h3>
+                <p><strong>УНП:</strong> 191762563</p>
+                
+                <h3>Юридический Адрес:</h3>
+                <p>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</p>
+                
+                <h3>Почтовый Адрес:</h3>
+                <p>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</p>
+                
+                <p><strong>Свидетельство о государственной регистрации № 191762563 от 17 августа 2012 г.</strong></p>
+                <p><strong>Интернет-магазин зарегистрирован в Торговом реестре РБ за номером 505542</strong></p>
+                
+                <h3>Режим работы</h3>
+                <p>9:00 – 19:00</p>
+                
+                <h3>Банковские реквизиты</h3>
+                <p><strong>Р.С BY17ALFA30122745920010270000 в BYN</strong><br>
+                в ЗАО 'Альфа-Банк'<br>
+                <strong>БИК: ALFABY2X</strong></p>
+                
+                <p><strong>Р.C: BY54MTBK30120001093300062052</strong><br>
+                в ЗАО «МТБанк», г. Минск, пр. Партизанский, 6-а.<br>
+                <strong>БИК MTBKBY22</strong></p>
+                
+                <h3>Стол заказов</h3>
+                <p><strong>Телефон:</strong> +375 (29) 391-90-44</p>
+                <p><strong>Email:</strong> sales@beltrader.by</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-text">
+                    ООО "БАСИ-плюс"<br>
+                    УНП 191762563
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-text">
+                    г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                    БЦ "CASPIAN PLAZA"
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-text">
+                    +375 (29) 391-90-44<br>
+                    sales@beltrader.by
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // WAIT FOR DOM TO LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            // CLOSE POPUP ON OVERLAY CLICK
+            const popup = document.getElementById('consultationPopup');
+            if (popup) {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeConsultationPopup();
+                    }
+                });
+            }
+            
+            // FORM SUBMISSION
+            const form = document.getElementById('consultationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(this);
+                    const submitBtn = this.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    
+                    // DISABLE SUBMIT BUTTON
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Отправка...';
+                    
+                    // SIMULATE FORM SUBMISSION (REPLACE WITH ACTUAL ENDPOINT)
+                    setTimeout(() => {
+                        // SUCCESS MESSAGE
+                        alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+                        
+                        // RESET FORM
+                        this.reset();
+                        closeConsultationPopup();
+                        
+                        // RESTORE BUTTON
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        
+                        // HERE YOU CAN ADD ACTUAL FORM SUBMISSION LOGIC
+                        // Example: fetch('/api/consultation', { method: 'POST', body: formData })
+                    }, 1500);
+                });
+            }
+        });
+        
+        // CLOSE POPUP ON ESC KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeConsultationPopup();
+            }
+        });
+    </script>
+
+    <!-- CONSULTATION POPUP -->
+    <div id="consultationPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Заявка на консультацию</h3>
+                <button class="popup-close" onclick="closeConsultationPopup()">&times;</button>
+            </div>
+            <form id="consultationForm" class="consultation-form">
+                <div class="form-group">
+                    <label for="consultationName">Имя *</label>
+                    <input type="text" id="consultationName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationPhone">Телефон *</label>
+                    <input type="tel" id="consultationPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationEmail">Email</label>
+                    <input type="email" id="consultationEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="consultationCompany">Компания</label>
+                    <input type="text" id="consultationCompany" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="consultationMessage">Сообщение</label>
+                    <textarea id="consultationMessage" name="message" rows="4" placeholder="Опишите ваши потребности или вопросы..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consentCheckbox" name="consent" required>
+                        <span class="checkmark"></span>
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+</body>
+</html>
+

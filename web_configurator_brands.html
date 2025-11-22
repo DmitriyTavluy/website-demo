@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конфигуратор серверов и систем хранения - Выбор поколения</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+        
+        /* MAIN HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            font-size: 1.3em;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            display: block;
+            padding-top: 5px;
+            text-transform: uppercase;
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-link.active {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        /* DROPDOWN MENU STYLES */
+        .products-link .nav-icon {
+            fill: rgb(61, 243, 187);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        .nav-link.products-link.active {
+            color: rgb(61, 243, 187) !important;
+            background: transparent !important;
+        }
+        
+        /* BREADCRUMB */
+        .breadcrumb {
+            display: inline-flex;
+            gap: 24px;
+            padding: 8px 24px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 16px;
+            align-items: center;
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .breadcrumb > span {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+        }
+        
+        .breadcrumb-step {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s ease;
+        }
+        
+        .breadcrumb-step span,
+        .breadcrumb-step a {
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        
+        /* Текущий шаг */
+        .breadcrumb-step.active span,
+        .breadcrumb .active span {
+            color: #0a1823;
+            font-weight: 700;
+        }
+        
+        /* Пройденный шаг */
+        .breadcrumb-step.completed span,
+        .breadcrumb .completed span,
+        .breadcrumb .completed a {
+            color: rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb .completed a:hover {
+            color: #1FE2B2;
+            text-decoration: underline;
+        }
+        
+        /* Следующий шаг */
+        .breadcrumb-step:not(.active):not(.completed) {
+            pointer-events: none;
+        }
+        
+        .breadcrumb-step:not(.active):not(.completed) span {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .breadcrumb-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+        
+        /* Текущий шаг - прозрачный с зелёным контуром */
+        .breadcrumb-step.active .breadcrumb-number,
+        .breadcrumb .active .breadcrumb-number {
+            border: 2px solid #1fe2b2;
+            color: #1fe2b2;
+            background: transparent;
+            box-shadow: 0 0 8px rgba(31, 226, 178, 0.2);
+        }
+        
+        /* Пройденный шаг - зелёный круг с белой цифрой */
+        .breadcrumb-step.completed .breadcrumb-number,
+        .breadcrumb .completed .breadcrumb-number {
+            background: #1fe2b2;
+            color: #fff;
+            border: none;
+        }
+        
+        /* Следующий шаг - серый контур */
+        .breadcrumb-step:not(.active):not(.completed) .breadcrumb-number {
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            color: rgba(0, 0, 0, 0.4);
+            background: transparent;
+        }
+        
+        /* HERO SECTION */
+        .hero-section {
+            background: radial-gradient(ellipse at center, #2a3f5f 0%, #1c2a3c 70%, #0C1E2B 100%);
+            color: white;
+            padding: 80px 30px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .eyebrow {
+            display: inline-block;
+            font-size: 14px;
+            letter-spacing: .4px;
+            text-transform: uppercase;
+            color: #1FE2B2;
+            background: none;
+            border: none;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section h1,
+        .hero-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            line-height: 1.15;
+            color: white;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            margin: 0;
+            color: white;
+            opacity: 0.85;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: white;
+        }
+        
+        .hero-feature-icon {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        
+        /* PAGE HEADER */
+        .page-header {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 1px solid rgba(61, 243, 187, 0.1);
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-center {
+            text-align: center;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .footer-rating {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* CONTACTS MODAL */
+        .contacts-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .contacts-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .contacts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgb(61, 243, 187);
+            padding-bottom: 15px;
+        }
+        
+        .contacts-title {
+            color: #1c2a3c;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .close-contacts {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        .close-contacts:hover {
+            color: #1c2a3c;
+        }
+        
+        .contacts-info {
+            line-height: 1.6;
+            color: #1c2a3c;
+        }
+        
+        .contacts-info h3 {
+            color: rgb(61, 243, 187);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .contacts-info p {
+            margin: 8px 0;
+        }
+        
+        /* BREADCRUMBS */
+        .breadcrumb {
+            background: white;
+            padding: 15px 30px;
+            margin-bottom: 0;
+            border-bottom: 0;
+        }
+        
+        .breadcrumb a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: rgb(61, 243, 187);
+        }
+        
+        .breadcrumb .active {
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .page-header-subtitle {
+            font-size: 1.1em;
+            margin: 0;
+            opacity: 0.95;
+        }
+        
+        /* BRANDS CONTAINER */
+        #generationsContainer {
+            max-width: 1400px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .brand-card {
+            background: white;
+            border: 1px solid rgba(31, 226, 178, 0.2);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .brand-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(31, 226, 178, 0.15);
+            border-color: #1fe2b2;
+        }
+        
+        .brand-card.selected {
+            border-color: #1fe2b2;
+            box-shadow: 0 0 0 3px rgba(31, 226, 178, 0.2);
+            background: rgba(31, 226, 178, 0.05);
+        }
+        
+        .brand-card.empty {
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.4);
+            background: transparent;
+        }
+        
+        .brand-card.empty:hover {
+            border-color: rgba(31, 226, 178, 0.3);
+            transform: translateY(-1px);
+            box-shadow: none;
+        }
+        
+        .brand-logo-image {
+            width: auto;
+            max-width: 160px;
+            height: 55px;
+            object-fit: contain;
+            object-position: center;
+        }
+        
+        .brand-logo-image.larger {
+            height: 105px;
+            max-width: 250px;
+        }
+        
+        .brand-logo-image.medium {
+            height: 75px;
+            max-width: 200px;
+        }
+        
+        .brand-name {
+            color: #1c2a3c;
+            font-size: 1em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .brand-card.empty .brand-name {
+            color: rgba(0, 0, 0, 0.4);
+        }
+        
+        /* BACK BUTTON CONTAINER */
+        .back-button-container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 0 30px;
+            text-align: center;
+        }
+        
+        /* CONTENT AREA */
+        .content-area {
+            padding: 15px 30px;
+        }
+        
+        /* SERIES CARDS */
+        .series-card {
+            background: white;
+            border: 1px solid rgb(61, 243, 187);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+            max-width: 1340px;
+            width: 100%;
+        }
+        
+        .series-card:hover {
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 8px 20px rgba(61, 243, 187, 0.1);
+        }
+        
+        .series-header {
+            background: white;
+            padding: 10px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-bottom: 2px;
+            max-width: 1340px;
+            width: 1340px;
+        }
+        
+        .series-header:hover {
+            background: linear-gradient(135deg, rgba(61, 243, 187, 0.1) 0%, rgba(61, 243, 187, 0.05) 100%);
+            border-radius: 8px;
+        }
+        
+        .series-header-content {
+            flex: 1;
+        }
+        
+        .series-toggle {
+            font-size: 1.2em;
+            color: rgb(61, 243, 187);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .series-toggle.expanded {
+            transform: rotate(90deg);
+        }
+        
+        .series-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+            margin: 0 0 5px 0;
+        }
+        
+        .series-description {
+            font-size: 0.95em;
+            color: #666;
+            margin: 0;
+        }
+        
+        .series-content {
+            padding: 30px;
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .model-item {
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .model-item:last-child {
+            border-bottom: none;
+        }
+        
+        .model-name {
+            font-size: 0.95em;
+            font-weight: 400;
+            color: #1a1a1a;
+            white-space: nowrap;
+            min-width: 120px;
+            flex-shrink: 0;
+        }
+        
+        .generations-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+        
+        .generation-btn {
+            padding: 4px 8px;
+            border: 1px solid rgb(61, 243, 187);
+            background: white;
+            color: #000000;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.7em;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .generation-btn:hover {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(61, 243, 187, 0.3);
+        }
+        
+        .generation-btn.selected {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        /* ACTIONS */
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        .btn-primary:hover {
+            background: #1c2a3c;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #333;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .back-btn {
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgb(61, 243, 187) !important;
+            color: #1c2a3c !important;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(61, 243, 187, 0.2);
+        }
+        
+        .back-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 4px rgba(61, 243, 187, 0.3);
+        }
+        
+        
+        .series-header:hover {
+            background: rgba(61, 243, 187, 0.1);
+            border-radius: 4px;
+        }
+        
+        .series-content {
+            padding-top: 15px;
+        }
+        
+        
+        .series-header:hover {
+            background: rgba(61, 243, 187, 0.1) !important;
+            border-radius: 4px;
+        }
+        
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .generation-btn.selected {
+            background: rgb(61, 243, 187);
+            color: #1c2a3c;
+        }
+        
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 1400px) {
+            #generationsContainer {
+                width: 100%;
+            }
+            
+            .back-button-container {
+                width: 100%;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 1400px) {
+            .brands-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 22px;
+            }
+        }
+        
+        @media (max-width: 1100px) {
+            .brands-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .brands-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 20px 40px;
+            }
+            
+            .hero-section h1,
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+            }
+            
+            .eyebrow {
+                font-size: 12px;
+            }
+            
+            .breadcrumb {
+                padding: 6px 16px;
+                gap: 16px;
+            }
+            
+            .breadcrumb-step span,
+            .breadcrumb-step a {
+                font-size: 0.85em;
+            }
+            
+            .breadcrumb-number {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+            
+            .header-container {
+                padding: 12px 15px;
+            }
+            
+            .logo {
+                font-size: 1.2em;
+            }
+            
+            .main-nav {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 10px;
+                font-size: 0.85em;
+            }
+            
+            .brands-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .brand-card {
+                padding: 25px 15px;
+                min-height: 150px;
+            }
+            
+            .brand-logo-image {
+                max-width: 140px;
+                height: 48px;
+            }
+            
+            .brand-logo-image.larger {
+                height: 90px;
+                max-width: 220px;
+            }
+            
+            .brand-logo-image.medium {
+                height: 65px;
+                max-width: 180px;
+            }
+            
+            .hero-features {
+                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-feature {
+                font-size: 1em;
+            }
+            
+            .page-header {
+                padding: 25px 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 1.6em;
+            }
+            
+            .page-header-subtitle {
+                font-size: 0.95em;
+            }
+            
+            
+            .content-area {
+                padding: 15px 20px;
+            }
+            
+            .models-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .series-header {
+                padding: 8px 20px;
+            }
+            
+            .series-card {
+                margin-bottom: 0;
+            }
+            
+            .series-toggle {
+                font-size: 1.1em;
+            }
+            
+            .series-content {
+                padding: 15px;
+            }
+            
+            .model-item {
+                padding: 3px 0;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .model-name {
+                min-width: auto;
+                margin-bottom: 0;
+            }
+            
+            .generations-list {
+                gap: 3px;
+                width: 100%;
+            }
+            
+            .generation-btn {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER WITH NAVIGATION -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <span class="eyebrow">Конфигуратор оборудования</span>
+            <h1 class="hero-title" id="heroTitle">HPE Proliant</h1>
+        </div>
+    </div>
+
+    <!-- BREADCRUMBS -->
+    <div id="step2" style="position: sticky; top: 72px; z-index: 500; display: flex; justify-content: center; padding: 16px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.04);">
+        <div class="breadcrumb">
+            <div class="breadcrumb-step completed">
+                <span class="breadcrumb-number">1</span>
+                <a href="web_configurator.html">Выбор платформы</a>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step active">
+                <span class="breadcrumb-number">2</span>
+                <span>Выбор производителя</span>
+            </div>
+            <span> → </span>
+            <div class="breadcrumb-step">
+                <span class="breadcrumb-number">3</span>
+                <span>Выбор компонентов</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SERIES CONTAINER -->
+    <div id="generationsContainer"></div>
+    
+    <!-- BACK BUTTON -->
+    <div class="back-button-container">
+        <button class="btn btn-secondary back-btn" onclick="goBack()">← Назад</button>
+    </div>
+    
+    <script>
+        // База данных категорий (та же что и в categories.html)
+        const categories = [
+            {
+                id: "hpe_proliant",
+                name: "HPE Proliant",
+                icon: "🖥️",
+                description: "Стоечные и башенные серверы HPE",
+                series: [
+                    {
+                        id: "dl_series", 
+                        name: "DL Series", 
+                        description: "Стоечные серверы (Rack-mount)",
+                        generations: [
+                            {id: "g5", name: "G5", models: ["DL120", "DL140", "DL145", "DL160", "DL165", "DL180", "DL185", "DL320", "DL360", "DL365", "DL380", "DL385", "DL580", "DL585"]},
+                            {id: "g6", name: "G6", models: ["DL120", "DL140", "DL160", "DL165", "DL170", "DL170e", "DL180", "DL185", "DL320", "DL360", "DL365", "DL370", "DL380", "DL385", "DL580", "DL585", "DL785"]},
+                            {id: "g7", name: "G7", models: ["DL120", "DL140", "DL160", "DL165", "DL170", "DL180", "DL185", "DL320", "DL360", "DL365", "DL370", "DL380", "DL385", "DL580", "DL585", "DL785", "DL980"]},
+                            {id: "g8", name: "G8", models: ["DL120", "DL160", "DL320e", "DL360e", "DL360p", "DL380e", "DL380p", "DL385p", "DL560", "DL580"]},
+                            {id: "g9", name: "G9", models: ["DL20", "DL60", "DL80", "DL120", "DL160", "DL180", "DL320e", "DL360", "DL380", "DL388", "DL560", "DL580"]},
+                            {id: "g10", name: "G10", models: ["DL20", "DL60", "DL80", "DL120", "DL160", "DL180", "DL325", "DL345", "DL360", "DL365", "DL380", "DL385", "DL560", "DL580"]},
+                            {id: "g10_plus", name: "G10+", models: ["DL20", "DL25", "DL110", "DL160", "DL325", "DL345", "DL360", "DL365", "DL380", "DL385", "DL560"]},
+                            {id: "g11", name: "G11", models: ["DL20", "DL110", "DL145", "DL325", "DL345", "DL360", "DL365", "DL380", "DL385"]},
+                            {id: "g12", name: "G12", models: ["DL340", "DL365"]}
+                        ]
+                    },
+                    {
+                        id: "ml_series", 
+                        name: "ML Series", 
+                        description: "Башенные серверы (Tower)",
+                        generations: [
+                            {id: "g4", name: "G4", models: ["ML150", "ML310", "ML350", "ML370"]},
+                            {id: "g5", name: "G5", models: ["ML110", "ML115", "ML150", "ML310", "ML350", "ML370"]},
+                            {id: "g6", name: "G6", models: ["ML110", "ML115", "ML150", "ML310", "ML330", "ML350", "ML370"]},
+                            {id: "g7", name: "G7", models: ["ML110", "ML115", "ML150", "ML310", "ML330", "ML350", "ML370"]},
+                            {id: "g8", name: "G8", models: ["ML110", "ML310e", "ML350e", "ML350p"]},
+                            {id: "g9", name: "G9", models: ["ML10", "ML30", "ML110", "ML150", "ML310e", "ML350"]},
+                            {id: "g10", name: "G10", models: ["ML30", "ML110", "ML350"]},
+                            {id: "g10_plus", name: "G10+", models: ["ML30", "ML110", "ML350"]}
+                        ]
+                    },
+                    {
+                        id: "dx_series", 
+                        name: "DX Series", 
+                        description: "Серверы для объектного хранилища",
+                        models: ["DX380", "DX360", "DX340", "DX320", "DX290", "DX280", "DX270", "DX190", "DX180", "DX160", "DX110"]
+                    },
+                    {
+                        id: "rl_series", 
+                        name: "RL Series", 
+                        description: "Компактные серверы",
+                        models: ["RL300"]
+                    },
+                    {
+                        id: "sl_series", 
+                        name: "SL Series", 
+                        description: "Масштабируемые серверы (Scalable)",
+                        models: ["SL230s", "SL250s", "SL270s", "SL335s", "SL4540", "SL4545"]
+                    },
+                    {
+                        id: "xl_series", 
+                        name: "XL Series", 
+                        description: "Серверы для HPC и Big Data",
+                        models: ["XL170r", "XL190r", "XL230a", "XL230k", "XL250a", "XL270d", "XL450"]
+                    },
+                    {
+                        id: "bl_series", 
+                        name: "BL Series", 
+                        description: "Блейд-серверы (Blade)",
+                        models: ["BL20p", "BL25p", "BL35p", "BL45p", "BL260c", "BL280c", "BL420c", "BL460c", "BL465c", "BL480c", "BL490c", "BL660c", "BL680c", "BL2x220c"]
+                    }
+                ]
+            },
+            {
+                id: "hpe_storageworks",
+                name: "HPE StorageWorks",
+                icon: "💾",
+                description: "Системы хранения данных HPE",
+                series: [
+                    {id: "msa_series", name: "MSA Series", description: "Modular Smart Array"},
+                    {id: "storeeasy", name: "StoreEasy", description: "NAS хранилища"}
+                ],
+                models: []
+            },
+            {
+                id: "hpe_apollo",
+                name: "HPE Apollo",
+                icon: "⚡",
+                description: "Высокопроизводительные вычисления",
+                series: [
+                    {id: "apollo_2000", name: "Apollo 2000"},
+                    {id: "apollo_4000", name: "Apollo 4000"}
+                ],
+                models: []
+            },
+            {
+                id: "dell_poweredge",
+                name: "Dell PowerEdge",
+                icon: "🖥️",
+                description: "Серверы Dell",
+                series: [
+                    {id: "t_series", name: "T Series", description: "Башенные серверы"},
+                    {id: "r_series", name: "R Series", description: "Стоечные серверы"},
+                    {id: "c_series", name: "C Series", description: "Облачные серверы"}
+                ],
+                models: [
+                    {
+                        id: "dell_t140",
+                        name: "Dell PowerEdge T140",
+                        series: "t_series",
+                        specs: "Башенный • 1 процессор • 4 слота памяти • DDR4 • До 64 ГБ",
+                        description: "Начальный башенный сервер Dell"
+                    },
+                    {
+                        id: "dell_r240",
+                        name: "Dell PowerEdge R240",
+                        series: "r_series",
+                        specs: "1U Стоечный • 1 процессор • 4 слота памяти • DDR4 • До 64 ГБ",
+                        description: "Компактный стоечный сервер 1U"
+                    },
+                    {
+                        id: "dell_r440",
+                        name: "Dell PowerEdge R440",
+                        series: "r_series",
+                        specs: "1U Стоечный • 2 процессора • 16 слотов памяти • DDR4 • До 768 ГБ",
+                        description: "Стоечный сервер для рабочих нагрузок"
+                    },
+                    {
+                        id: "dell_r640",
+                        name: "Dell PowerEdge R640",
+                        series: "r_series",
+                        specs: "1U Стоечный • 2 процессора • 24 слота памяти • DDR4 • До 3 ТБ",
+                        description: "Универсальный стоечный сервер 1U"
+                    },
+                    {
+                        id: "dell_r740",
+                        name: "Dell PowerEdge R740",
+                        series: "r_series",
+                        specs: "2U Стоечный • 2 процессора • 24 слота памяти • DDR4 • До 3 ТБ",
+                        description: "Стоечный сервер для бизнес-приложений"
+                    },
+                    {
+                        id: "dell_r940",
+                        name: "Dell PowerEdge R940",
+                        series: "r_series",
+                        specs: "4U Стоечный • 4 процессора • 48 слотов памяти • DDR4 • До 6 ТБ",
+                        description: "Масштабируемый сервер для критичных нагрузок"
+                    }
+                ]
+            },
+            {
+                id: "dell_powervault",
+                name: "Dell PowerVault",
+                icon: "💾",
+                description: "Системы хранения Dell",
+                series: [
+                    {id: "md_series", name: "MD Series"},
+                    {id: "me_series", name: "ME Series"}
+                ],
+                models: []
+            },
+            {
+                id: "dell_equallogic",
+                name: "Dell EqualLogic",
+                icon: "🔷",
+                description: "iSCSI SAN массивы",
+                series: [
+                    {id: "ps_series", name: "PS Series"}
+                ],
+                models: []
+            },
+            {
+                id: "emc_cx_vnx",
+                name: "EMC CX VNX",
+                icon: "💾",
+                description: "Системы хранения EMC",
+                series: [
+                    {id: "vnx_series", name: "VNX Series"},
+                    {id: "vnxe_series", name: "VNXe Series"}
+                ],
+                models: []
+            },
+            {
+                id: "ibm_systemx",
+                name: "IBM SystemX",
+                icon: "🖥️",
+                description: "Серверы IBM x86",
+                series: [
+                    {id: "x3000_series", name: "x3000 Series", description: "Башенные"},
+                    {id: "x3500_series", name: "x3500 Series", description: "Стоечные средние"},
+                    {id: "x3600_series", name: "x3600 Series", description: "Стоечные высокие"}
+                ],
+                models: [
+                    {
+                        id: "ibm_x3250_m6",
+                        name: "IBM System x3250 M6",
+                        series: "x3000_series",
+                        specs: "1U Стоечный • 1 процессор • 4 слота памяти • DDR3 • До 32 ГБ",
+                        description: "Компактный стоечный сервер 1U"
+                    },
+                    {
+                        id: "ibm_x3550_m5",
+                        name: "IBM System x3550 M5",
+                        series: "x3500_series",
+                        specs: "1U Стоечный • 2 процессора • 24 слота памяти • DDR4 • До 768 ГБ",
+                        description: "Стоечный сервер среднего уровня"
+                    },
+                    {
+                        id: "ibm_x3650_m5",
+                        name: "IBM System x3650 M5",
+                        series: "x3600_series",
+                        specs: "2U Стоечный • 2 процессора • 24 слота памяти • DDR4 • До 1.5 ТБ",
+                        description: "Универсальный стоечный сервер 2U"
+                    }
+                ]
+            }
+        ];
+        
+        let selectedCategory = null;
+        let selectedModel = null;
+        let selectedSeries = null;
+        let availableModels = [];
+        
+        // Инициализация
+        function init() {
+            // Получить выбранную категорию из URL параметров
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryType = urlParams.get('category');
+            
+            if (!categoryType) {
+                alert('Категория не выбрана');
+                window.location.href = 'web_configurator.html';
+                return;
+            }
+            
+            updatePageHeaders(categoryType);
+            renderBrands(categoryType);
+        }
+        
+        // Обновить заголовки страницы
+        function updatePageHeaders(categoryType) {
+            const categoryName = categoryType === 'servers' ? 'Серверы' : 'Системы хранения данных';
+            document.getElementById('heroTitle').textContent = categoryName;
+        }
+        
+        // Отрисовка карточек брендов
+        function renderBrands(categoryType) {
+            const container = document.getElementById('generationsContainer');
+            if (!container) {
+                console.error('Container not found');
+                return;
+            }
+            
+            // Different brands for different categories
+            let brands = [];
+            
+            if (categoryType === 'storage') {
+                brands = [
+                    { id: 'hpe', name: 'HPE', logo: 'Files/configurator_brands/partners_1_hpe.svg' },
+                    { id: 'dell', name: 'DELL', logo: 'Files/configurator_brands/partners_2_dell.svg' },
+                    { id: 'lenovo', name: 'Lenovo', logo: 'Files/configurator_brands/Lenovo_logo_2015.svg' },
+                    { id: 'ibm', name: 'IBM', logo: 'Files/configurator_brands/partners_4_ibm.svg' },
+                    { id: 'huawei', name: 'Huawei', logo: 'Files/configurator_brands/Huawei_Standard_logo.svg.png' },
+                    { id: 'fujitsu', name: 'Fujitsu', logo: 'Files/configurator_brands/partners_3_fui.svg' },
+                    { id: 'qsan', name: 'QSAN', logo: 'Files/configurator_brands/QSAN_Logo-01.svg.png' },
+                    { id: 'infortrend', name: 'Infortrend', logo: 'Files/configurator_brands/Infortrend_logo.svg.png' },
+                    { id: 'none', name: 'Не выбрано', logo: null }
+                ];
+            } else {
+                // Servers
+                brands = [
+                    { id: 'hpe', name: 'HPE', logo: 'Files/configurator_brands/partners_1_hpe.svg' },
+                    { id: 'dell', name: 'Dell', logo: 'Files/configurator_brands/partners_2_dell.svg' },
+                    { id: 'ibm', name: 'IBM', logo: 'Files/configurator_brands/partners_4_ibm.svg' },
+                    { id: 'h3c', name: 'H3C', logo: 'Files/configurator_brands/partners_6_h3c.svg' },
+                    { id: 'lenovo', name: 'Lenovo', logo: 'Files/configurator_brands/Lenovo_logo_2015.svg' },
+                    { id: 'xfusion', name: 'xFusion', logo: 'Files/configurator_brands/partners_5_xfusion.svg' },
+                    { id: 'supermicro', name: 'Supermicro', logo: 'Files/configurator_brands/partners_7_supermicro.svg' },
+                    { id: 'fujitsu', name: 'Fujitsu', logo: 'Files/configurator_brands/partners_3_fui.svg' },
+                    { id: 'none', name: 'Не выбрано', logo: null }
+                ];
+            }
+            
+            let brandsHTML = '<div class="brands-grid">';
+            
+            brands.forEach(brand => {
+                const emptyClass = brand.id === 'none' ? ' empty' : '';
+                const largerClass = ['h3c', 'supermicro'].includes(brand.id) ? ' larger' : '';
+                const mediumClass = ['huawei', 'infortrend'].includes(brand.id) ? ' medium' : '';
+                const sizeClass = largerClass || mediumClass;
+                brandsHTML += `
+                    <div class="brand-card${emptyClass}" onclick="selectBrand('${categoryType}', '${brand.id}')">
+                        ${brand.logo ? `<img src="${brand.logo}" alt="${brand.name}" class="brand-logo-image${sizeClass}">` : `<div class="brand-name">${brand.name}</div>`}
+                    </div>
+                `;
+            });
+            
+            brandsHTML += '</div>';
+            container.innerHTML = brandsHTML;
+        }
+        
+        // Выбор бренда
+        function selectBrand(category, brand) {
+            console.log('Selected category:', category, 'brand:', brand);
+            // Save selected category and brand to localStorage
+            localStorage.setItem('selectedCategory', category);
+            localStorage.setItem('selectedBrand', brand);
+            // Redirect to options page
+            window.location.href = 'web_configurator_options.html?category=' + category + '&brand=' + brand;
+        }
+        
+        
+        // Отрисовка всех серий с моделями и поколениями (оставлена для совместимости, но не используется)
+        function renderAllSeriesModelsAndGenerations() {
+            // This function is no longer used in the new flow
+            // Brands are rendered instead
+        }
+        
+        // Отрисовка моделей с поколениями для конкретной серии
+        function renderSeriesModelsAndGenerations(series) {
+            const container = document.getElementById(`models-${series.id}`);
+            if (!container) {
+                console.error(`Container for series ${series.id} not found`);
+                return;
+            }
+            
+            if (!series.generations) {
+                container.innerHTML = '<p style="padding: 20px; text-align: center; color: #999;">Нет данных о поколениях</p>';
+                return;
+            }
+            
+            // Группируем модели по имени и собираем для них все поколения
+            const modelGroups = {};
+            series.generations.forEach(gen => {
+                if (gen.models && gen.models.length > 0) {
+                    gen.models.forEach(modelName => {
+                        if (!modelGroups[modelName]) {
+                            modelGroups[modelName] = [];
+                        }
+                        modelGroups[modelName].push({
+                            id: gen.id,
+                            name: gen.name
+                        });
+                    });
+                }
+            });
+            
+            // Сортируем поколения внутри каждой модели
+            Object.keys(modelGroups).forEach(modelName => {
+                modelGroups[modelName].sort((a, b) => {
+                    const getGenSortValue = (genName) => {
+                        const match = genName.match(/G(\d+)(\+)?/);
+                        if (!match) return 0;
+                        
+                        const num = parseInt(match[1]);
+                        const hasPlus = match[2] === '+';
+                        
+                        return hasPlus ? num + 0.5 : num;
+                    };
+                    
+                    return getGenSortValue(a.name) - getGenSortValue(b.name);
+                });
+            });
+            
+            // Сортируем модели по числовому значению
+            const sortedModelEntries = Object.entries(modelGroups).sort((a, b) => {
+                const getNumericValue = (modelName) => {
+                    const match = modelName.match(/(\d+)/);
+                    return match ? parseInt(match[1]) : 0;
+                };
+                
+                const numA = getNumericValue(a[0]);
+                const numB = getNumericValue(b[0]);
+                return numA - numB;
+            });
+            
+            let modelsHTML = '';
+            
+            sortedModelEntries.forEach(([modelName, generations]) => {
+                modelsHTML += `
+                    <div class="model-item">
+                        <div class="model-name">${selectedCategory.name.replace('HPE ', '')} ${modelName}</div>
+                        <div class="generations-list">
+                            ${generations.map(gen => {
+                                const fullModelName = `${selectedCategory.name} ${modelName} ${gen.name}`;
+                                const modelId = `${selectedCategory.id}_${modelName.toLowerCase().replace(/\s/g, '_')}_${gen.id}`;
+                                return `
+                                    <button class="generation-btn"
+                                            data-model-id="${modelId}"
+                                            onclick="selectModelWithGeneration(event, '${modelId}', '${fullModelName}', '${series.name}', '${gen.name}')">
+                                        ${gen.name}
+                                    </button>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = modelsHTML;
+        }
+        
+        // Отрисовка моделей с поколениями в одной строке
+        function renderModels() {
+            const container = document.getElementById('generationsContainer');
+            if (!container) {
+                console.error('generationsContainer not found!');
+                return;
+            }
+            
+            // Найти серию в категории для получения поколений
+            const seriesInCategory = selectedCategory.series.find(s => s.id === selectedSeries.id);
+            if (!seriesInCategory || !seriesInCategory.generations) {
+                container.innerHTML = '<p style="padding: 40px; text-align: center; color: #999;">Нет данных о поколениях</p>';
+                return;
+            }
+            
+            // Группируем модели по имени и собираем для них все поколения
+            const modelGroups = {};
+            seriesInCategory.generations.forEach(gen => {
+                if (gen.models && gen.models.length > 0) {
+                    gen.models.forEach(modelName => {
+                        if (!modelGroups[modelName]) {
+                            modelGroups[modelName] = [];
+                        }
+                        modelGroups[modelName].push({
+                            id: gen.id,
+                            name: gen.name
+                        });
+                    });
+                }
+            });
+            
+            // Сортируем поколения внутри каждой модели
+            Object.keys(modelGroups).forEach(modelName => {
+                modelGroups[modelName].sort((a, b) => {
+                    const getGenSortValue = (genName) => {
+                        // Извлекаем числовую часть из поколения (G5 -> 5, G10+ -> 10.5)
+                        const match = genName.match(/G(\d+)(\+)?/);
+                        if (!match) return 0;
+                        
+                        const num = parseInt(match[1]);
+                        const hasPlus = match[2] === '+';
+                        
+                        return hasPlus ? num + 0.5 : num;
+                    };
+                    
+                    return getGenSortValue(a.name) - getGenSortValue(b.name);
+                });
+            });
+            
+            // Простая сортировка по числовому значению
+            const sortedModelEntries = Object.entries(modelGroups).sort((a, b) => {
+                const getNumericValue = (modelName) => {
+                    const match = modelName.match(/(\d+)/);
+                    return match ? parseInt(match[1]) : 0;
+                };
+                
+                const numA = getNumericValue(a[0]);
+                const numB = getNumericValue(b[0]);
+                return numA - numB;
+            });
+            
+            // Всегда 3 столбца
+            const columnCount = 3;
+            
+            const columns = [];
+            for (let i = 0; i < columnCount; i++) {
+                columns[i] = [];
+            }
+            
+            sortedModelEntries.forEach((entry, index) => {
+                const columnIndex = index % columnCount;
+                columns[columnIndex].push(entry);
+            });
+            
+            // Создаем строки с адаптивным количеством столбцов
+            const maxLength = Math.max(...columns.map(col => col.length));
+            let rowsHTML = '';
+            
+            for (let i = 0; i < maxLength; i++) {
+                rowsHTML += `<div style="display: grid; grid-template-columns: repeat(${columnCount}, 1fr); gap: 6px; margin-bottom: 6px;">`;
+                
+                for (let col = 0; col < columnCount; col++) {
+                    if (i < columns[col].length) {
+                        const [modelName, generations] = columns[col][i];
+                        rowsHTML += `
+                            <div style="background: white; border: 1px solid #e0e0e0; border-radius: 4px; padding: 6px 8px; display: flex; align-items: center; gap: 8px;">
+                                <div style="font-size: 0.8em; font-weight: 600; color: #333; white-space: nowrap; min-width: 80px; flex-shrink: 0;">
+                                    ${selectedCategory.name.replace('HPE ', '')} ${modelName}
+                                </div>
+                                <div style="display: flex; gap: 3px; flex: 1; overflow-x: auto;">
+                                    ${generations.map(gen => {
+                                        const fullModelName = `${selectedCategory.name} ${modelName} ${gen.name}`;
+                                        const modelId = `${selectedCategory.id}_${modelName.toLowerCase().replace(/\s/g, '_')}_${gen.id}`;
+                                        return `
+                                            <button class="generation-btn"
+                                                    data-model-id="${modelId}"
+                                                    onclick="selectModelWithGeneration(event, '${modelId}', '${fullModelName}', '${selectedSeries.name}', '${gen.name}')"
+                                                    style="padding: 4px 8px; border: 1px solid rgb(61, 243, 187); background: white; color: #1c2a3c; border-radius: 3px; cursor: pointer; font-weight: 600; font-size: 0.7em; transition: all 0.3s; flex-shrink: 0; white-space: nowrap;">
+                                                ${gen.name}
+                                            </button>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        rowsHTML += '<div></div>'; // Пустая ячейка если нет модели
+                    }
+                }
+                
+                rowsHTML += '</div>';
+            }
+            
+            container.innerHTML = rowsHTML;
+        }
+        
+        // Переключение видимости серии
+        function toggleSeries(seriesId) {
+            const content = document.getElementById(`series-${seriesId}`);
+            const toggle = document.getElementById(`toggle-${seriesId}`);
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                toggle.classList.add('expanded');
+                toggle.textContent = '▼';
+            } else {
+                content.style.display = 'none';
+                toggle.classList.remove('expanded');
+                toggle.textContent = '▶';
+            }
+        }
+        
+        // Выбор модели с поколением (прямой переход к компонентам)
+        function selectModelWithGeneration(event, modelId, modelName, seriesName, generation) {
+            event.stopPropagation();
+            
+            // Снять выделение со всех кнопок поколений
+            document.querySelectorAll('.generation-btn').forEach(btn => {
+                btn.style.background = 'white';
+                btn.style.color = '#000000';
+            });
+            
+            // Выделить выбранную кнопку
+            if (event.currentTarget.classList.contains('generation-btn')) {
+                event.currentTarget.style.background = 'rgb(61, 243, 187)';
+                event.currentTarget.style.color = '#1c2a3c';
+            }
+            
+            // Сохранить выбранную модель с поколением
+            const selectedServer = {
+                id: modelId,
+                name: modelName,
+                series: seriesName,
+                generation: generation
+            };
+            
+            // CLEAR STANDALONE MODE AND SAVE SELECTED SERVER
+            localStorage.removeItem('standaloneMode');
+            localStorage.removeItem('selectedCategory');
+            localStorage.setItem('selectedServer', JSON.stringify(selectedServer));
+            
+            // AUTOMATICALLY REDIRECT TO COMPONENTS PAGE
+            setTimeout(() => {
+                window.location.href = 'web_configurator_components.html';
+            }, 300);
+        }
+        
+        // Выбор модели (переход к выбору поколений) - оставлена для совместимости
+        function selectModel(modelId, modelName, modelShortName) {
+            // Сохранить выбранную модель
+            selectedModel = {
+                id: modelId,
+                name: modelName,
+                shortName: modelShortName,
+                series: selectedSeries.name
+            };
+            
+            // SAVE SELECTED MODEL TO LOCALSTORAGE
+            localStorage.setItem('selectedModel', JSON.stringify(selectedModel));
+            
+            // REDIRECT TO SERVER SELECTION PAGE
+            window.location.href = `web_configurator_server_selection.html?model=${modelId}`;
+        }
+        
+        // Вернуться назад
+        function goBack() {
+            window.location.href = 'web_configurator.html';
+        }
+        
+        // Запуск
+        init();
+    </script>
+    
+    <!-- CONTACTS MODAL -->
+    <div id="contactsModal" class="contacts-modal">
+        <div class="contacts-content">
+            <div class="contacts-header">
+                <h2 class="contacts-title">Контакты</h2>
+                <button class="close-contacts" onclick="closeContacts()">&times;</button>
+            </div>
+            <div class="contacts-info">
+                <h3>Общество с Ограниченной Ответственностью «БАСИ Плюс»</h3>
+                <p><strong>УНП:</strong> 191762563</p>
+                
+                <h3>Юридический Адрес:</h3>
+                <p>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</p>
+                
+                <h3>Почтовый Адрес:</h3>
+                <p>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</p>
+                
+                <p><strong>Свидетельство о государственной регистрации № 191762563 от 17 августа 2012 г.</strong></p>
+                <p><strong>Интернет-магазин зарегистрирован в Торговом реестре РБ за номером 505542</strong></p>
+                
+                <h3>Режим работы</h3>
+                <p>9:00 – 19:00</p>
+                
+                <h3>Банковские реквизиты</h3>
+                <p><strong>Р.С BY17ALFA30122745920010270000 в BYN</strong><br>
+                в ЗАО 'Альфа-Банк'<br>
+                <strong>БИК: ALFABY2X</strong></p>
+                
+                <p><strong>Р.C: BY54MTBK30120001093300062052</strong><br>
+                в ЗАО «МТБанк», г. Минск, пр. Партизанский, 6-а.<br>
+                <strong>БИК MTBKBY22</strong></p>
+                
+                <h3>Стол заказов</h3>
+                <p><strong>Телефон:</strong> +375 (29) 391-90-44</p>
+                <p><strong>Email:</strong> sales@beltrader.by</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-text">
+                    ООО "БАСИ-плюс"<br>
+                    УНП 191762563
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-text">
+                    г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                    БЦ "CASPIAN PLAZA"
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-text">
+                    +375 (29) 391-90-44<br>
+                    sales@beltrader.by
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DROPDOWN FUNCTIONALITY
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            let dropdownTimeout;
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            // Check if current page is configurator related
+            const currentPath = window.location.pathname;
+            const currentHref = window.location.href;
+            const isConfiguratorPage = currentPath.includes('web_configurator') || 
+                                     currentPath.includes('web_configurator_generations') || 
+                                     currentPath.includes('web_configurator_components') ||
+                                     currentHref.includes('web_configurator_generations') ||
+                                     currentHref.includes('web_configurator_components');
+            
+            if (isConfiguratorPage) {
+                const productsLink = document.querySelector('.products-link');
+                if (productsLink) {
+                    productsLink.classList.add('active');
+                }
+            }
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    const dropdown = this;
+                    dropdownTimeout = setTimeout(() => {
+                        const content = dropdown.querySelector('.dropdown-content');
+                        const arrow = dropdown.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 300); // 300ms delay before hiding
+                });
+            });
+        });
+        
+        function showContacts() {
+            document.getElementById('contactsModal').style.display = 'block';
+        }
+        
+        function closeContacts() {
+            document.getElementById('contactsModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactsModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программное обеспечение - ServerConfig</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Files/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .head__section {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            margin: 40px 0;
+            border-radius: 20px;
+        }
+        
+        .head__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .head__overlay {
+            position: absolute;
+            top: 115px;
+            left: -35px;
+            right: -175px;
+            bottom: 10px;
+            width: calc(100% + 170px);
+            height: calc(100% - 85px);
+            background: linear-gradient(135deg, 
+                rgba(45, 45, 45, 0.3) 0%, 
+                rgba(61, 243, 187, 0.15) 50%, 
+                rgba(45, 45, 45, 0.4) 100%);
+            -webkit-box-shadow: inset 0 0px 70px rgba(45, 45, 45, 0.5), inset 0 0px 80px rgba(61, 243, 187, 0.25), inset 0 3px 18px rgba(61, 243, 187, 0.3);
+            box-shadow: inset 0 0px 70px rgba(45, 45, 45, 0.5), inset 0 0px 80px rgba(61, 243, 187, 0.25), inset 0 3px 18px rgba(61, 243, 187, 0.3);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+            border-radius: 30px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* TOP CONTACT HEADER */
+        .top-header {
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 8px 0;
+            font-size: 0.85em;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            margin: 0;
+        }
+        
+        .top-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #888;
+        }
+        
+        .contact-icon {
+            width: 16px;
+            height: 16px;
+            fill: #888;
+        }
+        
+        /* MAIN HEADER */
+        .main-header {
+            background: #1c2a3c;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0;
+            position: sticky;
+            top: 33px;
+            z-index: 1000;
+            margin: 0;
+        }
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 30px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo-image {
+            height: 40px;
+            width: auto;
+            max-width: 200px;
+        }
+        
+        .custom-logo-link {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .custom-logo-link span {
+            color: rgb(61, 243, 187);
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-link:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: rgb(61, 243, 187);
+            height: 36px;
+        }
+        
+        .nav-link.active {
+            color: rgb(61, 243, 187);
+        }
+        
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .products-link .nav-icon {
+            fill: rgb(61, 243, 187);
+        }
+        
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 0px;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown-content {
+            transition: opacity 0.2s ease;
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: rgb(61, 243, 187);
+            border-radius: 50%;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(61, 243, 187, 0.1);
+            color: #1c2a3c;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            min-height: 50vh;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            box-shadow: 0 4px 15px rgba(61, 243, 187, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(61, 243, 187, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #1c2a3c;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .page-title {
+            font-size: 3em;
+            color: #1c2a3c;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .page-subtitle {
+            font-size: 1.3em;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-logo {
+            width: 120px;
+            height: 80px;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        
+        .vendor-logo {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5em;
+            color: #1c2a3c;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .service-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .service-features li {
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: rgb(61, 243, 187);
+            font-weight: bold;
+        }
+        
+        /* FOOTER */
+        .footer {
+            background: #1c2a3c;
+            color: white;
+            padding: 10px 0;
+            margin-top: auto;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .footer-left {
+            text-align: left;
+        }
+        
+        .footer-center {
+            text-align: center;
+        }
+        
+        .footer-right {
+            text-align: right;
+        }
+        
+        .footer-text {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+        
+        .footer-rating {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 12px 15px;
+            }
+            
+            .main-nav {
+                gap: 10px;
+            }
+            
+            .nav-link {
+                padding: 6px 12px;
+                font-size: 0.9em;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+        }
+        
+        /* CONSULTATION BUTTON */
+        .consultation-btn {
+            background: rgba(61, 243, 187, 0.1);
+            color: white;
+            border: none;
+            height: 36px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            background: rgba(61, 243, 187, 0.15);
+            color: rgb(61, 243, 187);
+        }
+        
+        /* CONSULTATION POPUP */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .popup-overlay.active {
+            display: flex;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: popupSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            background: linear-gradient(135deg, #1c2a3c 0%, #2a3f5f 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .popup-header h3 {
+            margin: 0;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        .consultation-form {
+            padding: 12px 16px 16px;
+        }
+        
+        .consultation-form .form-group {
+            margin-bottom: 8px;
+        }
+        
+        .consultation-form .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            color: #1c2a3c;
+            font-size: 0.85em;
+        }
+        
+        .consultation-form .form-group input,
+        .consultation-form .form-group textarea {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.85em;
+            background: #fafbfc;
+            transition: all 0.2s ease;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+        
+        .consultation-form .form-group input:focus,
+        .consultation-form .form-group textarea:focus {
+            outline: none;
+            border-color: rgb(61, 243, 187);
+            box-shadow: 0 0 0 2px rgba(61, 243, 187, 0.1);
+            background: white;
+        }
+        
+        .consultation-form .form-group textarea {
+            resize: vertical;
+            min-height: 50px;
+        }
+        
+        .consultation-form .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            color: #555;
+            line-height: 1.3;
+        }
+        
+        .consultation-form .checkbox-label input[type="checkbox"] {
+            width: auto;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+        
+        .consultation-form .form-actions {
+            margin-top: 10px;
+        }
+        
+        .consultation-form .btn-submit {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9em;
+            width: 100%;
+            background: linear-gradient(135deg, rgb(61, 243, 187) 0%, rgb(45, 220, 170) 100%);
+            color: #1c2a3c;
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-form .btn-submit:hover {
+            background: linear-gradient(135deg, rgb(45, 220, 170) 0%, rgb(35, 200, 150) 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(61, 243, 187, 0.3);
+        }
+        
+        .consultation-form .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- TOP CONTACT HEADER -->
+    <div class="top-header">
+        <div class="top-header-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
+                    </svg>
+                    <span>г. Минск, ул. Аранская 8, блок 1, помещение 201, БЦ "CASPIAN PLAZA"</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                    </svg>
+                    <span>+375 (29) 391-90-44</span>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                    </svg>
+                    <span>sales@beltrader.by</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo custom-logo-link">
+                <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
+                <span>ООО "БАСИ-ПЛЮС"</span>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <div class="dropdown">
+                    <a href="#" class="nav-link products-link active" onclick="toggleDropdown(event)">
+                        <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M1.71429 0.5C1.25963 0.5 0.823594 0.680612 0.502103 1.0021C0.180612 1.32359 0 1.75963 0 2.21429L0 12.5C0 12.9547 0.180612 13.3907 0.502103 13.7122C0.823594 14.0337 1.25963 14.2143 1.71429 14.2143H8.57143C9.02609 14.2143 9.46212 14.0337 9.78361 13.7122C10.1051 13.3907 10.2857 12.9547 10.2857 12.5V2.21429C10.2857 1.75963 10.1051 1.32359 9.78361 1.0021C9.46212 0.680612 9.02609 0.5 8.57143 0.5H1.71429ZM13.7143 2.21429C13.7143 1.75963 13.8949 1.32359 14.2164 1.0021C14.5379 0.680612 14.9739 0.5 15.4286 0.5L22.2857 0.5C22.7404 0.5 23.1764 0.680612 23.4979 1.0021C23.8194 1.32359 24 1.75963 24 2.21429V5.66C24 6.11466 23.8194 6.55069 23.4979 6.87218C23.1764 7.19367 22.7404 7.37429 22.2857 7.37429H15.4286C14.9739 7.37429 14.5379 7.19367 14.2164 6.87218C13.8949 6.55069 13.7143 6.11466 13.7143 5.66V2.21429ZM13.7143 12.5C13.7143 12.0453 13.8949 11.6093 14.2164 11.2878C14.5379 10.9663 14.9739 10.7857 15.4286 10.7857H22.2857C22.7404 10.7857 23.1764 10.9663 23.4979 11.2878C23.8194 11.6093 24 12.0453 24 12.5V22.7857C24 23.2404 23.8194 23.6764 23.4979 23.9979C23.1764 24.3194 22.7404 24.5 22.2857 24.5H15.4286C14.9739 24.5 14.5379 24.3194 14.2164 23.9979C13.8949 23.6764 13.7143 23.2404 13.7143 22.7857V12.5ZM0 19.34C0 18.8853 0.180612 18.4493 0.502103 18.1278C0.823594 17.8063 1.25963 17.6257 1.71429 17.6257H8.57143C9.02609 17.6257 9.46212 17.8063 9.78361 18.1278C10.1051 18.4493 10.2857 18.8853 10.2857 19.34V22.7857C10.2857 23.2404 10.1051 23.6764 9.78361 23.9979C9.46212 24.3194 9.02609 24.5 8.57143 24.5H1.71429C1.25963 24.5 0.823594 24.3194 0.502103 23.9979C0.180612 23.6764 0 23.2404 0 22.7857V19.34Z" fill="#3DF3BB"/>
+                        </svg>
+                        Продукты и Решения
+                        <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="web_configurator.html" class="dropdown-item">Конфигуратор серверов и систем хранения</a>
+                        <a href="information_security.html" class="dropdown-item">Информационная безопасность</a>
+                        <a href="software.html" class="dropdown-item">Программное обеспечение</a>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">О нас</a>
+                <a href="contacts.html" class="nav-link">Контакты</a>
+                <button class="consultation-btn" onclick="openConsultationPopup()">Консультация</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Программное обеспечение</h1>
+                <p>Комплексные решения для автоматизации бизнес-процессов и повышения эффективности работы</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_astra_linux_logo_2019-768x288.png" alt="Астра Linux" class="vendor-logo">
+                    </div>
+                    <h3>Астра Linux</h3>
+                    <p>Операционная система специального назначения для корпоративной и государственной инфраструктуры, с повышенными требованиями к безопасности.</p>
+                    <ul class="service-features">
+                        <li>Защита данных и контроль доступа</li>
+                        <li>Государственная сертификация</li>
+                        <li>Корпоративные редакции</li>
+                        <li>Безопасная работа с информацией</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_myoffice-logo-768x227.png" alt="MyOffice" class="vendor-logo">
+                    </div>
+                    <h3>MyOffice</h3>
+                    <p>Офисный пакет для работы с документами, таблицами и электронной почтой, совместимый с Microsoft Office.</p>
+                    <ul class="service-features">
+                        <li>Офисные приложения</li>
+                        <li>Совместимость с форматами MS Office</li>
+                        <li>Решения для бизнеса и госорганизаций</li>
+                        <li>Безопасное хранение и обмен данными</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_p7_logo.jpg" alt="P7-Офис" class="vendor-logo">
+                    </div>
+                    <h3>P7-Офис</h3>
+                    <p>Платформа офисных приложений с поддержкой документов, таблиц и презентаций, адаптированная для корпоративного использования.</p>
+                    <ul class="service-features">
+                        <li>Документы, таблицы и презентации</li>
+                        <li>Совместимость с MS Office</li>
+                        <li>Корпоративные решения</li>
+                        <li>Безопасность и контроль данных</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_rosplatforma.jpg" alt="Росплатформа" class="vendor-logo">
+                    </div>
+                    <h3>Росплатформа</h3>
+                    <p>Платформа для разработки, развертывания и масштабирования корпоративных приложений.</p>
+                    <ul class="service-features">
+                        <li>Создание и интеграция приложений</li>
+                        <li>Инструменты разработки ПО</li>
+                        <li>Облачная и локальная инфраструктура</li>
+                        <li>Платформенные решения для бизнеса</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_vstack.png" alt="vStack" class="vendor-logo">
+                    </div>
+                    <h3>vStack</h3>
+                    <p>Платформа виртуализации и управления облачными инфраструктурами, ориентированная на корпоративные среды.</p>
+                    <ul class="service-features">
+                        <li>Виртуализация серверов и рабочих нагрузок</li>
+                        <li>Частные и корпоративные облака</li>
+                        <li>Централизованное управление инфраструктурой</li>
+                        <li>Масштабируемость и высокая доступность</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-logo">
+                        <img src="Files/PO_logos/po_bitrix.png" alt="Битрикс24" class="vendor-logo">
+                    </div>
+                    <h3>Битрикс24</h3>
+                    <p>Платформа для управления бизнес-процессами, коммуникациями и клиентским сервисом.</p>
+                    <ul class="service-features">
+                        <li>CRM-система</li>
+                        <li>Управление задачами и проектами</li>
+                        <li>Корпоративный портал</li>
+                        <li>Инструменты автоматизации бизнеса</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-text">
+                    ООО "БАСИ-плюс"<br>
+                    УНП 191762563
+                </div>
+            </div>
+            <div class="footer-center">
+                <div class="footer-text">
+                    г. Минск, ул. Аранская 8, блок 1, помещение 201<br>
+                    БЦ "CASPIAN PLAZA"
+                </div>
+            </div>
+            <div class="footer-right">
+                <div class="footer-text">
+                    +375 (29) 391-90-44<br>
+                    sales@beltrader.by
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DROPDOWN FUNCTIONS
+        let dropdownTimeout;
+        
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const dropdown = event.currentTarget.closest('.dropdown');
+            const content = dropdown.querySelector('.dropdown-content');
+            const arrow = dropdown.querySelector('.dropdown-arrow');
+            
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                arrow.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.display = 'block';
+                arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add hover delay for dropdown
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    clearTimeout(dropdownTimeout);
+                    const content = this.querySelector('.dropdown-content');
+                    const arrow = this.querySelector('.dropdown-arrow');
+                    content.style.display = 'block';
+                    arrow.style.transform = 'rotate(180deg)';
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    dropdownTimeout = setTimeout(() => {
+                        const content = this.querySelector('.dropdown-content');
+                        const arrow = this.querySelector('.dropdown-arrow');
+                        content.style.display = 'none';
+                        arrow.style.transform = 'rotate(0deg)';
+                    }, 300);
+                });
+            });
+        });
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            alert('Функция консультации будет доступна в ближайшее время. Свяжитесь с нами по телефону +375 (29) 391-90-44');
+        }
+        
+        // CONSULTATION POPUP FUNCTIONS
+        function openConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeConsultationPopup() {
+            const popup = document.getElementById('consultationPopup');
+            popup.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // CLOSE POPUP ON ESC KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeConsultationPopup();
+            }
+        });
+        
+        // WAIT FOR DOM TO LOAD
+        document.addEventListener('DOMContentLoaded', function() {
+            // CLOSE POPUP ON OVERLAY CLICK
+            const popup = document.getElementById('consultationPopup');
+            if (popup) {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        closeConsultationPopup();
+                    }
+                });
+            }
+            
+            // FORM SUBMISSION
+            const form = document.getElementById('consultationForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    
+                    // DISABLE SUBMIT BUTTON
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Отправка...';
+                    
+                    // SIMULATE FORM SUBMISSION
+                    setTimeout(() => {
+                        alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+                        this.reset();
+                        closeConsultationPopup();
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+    
+    <!-- CONSULTATION POPUP -->
+    <div id="consultationPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3>Заявка на консультацию</h3>
+                <button class="popup-close" onclick="closeConsultationPopup()">&times;</button>
+            </div>
+            <form id="consultationForm" class="consultation-form">
+                <div class="form-group">
+                    <label for="consultationName">Имя *</label>
+                    <input type="text" id="consultationName" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationPhone">Телефон *</label>
+                    <input type="tel" id="consultationPhone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="consultationEmail">Email</label>
+                    <input type="email" id="consultationEmail" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="consultationCompany">Компания</label>
+                    <input type="text" id="consultationCompany" name="company">
+                </div>
+                <div class="form-group">
+                    <label for="consultationMessage">Сообщение</label>
+                    <textarea id="consultationMessage" name="message" rows="4" placeholder="Опишите ваши потребности или вопросы..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="consent" required>
+                        Я согласен на обработку персональных данных
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
