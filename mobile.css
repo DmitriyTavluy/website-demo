@@ -230,6 +230,7 @@ body.nav-open .mobile-nav-toggle span:nth-child(3) {
         background: rgba(255, 255, 255, 0.03);
     }
 
+    /*пасхалка*/
     .dropdown-item::before {
         display: none;
     }
