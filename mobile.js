@@ -7,23 +7,20 @@
             return;
         }
 
-        let toggle = headerContainer.querySelector('.mobile-nav-toggle');
-        if (!toggle) {
-            toggle = document.createElement('button');
-            toggle.className = 'mobile-nav-toggle';
-            toggle.type = 'button';
-            toggle.setAttribute('aria-label', 'Открыть меню');
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.innerHTML = '<span></span><span></span><span></span>';
-            headerContainer.appendChild(toggle);
-        }
+        headerContainer.querySelectorAll('.mobile-nav-toggle').forEach((btn) => btn.remove());
 
-        let overlay = document.querySelector('.nav-overlay');
-        if (!overlay) {
-            overlay = document.createElement('div');
-            overlay.className = 'nav-overlay';
-            document.body.appendChild(overlay);
-        }
+        const toggle = document.createElement('button');
+        toggle.className = 'mobile-nav-toggle';
+        toggle.type = 'button';
+        toggle.setAttribute('aria-label', 'Открыть меню');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.innerHTML = '<span></span><span></span><span></span>';
+        headerContainer.appendChild(toggle);
+
+        document.querySelectorAll('.nav-overlay').forEach((node) => node.remove());
+        const overlay = document.createElement('div');
+        overlay.className = 'nav-overlay';
+        document.body.appendChild(overlay);
 
         const closeNav = () => {
             if (!document.body.classList.contains('nav-open')) {

@@ -75,7 +75,7 @@
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 5px 30px;
+            padding: 0px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -112,6 +112,7 @@
         }
         
         .main-nav {
+            padding-top: 5px;
             display: flex;
             gap: 20px;
             align-items: center;
@@ -526,26 +527,7 @@
             box-shadow: 0 5px 15px rgba(61, 243, 187, 0.4);
         }
         
-        /* MOBILE MENU STYLES */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-            z-index: 1002;
-        }
-        
-        .mobile-menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: white;
-            margin: 5px 0;
-            transition: 0.3s;
-        }
+       
         
         /* HERO SECTION */
         .hero-section {
@@ -1130,9 +1112,7 @@
                 padding: 15px 20px;
             }
             
-            .mobile-menu-toggle {
-                display: block;
-            }
+           
             
             .main-nav {
                 position: fixed;
@@ -1261,12 +1241,6 @@
                 <img src="Files/logo_beltrader.svg" alt="BELTRADER" class="logo-image">
                 <span>ООО "БАСИ-ПЛЮС"</span>
             </a>
-            
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             
             <nav class="main-nav" id="mobileNav">
                 <a href="index.html" class="nav-link">Главная</a>
@@ -1466,11 +1440,7 @@
     </footer>
 
     <script>
-        // MOBILE MENU FUNCTIONS
-        function toggleMobileMenu() {
-            const nav = document.getElementById('mobileNav');
-            nav.classList.toggle('active');
-        }
+        
         
         // CLOSE MOBILE MENU ON LINK CLICK
         document.addEventListener('DOMContentLoaded', function() {
